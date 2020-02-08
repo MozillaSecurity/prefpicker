@@ -1,7 +1,9 @@
 PrefPicker
 ==========
 
-Manage & generate prefs.js files
+Manage & generate prefs.js files. This tool is intended to simplify the use and tracking of prefs used by
+our fuzzing tools. The template files can be modified to allow the creation of custom prefs.js files without
+the need to maintain a separate mostly duplicate version of a prefs file.
 
 YAML Template Structure
 -----------------------
@@ -35,4 +37,30 @@ pref:
    alt:       # extra optional variant
      - 1      # if multiple values are defined one is chosen randomly
      - null   # null is a special case meaning do not add the pref
+```
+
+Example
+-----
+
+This is an example of how to generate a `prefs.js` file from a template using the `webrender` variant:
+
+```bash
+user@machine:~/prefpicker$ python -m prefpicker templates/browser-fuzzing.yml prefs.js --variant webrender
+Loading 'browser-fuzzing.yml'...
+Loaded 255 prefs and 5 variants
+Generating 'test.js' using variant 'webrender'...
+Done.
+```
+
+The resulting `prefs.js` file is ready to be used with Firefox. It will look something like this:
+
+```js
+// Generated with PrefPicker @ 2020-02-08 00:50:29 UTC
+// Variant 'webrender'
+/// ... snip
+user_pref("fuzzing.enabled", true);
+/// ... snip
+// 'gfx.webrender.all' defined by variant 'webrender'
+user_pref("gfx.webrender.all", true);
+/// ... snip
 ```
