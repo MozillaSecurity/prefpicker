@@ -193,9 +193,12 @@ def test_prefpicker_13(tmp_path):
                 "default": ["test string"],
             },
             "test.d": {
-                "default": [True],
+                "default": ["'test' \"string\""],
             },
             "test.e": {
+                "default": [True],
+            },
+            "test.f": {
                 "default": [False]}}}
     PrefPicker.verify_data(raw_data)
     ppick = PrefPicker()
@@ -206,7 +209,7 @@ def test_prefpicker_13(tmp_path):
     assert prefs.is_file()
     prefs_data = prefs.read_text()
     assert "user_pref(\"test.b\"," not in prefs_data
-    assert "user_pref(\"test.c\", \"test string\");" in prefs_data
+    assert "user_pref(\"test.c\", 'test string');" in prefs_data
     # test with unsupported value datatype
     raw_data = {
         "variant": [],

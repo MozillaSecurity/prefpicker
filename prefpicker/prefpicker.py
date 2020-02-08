@@ -51,7 +51,7 @@ class PrefPicker(object):
                 elif isinstance(value, int):
                     prefs_fp.write("%d" % (value,))
                 elif isinstance(value, str):
-                    prefs_fp.write("\"%s\"" % (value,))
+                    prefs_fp.write("%r" % (value,))
                 else:
                     raise SourceDataError("Unknown datatype %r" % (type(value),))
                 prefs_fp.write(");\n")
