@@ -1,0 +1,826 @@
+variant: []
+pref:
+  app.update.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  app.update.stage.enabled:
+    default:
+    - false
+  app.update.staging.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  app.update.url.android:
+    default:
+    - ''
+  browser.EULA.override:
+    default:
+    - true
+  # pref copied from domfuzz
+  browser.aboutHomeSnippets.updateUrl:
+    default:
+    - nonexistent://test
+  # pref copied from domfuzz
+  browser.addon-watch.interval:
+    default:
+    - -1
+  browser.cache.disk.enable:
+    default:
+    - false
+  browser.cache.disk_cache_ssl:
+    default:
+    - false
+  browser.cache.memory.enable:
+    default:
+    - false
+  browser.cache.offline.enable:
+    default:
+    - false
+  browser.chrome.favicons:
+    default:
+    - false
+  browser.chrome.site_icons:
+    default:
+    - false
+  browser.displayedE10SNotice:
+    default:
+    - 5
+  # Prints messages to the (native) console
+  browser.dom.window.dump.enabled:
+    default:
+    - true
+  browser.firstrun.show.localepicker:
+    default:
+    - false
+  browser.firstrun.show.uidiscovery:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.newtabpage.directory.ping:
+    default:
+    - ''
+  # pref copied from domfuzz
+  browser.newtabpage.directory.source:
+    default:
+    - data:application/json,{"testing":1}
+  # pref copied from domfuzz
+  browser.newtabpage.enhanced:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.newtabpage.introShown:
+    default:
+    - true
+  # pref copied from domfuzz
+  browser.newtabpage.updateIntroShown:
+    default:
+    - true
+  browser.offline-apps.notify:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.pageThumbs.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.pagethumbnails.capturing_disabled:
+    default:
+    - true
+  # pref copied from domfuzz
+  browser.reader.detectedFirstArticle:
+    default:
+    - true
+  browser.rights.3.shown:
+    default:
+    - true
+  # pref copied from domfuzz
+  browser.rights.override:
+    default:
+    - true
+  browser.safebrowsing.blockedURIs.enabled:
+    default:
+    - false
+  browser.safebrowsing.downloads.enabled:
+    default:
+    - false
+  browser.safebrowsing.downloads.remote.enabled:
+    default:
+    - false
+  browser.safebrowsing.enabled:
+    default:
+    - false
+  browser.safebrowsing.malware.enabled:
+    default:
+    - false
+  browser.safebrowsing.phishing.enabled:
+    default:
+    - false
+  browser.search.geoip.url:
+    default:
+    - ''
+  # pref Required for WebPayments
+  browser.search.region:
+    default:
+    - US
+  # pref copied from domfuzz
+  browser.search.suggest.enabled:
+    default:
+    - false
+  # needed on Android
+  browser.search.suggest.prompted:
+    default:
+    - true
+  browser.search.update:
+    default:
+    - false
+  browser.sessionhistory.max_entries:
+    default:
+    - 0
+  browser.sessionhistory.max_total_viewers:
+    default:
+    - 0
+  browser.sessionstore.resume_from_crash:
+    default:
+    - false
+  browser.shell.checkDefaultBrowser:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.snippets.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.snippets.firstrunHomepage.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.snippets.syncPromo.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.ssl_override_behavior:
+    default:
+    - 1
+  browser.startup.homepage:
+    default:
+    - about:blank
+  browser.startup.homepage_override.mstone:
+    default:
+    - ignore
+  # use about:blank
+  browser.startup.page:
+    default:
+    - 0
+  browser.tabs.warnOnClose:
+    default:
+    - false
+  browser.tabs.warnOnCloseOtherTabs:
+    default:
+    - false
+  # pref copied from domfuzz
+  browser.urlbar.userMadeSearchSuggestionsChoice:
+    default:
+    - true
+  # pref copied from domfuzz
+  browser.warnOnQuit:
+    default:
+    - false
+  browser.webapps.checkForUpdates:
+    default:
+    - 0
+  canvas.customfocusring.enabled:
+    default:
+    - true
+  canvas.hitregions.enabled:
+    default:
+    - true
+  captivedetect.canonicalURL:
+    default:
+    - ''
+  # ensures pref is enabled on Windows and OSX
+  clipboard.autocopy:
+    default:
+    - true
+  # suggested in bug 1503956 to avoid FPs
+  csp.skip_about_page_has_csp_assert:
+    default:
+    - true
+  datareporting.healthreport.service.enabled:
+    default:
+    - false
+  datareporting.healthreport.service.firstRun:
+    default:
+    - false
+  datareporting.healthreport.uploadEnabled:
+    default:
+    - false
+  datareporting.policy.dataSubmissionEnabled:
+    default:
+    - false
+  datareporting.policy.dataSubmissionPolicyAcceptedVersion:
+    default:
+    - 2
+  # pref copied from domfuzz
+  datareporting.policy.dataSubmissionPolicyBypassNotification:
+    default:
+    - true
+  datareporting.policy.firstRunURL:
+    default:
+    - ''
+  devtools.selfxss.count:
+    default:
+    - 999
+  dom.allow_scripts_to_close_windows:
+    default:
+    - true
+  # pref copied from domfuzz
+  dom.always_stop_slow_scripts:
+    default:
+    - true
+  dom.archivereader.enabled:
+    default:
+    - true
+  dom.audioworklet.enabled:
+    default:
+    - true
+  dom.datastore.enabled:
+    default:
+    - true
+  # Popup blocker behavior - Required for Grizzly harness
+  dom.disable_open_during_load:
+    default:
+    - false
+  # Determines whether windows can be focus()ed via non-chrome JavaScript
+  dom.disable_window_flip:
+    default:
+    - false
+  # text in the browser status bar may be set by non-chrome JavaScript
+  dom.disable_window_status_change:
+    default:
+    - false
+  dom.experimental_forms:
+    default:
+    - true
+  dom.fetch.enabled:
+    default:
+    - true
+  dom.flyweb.enabled:
+    default:
+    - true
+  dom.icc.enabled:
+    default:
+    - true
+  dom.identity.enabled:
+    default:
+    - true
+  dom.image.picture.enabled:
+    default:
+    - true
+  dom.image.srcset.enabled:
+    default:
+    - true
+  dom.imagecapture.enabled:
+    default:
+    - true
+  dom.indexedDB.experimental:
+    default:
+    - true
+  dom.ipc.plugins.flash.disable-protected-mode:
+    default:
+    - true
+  dom.ipc.plugins.flash.subprocess.crashreporter.enabled:
+    default:
+    - false
+  dom.max_child_script_run_time:
+    default:
+    - 0
+  dom.max_chrome_script_run_time:
+    default:
+    - 0
+  dom.max_script_run_time:
+    default:
+    - 0
+  dom.min_background_timeout_value:
+    default:
+    - 4
+  dom.paintWorklet.enabled:
+    default:
+    - true
+  dom.payments.request.enabled:
+    default:
+    - true
+  dom.presentation.enabled:
+    default:
+    - true
+  # needed when using MozAfterPaint event to control fuzzer
+  dom.send_after_paint_to_content:
+    default:
+    - true
+  dom.server-events.enabled:
+    default:
+    - true
+  # pref copied from domfuzz
+  dom.successive_dialog_time_limit:
+    default:
+    - 0
+  dom.vr.enabled:
+    default:
+    - true
+  dom.vr.external.notdetected.timeout:
+    default:
+    - 0
+  dom.vr.external.quit.timeout:
+    default:
+    - 0
+  dom.vr.poseprediction.enabled:
+    default:
+    - false
+  dom.vr.puppet.enabled:
+    default:
+    - true
+  dom.vr.require-gesture:
+    default:
+    - false
+  dom.webcomponents.enabled:
+    default:
+    - true
+  dom.worklet.enabled:
+    default:
+    - true
+  # Required to load fuzzPriv
+  extensions.allow-non-mpc-extensions:
+    default:
+    - true
+  # pref copied from domfuzz
+  extensions.autoDisableScopes:
+    default:
+    - 0
+  extensions.blocklist.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  extensions.enabledScopes:
+    default:
+    - 5
+  # pref copied from domfuzz
+  extensions.getAddons.cache.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  extensions.installDistroAddons:
+    default:
+    - false
+  # pref copied from domfuzz
+  extensions.showMismatchUI:
+    default:
+    - false
+  extensions.testpilot.runStudies:
+    default:
+    - false
+  extensions.update.enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  extensions.update.notifyUser:
+    default:
+    - false
+  full-screen-api.allow-trusted-requests-only:
+    default:
+    - false
+  full-screen-api.warning.timeout:
+    default:
+    - 500
+  # required for FuzzingFunctions
+  fuzzing.enabled:
+    default:
+    - true
+  gecko.handlerService.allowRegisterFromDifferentHost:
+    default:
+    - true
+  # pref copied from domfuzz
+  general.useragent.updates.enabled:
+    default:
+    - false
+  general.warnOnAboutConfig:
+    default:
+    - false
+  geo.enabled:
+    default:
+    - false
+  gfx.color_management.enablev4:
+    default:
+    - true
+  # 0=off, 1=full, 2=tagged images only
+  gfx.color_management.mode:
+    default:
+    - 1
+  gfx.content.use-native-pushlayer:
+    default:
+    - true
+  gfx.downloadable_fonts.keep_variation_tables:
+    default:
+    - true
+  # required for some demo fonts
+  gfx.downloadable_fonts.otl_validation:
+    default:
+    - false
+  # bug 1514869 (requested by jkew)
+  gfx.e10s.font-list.shared:
+    default:
+    - true
+  gfx.offscreencanvas.enabled:
+    default:
+    - false
+  gfx.prefer-mesa-llvmpipe:
+    default:
+    - false
+  html5.offmainthread:
+    default:
+    - true
+  image.animated.decode-on-demand.batch-size:
+    default:
+    - 1
+  image.animated.decode-on-demand.threshold-kb:
+    default:
+    - 0
+  image.cache.size:
+    default:
+    - 0
+  image.high_quality_downscaling.enabled:
+    default:
+    - false
+  image.high_quality_downscaling.min_factor:
+    default:
+    - 1000
+  image.multithreaded_decoding.limit:
+    default:
+    - 1
+  image.webp.enabled:
+    default:
+    - true
+  # remove once bug 1599923 is fixed
+  javascript.options.blinterp:
+    default:
+    - false
+  # pref copied from domfuzz
+  javascript.options.gczeal:
+    default:
+    - 0
+  layers.acceleration.force-enabled:
+    default:
+    - true
+  # normally only enabled on devices with touchscreens (emilio)
+  layout.accessiblecaret.enabled:
+    default:
+    - true
+  # requested in bug 1609994
+  layout.css.constructable-stylesheets.enabled:
+    default:
+    - true
+  layout.css.font-variations.enabled:
+    default:
+    - true
+  layout.css.individual-transform.enabled:
+    default:
+    - true
+  # Enable @-moz-document
+  layout.css.moz-document.content.enabled:
+    default:
+    - true
+  layout.css.resizeobserver.enabled:
+    default:
+    - true
+  layout.debug.enable_data_xbl:
+    default:
+    - true
+  lightweightThemes.update.enabled:
+    default:
+    - false
+  media.apple.mp3.enabled:
+    default:
+    - true
+  media.apple.mp4.enabled:
+    default:
+    - true
+  media.audio_data.enabled:
+    default:
+    - true
+  media.autoplay.ask-permission:
+    default:
+    - false
+  # 0=Allowed, 1=Blocked, 2=Prompt
+  media.autoplay.default:
+    default:
+    - 0
+  media.autoplay.enabled.user-gestures-needed:
+    default:
+    - false
+  media.av1.enabled:
+    default:
+    - true
+  media.av1.use-dav1d:
+    default:
+    - true
+  media.eme.enabled:
+    default:
+    - true
+  media.fragmented-mp4.enabled:
+    default:
+    - true
+  media.fragmented-mp4.exposed:
+    default:
+    - true
+  media.fragmented-mp4.ffmpeg.enabled:
+    default:
+    - true
+  media.fragmented-mp4.gmp.enabled:
+    default:
+    - true
+  media.fragmented-mp4.use-blank-decoder:
+    default:
+    - true
+  media.getusermedia.audiocapture.enabled:
+    default:
+    - true
+  media.getusermedia.browser.enabled:
+    default:
+    - true
+  media.getusermedia.screensharing.allowed_domains:
+    default:
+    - localhost
+  media.getusermedia.screensharing.enabled:
+    default:
+    - true
+  media.gmp-manager.url.override:
+    default:
+    - http://127.0.0.1:6/dummy-gmp-manager.xml
+  media.mediasource.allow_init_moov:
+    default:
+    - true
+  media.mediasource.ignore_codec:
+    default:
+    - true
+  media.mediasource.webm.enabled:
+    default:
+    - true
+  media.mediasource.youtubeonly:
+    default:
+    - false
+  media.navigator.permission.disabled:
+    default:
+    - true
+  media.navigator.video.red_ulpfec_enabled:
+    default:
+    - true
+  media.num-decode-threads:
+    default:
+    - 1
+  media.ogg.enabled:
+    default:
+    - true
+  # pref copied from domfuzz
+  media.peerconnection.aec:
+    default:
+    - 1
+  # pref copied from domfuzz
+  media.peerconnection.aec_enabled:
+    default:
+    - true
+  # pref copied from domfuzz
+  media.peerconnection.agc:
+    default:
+    - 1
+  # pref copied from domfuzz
+  media.peerconnection.agc_enabled:
+    default:
+    - false
+  # pref copied from domfuzz
+  media.peerconnection.default_iceservers:
+    default:
+    - '[{"url": "stun:23.21.150.121"}]'
+  # pref copied from domfuzz
+  media.peerconnection.noise:
+    default:
+    - 1
+  # pref copied from domfuzz
+  media.peerconnection.noise_enabled:
+    default:
+    - false
+  media.peerconnection.remoteTrackId.enabled:
+    default:
+    - true
+  media.peerconnection.video.h264_enabled:
+    default:
+    - true
+  media.raw.enabled:
+    default:
+    - true
+  media.track.enabled:
+    default:
+    - true
+  media.use-blank-decoder:
+    default:
+    - false
+  media.useAudioChannelAPI:
+    default:
+    - true
+  media.webaudio.enabled:
+    default:
+    - true
+  media.webspeech.recognition.enable:
+    default:
+    - true
+  media.webvtt.enabled:
+    default:
+    - true
+  memory.free_dirty_pages:
+    default:
+    - false
+  # max time to wait for connection (default is 300)
+  network.http.response.timeout:
+    default:
+    - 1
+  network.http.spdy.enabled:
+    default:
+    - false
+  network.http.spdy.enabled.http2draft:
+    default:
+    - true
+  network.http.spdy.enabled.v2:
+    default:
+    - true
+  network.http.spdy.enabled.v3:
+    default:
+    - true
+  network.http.spdy.enabled.v3-1:
+    default:
+    - true
+  network.http.use-cache:
+    default:
+    - false
+  # pref copied from domfuzz
+  network.jar.open-unsafe-types:
+    default:
+    - true
+  # pref copied from domfuzz
+  network.manage-offline-status:
+    default:
+    - false
+  network.network.protocol-handler.external.mailto:
+    default:
+    - false
+  # helps keep browser and fuzzer sync'd
+  network.prefetch-next:
+    default:
+    - false
+  # pref copied from domfuzz
+  network.proxy.autoconfig_url:
+    default:
+    - 'data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1') { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }'
+  # pref copied from domfuzz
+  network.proxy.share_proxy_settings:
+    default:
+    - true
+  # pref copied from domfuzz
+  network.proxy.type:
+    default:
+    - 2
+  # pref copied from domfuzz
+  network.proxy.use_direct_on_fail:
+    default:
+    - false
+  network.websocket.allowInsecureFromHTTPS:
+    default:
+    - true
+  network.websocket.delay-failed-reconnects:
+    default:
+    - false
+  network.websocket.enabled:
+    default:
+    - true
+  nglayout.debug.disable_xul_cache:
+    default:
+    - false
+  pdfium.enabled:
+    default:
+    - true
+  pdfjs.enableWebGL:
+    default:
+    - true
+  pdfjs.firstRun:
+    default:
+    - false
+  pdfjs.previousHandler.alwaysAskBeforeHandling:
+    default:
+    - true
+  pdfjs.previousHandler.preferredAction:
+    default:
+    - 4
+  permissions.default.camera:
+    default:
+    - 1
+  permissions.default.geo:
+    default:
+    - 1
+  permissions.default.microphone:
+    default:
+    - 1
+  plugin.disable:
+    default:
+    - true
+  plugins.hide_infobar_for_missing_plugin:
+    default:
+    - true
+  plugins.update.url:
+    default:
+    - ''
+  # pref copied from domfuzz
+  privacy.trackingprotection.pbmode.enabled:
+    default:
+    - false
+  security.OCSP.enabled:
+    default:
+    - 0
+  security.data_uri.unique_opaque_origin:
+    default:
+    - false
+  security.default_personal_cert:
+    default:
+    - Select Automatically
+  security.fileuri.strict_origin_policy:
+    default:
+    - false
+  security.ssl.enable_false_start:
+    default:
+    - true
+  security.warn_submit_insecure:
+    default:
+    - false
+  security.webauth.u2f:
+    default:
+    - true
+  security.webauth.u2f_enable_softtoken:
+    default:
+    - true
+  security.webauth.u2f_enable_usbtoken:
+    default:
+    - false
+  security.webauth.webauthn:
+    default:
+    - true
+  security.webauth.webauthn_enable_softtoken:
+    default:
+    - true
+  security.webauth.webauthn_enable_usbtoken:
+    default:
+    - false
+  shumway.disabled:
+    default:
+    - true
+  startup.homepage_welcome_url:
+    default:
+    - about:blank
+  toolkit.startup.max_resumed_crashes:
+    default:
+    - -1
+  toolkit.telemetry.enabled:
+    default:
+    - false
+  toolkit.telemetry.prompted:
+    default:
+    - 2
+  toolkit.telemetry.rejected:
+    default:
+    - true
+  toolkit.telemetry.server:
+    default:
+    - ''
+  # pref copied from domfuzz
+  toolkit.telemetry.unified:
+    default:
+    - false
+  view_source.wrap_long_lines:
+    default:
+    - true
+  webgl.enable-draft-extensions:
+    default:
+    - true
+  webgl.enable-privileged-extensions:
+    default:
+    - true
+  webgl.enable-prototype-webgl2:
+    default:
+    - true
+  webgl.lose-context-on-heap-minimize:
+    default:
+    - false
+  webgl.prefer-native-gl:
+    default:
+    - false
+  webgl.shader_validator:
+    default:
+    - true
+  webgl.verbose:
+    default:
+    - false
