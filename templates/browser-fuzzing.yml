@@ -1,4 +1,8 @@
-variant: []
+variant:
+- fission
+- no-e10s
+- no-vr
+- webrender
 pref:
   app.update.enabled:
     default:
@@ -14,6 +18,11 @@ pref:
   app.update.url.android:
     default:
     - ''
+  browser.tabs.remote.autostart:
+    default:
+    - null
+    no-e10s:
+    - false
   browser.EULA.override:
     default:
     - true
@@ -327,6 +336,8 @@ pref:
   dom.vr.enabled:
     default:
     - true
+    no-vr:
+    - false
   dom.vr.external.notdetected.timeout:
     default:
     - 0
@@ -385,6 +396,11 @@ pref:
   extensions.update.notifyUser:
     default:
     - false
+  fission.autostart:
+    default:
+    - null
+    fission:
+    - true
   full-screen-api.allow-trusted-requests-only:
     default:
     - false
@@ -435,6 +451,11 @@ pref:
   gfx.prefer-mesa-llvmpipe:
     default:
     - false
+  gfx.webrender.all:
+    default:
+    - null
+    webrender:
+    - true
   html5.offmainthread:
     default:
     - true
@@ -677,7 +698,7 @@ pref:
   # pref copied from domfuzz
   network.proxy.autoconfig_url:
     default:
-    - 'data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1') { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }'
+    - data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1') { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }
   # pref copied from domfuzz
   network.proxy.share_proxy_settings:
     default:
