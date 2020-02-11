@@ -29,7 +29,7 @@ There are a few mechanisms in place to help keep the file in order:
 ```yml
 # example.yml
 variant:      # list for extra variants, default is implied
- - alt        # name of extra variant
+ - alt        # name of variant
 pref:
  pref.name:   # unquoted name of the pref used in prefs.js
    default:   # variant definition, default is required
@@ -45,10 +45,10 @@ Example
 This is an example of how to generate a `prefs.js` file from a template using the `webrender` variant:
 
 ```bash
-user@machine:~/prefpicker$ python -m prefpicker templates/browser-fuzzing.yml prefs.js --variant webrender
+user@machine:~/prefpicker$ python -m prefpicker templates/browser-fuzzing.yml ~/Desktop/prefs.js --variant webrender
 Loading 'browser-fuzzing.yml'...
 Loaded 255 prefs and 5 variants
-Generating 'test.js' using variant 'webrender'...
+Generating 'prefs.js' using variant 'webrender'...
 Done.
 ```
 
@@ -63,4 +63,5 @@ user_pref("fuzzing.enabled", true);
 // 'gfx.webrender.all' defined by variant 'webrender'
 user_pref("gfx.webrender.all", true);
 /// ... snip
+// Fingerprint '13370ddba11'
 ```

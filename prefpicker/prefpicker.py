@@ -25,25 +25,50 @@ class PrefPicker(object):
         self.variants = set(["default"])
 
     def check_combinations(self):
-        options = dict.fromkeys(self.variants, 1)
+        """Count the number of combinations for each variation. Only return
+           variants that have more than one combination.
+
+        Args:
+            None
+
+        Yields:
+            tuple: variant and number of potential combinations
+        """
+        combos = dict.fromkeys(self.variants, 1)
         for variants in self.prefs.values():
-            for variant in options:
+            for variant in combos:
                 # use 'default' if pref does not have a matching variant entry
                 if variant not in variants:
-                    options[variant] *= len(variants["default"])
+                    combos[variant] *= len(variants["default"])
                 else:
-                    options[variant] *= len(variants[variant])
-        for variant, opt_count in sorted(options.items()):
-            if opt_count > 1:
-                yield (variant, opt_count)
+                    combos[variant] *= len(variants[variant])
+        for variant, count in sorted(combos.items()):
+            if count > 1:
+                yield (variant, count)
 
     def check_duplicates(self):
+        """Look for variants with values that appear more than once per variant.
+
+        Args:
+            None
+
+        Yields:
+            tuple: pref and the variant
+        """
         for pref, variants in sorted(self.prefs.items()):
             for variant in variants:
                 if len(variants[variant]) != len(set(variants[variant])):
                     yield (pref, variant)
 
     def check_overwrites(self):
+        """Look for variants that overwrite the default with the same value.
+
+        Args:
+            None
+
+        Yields:
+            tuple: pref, variant and the value
+        """
         for pref, variants in sorted(self.prefs.items()):
             for variant in variants:
                 if variant == "default":
@@ -53,6 +78,18 @@ class PrefPicker(object):
                         yield (pref, variant, value)
 
     def create_prefsjs(self, dest, variant="default"):
+        """Write a `prefs.js` file based on the specified variant. The output file
+           will also include comments containing the variant, a timestamp and a
+           fingerprint. The fingerprint is a hash of pref/value pairs which can
+           be used to help catch different files without a diff.
+
+        Args:
+            dest (str): Name including path of file to create.
+            variant (str): Used to pick the values to output.
+
+        Returns:
+            None
+        """
         # create a fingerprint based on prefs/values combinations
         uid = hashlib.sha1()
         with open(dest, "w") as prefs_fp:
@@ -60,6 +97,7 @@ class PrefPicker(object):
             prefs_fp.write(datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
             prefs_fp.write("\n// Variant %r\n" % (variant,))
             for pref, variants in sorted(self.prefs.items()):
+                # choose values
                 if variant not in variants or variant == "default":
                     value = random.choice(variants["default"])
                     default_variant = True
@@ -69,11 +107,7 @@ class PrefPicker(object):
                 if value is None:
                     # skipping pref
                     continue
-                if not default_variant:
-                    prefs_fp.write("// %r defined by variant %r\n" % (pref, variant))
-                # write pref to prefs.js file
-                prefs_fp.write("user_pref(\"%s\", " % (pref,))
-                # handle writing different datatypes to th prefs.js
+                # sanitize value for writing
                 if isinstance(value, bool):
                     sanitized = "true" if value else "false"
                 elif isinstance(value, int):
@@ -81,15 +115,27 @@ class PrefPicker(object):
                 elif isinstance(value, str):
                     sanitized = repr(value)
                 else:
+                    prefs_fp.write("// Error sanitizing pref %r value %r\n" % (pref, value))
                     raise SourceDataError("Unknown datatype %r" % (type(value),))
-                prefs_fp.write(sanitized)
-                prefs_fp.write(");\n")
+                # write to prefs.js file
+                if not default_variant:
+                    prefs_fp.write("// %r defined by variant %r\n" % (pref, variant))
+                prefs_fp.write("user_pref(\"%s\", %s);\n" % (pref, sanitized))
+                # update fingerprint
                 uid.update(pref.encode(encoding="utf-8", errors="ignore"))
                 uid.update(sanitized.encode(encoding="utf-8", errors="ignore"))
             prefs_fp.write("// Fingerprint %r\n" % (uid.hexdigest(),))
 
     @classmethod
     def load_template(cls, input_yml):
+        """Load data from a template YAML file.
+
+        Args:
+            input_yml (str): Path to input file.
+
+        Returns:
+            PrefPicker
+        """
         with open(input_yml, "r") as in_fp:
             raw_prefs = yaml.safe_load(in_fp.read())
         cls.verify_data(raw_prefs)
@@ -100,6 +146,15 @@ class PrefPicker(object):
 
     @staticmethod
     def verify_data(raw_data):
+        """Perform strict sanity checks on raw_data. This exists to help prevent
+           the template file from breaking or becoming unmaintainable.
+
+        Args:
+            raw_data (dict): Data to verify.
+
+        Returns:
+            None
+        """
         if "variant" not in raw_data:
             raise SourceDataError("variant list is missing")
         if not isinstance(raw_data["variant"], list):
