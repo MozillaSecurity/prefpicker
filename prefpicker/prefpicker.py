@@ -4,6 +4,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import datetime
+import hashlib
 import random
 
 import yaml
@@ -24,6 +25,8 @@ class PrefPicker(object):
         self.variants = set(["default"])
 
     def create_prefsjs(self, dest, variant="default"):
+        # create a fingerprint based on prefs/values combinations
+        uid = hashlib.sha1()
         with open(dest, "w") as prefs_fp:
             prefs_fp.write("// Generated with PrefPicker @ ")
             prefs_fp.write(datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
@@ -44,17 +47,18 @@ class PrefPicker(object):
                 prefs_fp.write("user_pref(\"%s\", " % (pref,))
                 # handle writing different datatypes to th prefs.js
                 if isinstance(value, bool):
-                    if value:
-                        prefs_fp.write("true")
-                    else:
-                        prefs_fp.write("false")
+                    sanitized = "true" if value else "false"
                 elif isinstance(value, int):
-                    prefs_fp.write("%d" % (value,))
+                    sanitized = str(value)
                 elif isinstance(value, str):
-                    prefs_fp.write("%r" % (value,))
+                    sanitized = repr(value)
                 else:
                     raise SourceDataError("Unknown datatype %r" % (type(value),))
+                prefs_fp.write(sanitized)
                 prefs_fp.write(");\n")
+                uid.update(pref.encode(encoding="utf-8", errors="ignore"))
+                uid.update(sanitized.encode(encoding="utf-8", errors="ignore"))
+            prefs_fp.write("// Fingerprint %r\n" % (uid.hexdigest(),))
 
     def lint_duplicates(self):
         matches = list()
