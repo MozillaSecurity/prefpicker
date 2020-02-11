@@ -38,7 +38,7 @@ def test_main_03(tmp_path):
     assert not prefs_js.is_file()
 
 def test_main_04(tmp_path):
-    """test main() with lint results"""
+    """test main() with check results"""
     prefs_js = (tmp_path / "prefs.js")
     yml = (tmp_path / "test.yml")
     yml.write_text("""
@@ -47,5 +47,5 @@ def test_main_04(tmp_path):
           test.a:
             default: [1, 1]
             extra: [1, 1]""")
-    assert main([str(yml), str(prefs_js), "--lint", "--variant", "extra"]) == 0
+    assert main([str(yml), str(prefs_js), "--check", "--variant", "extra"]) == 0
     assert prefs_js.is_file()

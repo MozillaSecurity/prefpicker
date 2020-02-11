@@ -24,6 +24,34 @@ class PrefPicker(object):
         self.prefs = dict()
         self.variants = set(["default"])
 
+    def check_combinations(self):
+        options = dict.fromkeys(self.variants, 1)
+        for variants in self.prefs.values():
+            for variant in options:
+                # use 'default' if pref does not have a matching variant entry
+                if variant not in variants:
+                    options[variant] *= len(variants["default"])
+                else:
+                    options[variant] *= len(variants[variant])
+        for variant, opt_count in sorted(options.items()):
+            if opt_count > 1:
+                yield (variant, opt_count)
+
+    def check_duplicates(self):
+        for pref, variants in sorted(self.prefs.items()):
+            for variant in variants:
+                if len(variants[variant]) != len(set(variants[variant])):
+                    yield (pref, variant)
+
+    def check_overwrites(self):
+        for pref, variants in sorted(self.prefs.items()):
+            for variant in variants:
+                if variant == "default":
+                    continue
+                for value in variants[variant]:
+                    if value in variants["default"]:
+                        yield (pref, variant, value)
+
     def create_prefsjs(self, dest, variant="default"):
         # create a fingerprint based on prefs/values combinations
         uid = hashlib.sha1()
@@ -59,40 +87,6 @@ class PrefPicker(object):
                 uid.update(pref.encode(encoding="utf-8", errors="ignore"))
                 uid.update(sanitized.encode(encoding="utf-8", errors="ignore"))
             prefs_fp.write("// Fingerprint %r\n" % (uid.hexdigest(),))
-
-    def lint_combinations(self):
-        options = dict.fromkeys(self.variants, 1)
-        for variants in self.prefs.values():
-            for variant in options:
-                # use 'default' if pref does not have a matching variant entry
-                if variant not in variants:
-                    options[variant] *= len(variants["default"])
-                else:
-                    options[variant] *= len(variants[variant])
-        matches = list()
-        for variant, opt_count in sorted(options.items()):
-            if opt_count > 1:
-                matches.append((variant, opt_count))
-        return matches
-
-    def lint_duplicates(self):
-        matches = list()
-        for pref, variants in sorted(self.prefs.items()):
-            for variant in variants:
-                if len(variants[variant]) != len(set(variants[variant])):
-                    matches.append((pref, variant))
-        return matches
-
-    def lint_overwrites(self):
-        matches = list()
-        for pref, variants in sorted(self.prefs.items()):
-            for variant in variants:
-                if variant == "default":
-                    continue
-                for value in variants[variant]:
-                    if value in variants["default"]:
-                        matches.append((pref, variant, value))
-        return matches
 
     @classmethod
     def load_template(cls, input_yml):

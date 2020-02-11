@@ -25,8 +25,8 @@ def parse_args(argv=None):
         "output",
         help="Name of prefs.js file to create")
     parser.add_argument(
-        "--lint", action="store_true",
-        help="Display lint results")
+        "--check", action="store_true",
+        help="Display output of sanity checks")
     parser.add_argument(
         "--variant", default="default",
         help="Specify variant to use")
@@ -49,14 +49,14 @@ def main(argv=None):  # pylint: disable=missing-docstring
         return 1
     pick = PrefPicker.load_template(args.input)
     LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants))
-    if args.lint:
-        for result in pick.lint_combinations():
-            LOG.info("Lint: %r variant has %r possible combination(s)", result[0], result[1])
-        for result in pick.lint_overwrites():
-            LOG.info("Lint: %r variant %r redefines value %r (may be intentional)",
+    if args.check:
+        for result in pick.check_combinations():
+            LOG.info("Check: %r variant has %r possible combination(s)", result[0], result[1])
+        for result in pick.check_overwrites():
+            LOG.info("Check: %r variant %r redefines value %r (may be intentional)",
                 result[0], result[1], result[2])
-        for result in pick.lint_duplicates():
-            LOG.info("Lint: %r variant %r contains duplicate values", result[0], result[1])
+        for result in pick.check_duplicates():
+            LOG.info("Check: %r variant %r contains duplicate values", result[0], result[1])
     if args.variant not in pick.variants:
         LOG.error("Error: Variant %r does not exist", args.variant)
         return 1

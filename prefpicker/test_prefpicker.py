@@ -88,7 +88,7 @@ def test_prefpicker_08():
         PrefPicker.verify_data(raw_data)
 
 def test_prefpicker_09():
-    """test PrefPicker.lint_overwrites()"""
+    """test PrefPicker.check_overwrites()"""
     raw_data = {
         "variant": ["fail", "safe"],
         "pref": {
@@ -105,14 +105,14 @@ def test_prefpicker_09():
     ppick = PrefPicker()
     ppick.variants = set(raw_data["variant"] + ["default"])
     ppick.prefs = raw_data["pref"]
-    results = ppick.lint_overwrites()
+    results = tuple(ppick.check_overwrites())
     assert results
     assert results[0][0] == "test.a"
     assert results[0][1] == "fail"
     assert results[0][2] == 1
 
 def test_prefpicker_10():
-    """test PrefPicker.lint_duplicates()"""
+    """test PrefPicker.check_duplicates()"""
     raw_data = {
         "variant": ["fail", "safe"],
         "pref": {
@@ -129,13 +129,13 @@ def test_prefpicker_10():
     ppick = PrefPicker()
     ppick.variants = set(raw_data["variant"] + ["default"])
     ppick.prefs = raw_data["pref"]
-    results = ppick.lint_duplicates()
+    results = tuple(ppick.check_duplicates())
     assert results
     assert results[0][0] == "test.a"
     assert results[0][1] == "fail"
 
 def test_prefpicker_11():
-    """test PrefPicker.lint_combinations()"""
+    """test PrefPicker.check_combinations()"""
     raw_data = {
         "variant": ["v1", "v2"],
         "pref": {
@@ -157,7 +157,7 @@ def test_prefpicker_11():
     ppick = PrefPicker()
     ppick.variants = set(raw_data["variant"] + ["default"])
     ppick.prefs = raw_data["pref"]
-    results = ppick.lint_combinations()
+    results = tuple(ppick.check_combinations())
     assert len(results) == 2
     assert results[0][0] == "default"
     assert results[0][1] == 2
