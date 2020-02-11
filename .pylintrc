@@ -1,0 +1,12 @@
+[MASTER]
+
+[MESSAGES CONTROL]
+disable=
+	duplicate-code,
+	useless-object-inheritance
+
+[FORMAT]
+max-line-length=120
+
+[TYPECHECK]
+ignored-classes=_socketobject
