@@ -50,12 +50,12 @@ def main(argv=None):  # pylint: disable=missing-docstring
     pick = PrefPicker.load_template(args.input)
     LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants))
     if args.lint:
-        results = pick.lint_overwrites()
-        for result in results:
+        for result in pick.lint_combinations():
+            LOG.info("Lint: %r variant has %r possible combination(s)", result[0], result[1])
+        for result in pick.lint_overwrites():
             LOG.info("Lint: %r variant %r redefines value %r (may be intentional)",
                 result[0], result[1], result[2])
-        results = pick.lint_duplicates()
-        for result in results:
+        for result in pick.lint_duplicates():
             LOG.info("Lint: %r variant %r contains duplicate values", result[0], result[1])
     if args.variant not in pick.variants:
         LOG.error("Error: Variant %r does not exist", args.variant)

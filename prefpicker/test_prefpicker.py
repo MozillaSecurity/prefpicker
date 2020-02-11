@@ -134,7 +134,37 @@ def test_prefpicker_10():
     assert results[0][0] == "test.a"
     assert results[0][1] == "fail"
 
-def test_prefpicker_11(tmp_path):
+def test_prefpicker_11():
+    """test PrefPicker.lint_combinations()"""
+    raw_data = {
+        "variant": ["v1", "v2"],
+        "pref": {
+            "test.a": {
+                "default": [1],
+                "v1": [1, 2, 3, 4],
+                "v2": [3]
+            },
+            "test.b": {
+                "default": [2],
+                "v1": [1, 2],
+                "v2": [3]
+            },
+            "test.c": {
+                "default": [1, 3],
+                "v2": [None]}}}
+    # use verify_data just to sanity check test data
+    PrefPicker.verify_data(raw_data)
+    ppick = PrefPicker()
+    ppick.variants = set(raw_data["variant"] + ["default"])
+    ppick.prefs = raw_data["pref"]
+    results = ppick.lint_combinations()
+    assert len(results) == 2
+    assert results[0][0] == "default"
+    assert results[0][1] == 2
+    assert results[1][0] == "v1"
+    assert results[1][1] == 16
+
+def test_prefpicker_12(tmp_path):
     """test simple PrefPicker.create_prefsjs()"""
     ppick = PrefPicker()
     prefs = (tmp_path / "prefs.js")
@@ -146,7 +176,7 @@ def test_prefpicker_11(tmp_path):
             assert line.startswith("//")
         assert in_fp.tell() > 0
 
-def test_prefpicker_12(tmp_path):
+def test_prefpicker_13(tmp_path):
     """test PrefPicker.create_prefsjs() with variants"""
     raw_data = {
         "variant": ["test", "skip"],
@@ -178,7 +208,7 @@ def test_prefpicker_12(tmp_path):
     assert "user_pref(\"test.b\", true);\n" in prefs_data
     assert "// 'test.a' defined by variant 'test'" in prefs_data
 
-def test_prefpicker_13(tmp_path):
+def test_prefpicker_14(tmp_path):
     """test PrefPicker.create_prefsjs() with different values"""
     raw_data = {
         "variant": [],

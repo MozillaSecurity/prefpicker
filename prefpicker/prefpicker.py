@@ -60,6 +60,21 @@ class PrefPicker(object):
                 uid.update(sanitized.encode(encoding="utf-8", errors="ignore"))
             prefs_fp.write("// Fingerprint %r\n" % (uid.hexdigest(),))
 
+    def lint_combinations(self):
+        options = dict.fromkeys(self.variants, 1)
+        for variants in self.prefs.values():
+            for variant in options:
+                # use 'default' if pref does not have a matching variant entry
+                if variant not in variants:
+                    options[variant] *= len(variants["default"])
+                else:
+                    options[variant] *= len(variants[variant])
+        matches = list()
+        for variant, opt_count in sorted(options.items()):
+            if opt_count > 1:
+                matches.append((variant, opt_count))
+        return matches
+
     def lint_duplicates(self):
         matches = list()
         for pref, variants in sorted(self.prefs.items()):
