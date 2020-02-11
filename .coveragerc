@@ -1,0 +1,9 @@
+[run]
+omit =
+	prefpicker/__main__.py
+	prefpicker/test_*.py
+	setup.py
+
+[report]
+exclude_lines =
+	pragma: no cover

@@ -1,0 +1,28 @@
+dist: bionic
+sudo: false
+cache: pip
+language: python
+python:
+  - 3.5
+  - 3.6
+  - 3.7
+  - 3.8
+matrix:
+  include:
+    - os: windows
+      python: 3.8
+      language: shell
+      before_install:
+        - choco install python --version 3.8
+      env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+before_install:
+  - pip install --upgrade setuptools pip
+install:
+  - pip install -e .
+before_script:
+  - pip install --upgrade pytest pytest-pylint pytest-cov codecov
+script:
+  - pytest
+  - python -m prefpicker templates/browser-fuzzing.yml test-perfs.js --check
+after_success:
+  - codecov
