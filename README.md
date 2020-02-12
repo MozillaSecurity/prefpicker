@@ -1,5 +1,8 @@
 PrefPicker
 ==========
+[![Build Status](https://travis-ci.com/MozillaSecurity/prefpicker.svg?branch=master)](https://travis-ci.com/MozillaSecurity/prefpicker)
+[![codecov](https://codecov.io/gh/MozillaSecurity/prefpicker/branch/master/graph/badge.svg)](https://codecov.io/gh/MozillaSecurity/prefpicker)
+
 
 Manage & generate prefs.js files. This tool is intended to simplify the use and tracking of prefs used by
 our fuzzing tools. The template files can be modified to allow the creation of custom prefs.js files without
