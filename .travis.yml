@@ -23,6 +23,6 @@ before_script:
   - pip install --upgrade pytest pytest-pylint pytest-cov codecov
 script:
   - pytest
-  - python -m prefpicker templates/browser-fuzzing.yml test-perfs.js --check
+  - python -m prefpicker templates/browser-fuzzing.yml test-prefs.js --check
 after_success:
   - codecov
