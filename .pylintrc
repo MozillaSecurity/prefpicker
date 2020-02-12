@@ -3,6 +3,7 @@
 [MESSAGES CONTROL]
 disable=
 	duplicate-code,
+	too-many-branches,
 	useless-object-inheritance
 
 [FORMAT]

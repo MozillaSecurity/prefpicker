@@ -29,6 +29,9 @@ def test_prefpicker_02():
     with pytest.raises(SourceDataError, match="variant list is missing"):
         PrefPicker.verify_data(raw_data)
     # variant is invalid type
+    raw_data = {"variant": [{"bad": 1}]}
+    with pytest.raises(SourceDataError, match="variant definition must be a string"):
+        PrefPicker.verify_data(raw_data)
     raw_data = {
         "pref": {"a.b": {"default": [1]}},
         "variant": "invalid"}
