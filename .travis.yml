@@ -1,13 +1,13 @@
 dist: bionic
-sudo: false
 cache: pip
 language: python
+os: linux
 python:
   - 3.5
   - 3.6
   - 3.7
   - 3.8
-matrix:
+jobs:
   include:
     - os: windows
       python: 3.8
