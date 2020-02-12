@@ -159,7 +159,11 @@ class PrefPicker(object):
             raise SourceDataError("variant list is missing")
         if not isinstance(raw_data["variant"], list):
             raise SourceDataError("variant is not a list")
-        valid_variants = set(raw_data["variant"] + ["default"])
+        valid_variants = set(["default"])
+        for variant in raw_data["variant"]:
+            if not isinstance(variant, str):
+                raise SourceDataError("variant definition must be a string")
+            valid_variants.add(variant)
         if "pref" not in raw_data:
             raise SourceDataError("pref group is missing")
         if not isinstance(raw_data["pref"], dict):
