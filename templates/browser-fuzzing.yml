@@ -4,11 +4,10 @@ variant:
 - no-vr
 - webrender
 pref:
-  app.update.enabled:
+  app.normandy.enabled:
     default:
     - false
-  # pref copied from domfuzz
-  app.update.stage.enabled:
+  app.update.auto:
     default:
     - false
   app.update.staging.enabled:
@@ -26,14 +25,6 @@ pref:
   browser.EULA.override:
     default:
     - true
-  # pref copied from domfuzz
-  browser.aboutHomeSnippets.updateUrl:
-    default:
-    - nonexistent://test
-  # pref copied from domfuzz
-  browser.addon-watch.interval:
-    default:
-    - -1
   browser.cache.disk.enable:
     default:
     - false
@@ -46,50 +37,17 @@ pref:
   browser.cache.offline.enable:
     default:
     - false
-  browser.chrome.favicons:
-    default:
-    - false
   browser.chrome.site_icons:
     default:
     - false
-  browser.displayedE10SNotice:
+  browser.chrome.toolbar_tips:
     default:
-    - 5
+    - false
   # Prints messages to the (native) console
   browser.dom.window.dump.enabled:
     default:
     - true
-  browser.firstrun.show.localepicker:
-    default:
-    - false
-  browser.firstrun.show.uidiscovery:
-    default:
-    - false
-  # pref copied from domfuzz
-  browser.newtabpage.directory.ping:
-    default:
-    - ''
-  # pref copied from domfuzz
-  browser.newtabpage.directory.source:
-    default:
-    - data:application/json,{"testing":1}
-  # pref copied from domfuzz
-  browser.newtabpage.enhanced:
-    default:
-    - false
-  # pref copied from domfuzz
-  browser.newtabpage.introShown:
-    default:
-    - true
-  # pref copied from domfuzz
-  browser.newtabpage.updateIntroShown:
-    default:
-    - true
-  browser.offline-apps.notify:
-    default:
-    - false
-  # pref copied from domfuzz
-  browser.pageThumbs.enabled:
+  browser.newtabpage.enabled:
     default:
     - false
   # pref copied from domfuzz
@@ -98,13 +56,6 @@ pref:
     - true
   # pref copied from domfuzz
   browser.reader.detectedFirstArticle:
-    default:
-    - true
-  browser.rights.3.shown:
-    default:
-    - true
-  # pref copied from domfuzz
-  browser.rights.override:
     default:
     - true
   browser.safebrowsing.blockedURIs.enabled:
@@ -155,22 +106,10 @@ pref:
   browser.shell.checkDefaultBrowser:
     default:
     - false
-  # pref copied from domfuzz
-  browser.snippets.enabled:
-    default:
-    - false
-  # pref copied from domfuzz
-  browser.snippets.firstrunHomepage.enabled:
-    default:
-    - false
-  # pref copied from domfuzz
-  browser.snippets.syncPromo.enabled:
-    default:
-    - false
-  # pref copied from domfuzz
   browser.ssl_override_behavior:
     default:
     - 1
+  # TODO: this can be removed (browser.startup.page=0 does the job)?
   browser.startup.homepage:
     default:
     - about:blank
@@ -187,20 +126,9 @@ pref:
   browser.tabs.warnOnCloseOtherTabs:
     default:
     - false
-  # pref copied from domfuzz
-  browser.urlbar.userMadeSearchSuggestionsChoice:
-    default:
-    - true
-  # pref copied from domfuzz
   browser.warnOnQuit:
     default:
     - false
-  browser.webapps.checkForUpdates:
-    default:
-    - 0
-  canvas.customfocusring.enabled:
-    default:
-    - true
   canvas.hitregions.enabled:
     default:
     - true
@@ -215,12 +143,6 @@ pref:
   csp.skip_about_page_has_csp_assert:
     default:
     - true
-  datareporting.healthreport.service.enabled:
-    default:
-    - false
-  datareporting.healthreport.service.firstRun:
-    default:
-    - false
   datareporting.healthreport.uploadEnabled:
     default:
     - false
@@ -247,13 +169,7 @@ pref:
   dom.always_stop_slow_scripts:
     default:
     - true
-  dom.archivereader.enabled:
-    default:
-    - true
   dom.audioworklet.enabled:
-    default:
-    - true
-  dom.datastore.enabled:
     default:
     - true
   # Popup blocker behavior - Required for Grizzly harness
@@ -264,36 +180,19 @@ pref:
   dom.disable_window_flip:
     default:
     - false
-  # text in the browser status bar may be set by non-chrome JavaScript
-  dom.disable_window_status_change:
-    default:
-    - false
   dom.experimental_forms:
     default:
+    - null
     - true
-  dom.fetch.enabled:
+  dom.image-lazy-loading.enabled:
     default:
-    - true
-  dom.flyweb.enabled:
-    default:
-    - true
-  dom.icc.enabled:
-    default:
-    - true
-  dom.identity.enabled:
-    default:
-    - true
-  dom.image.picture.enabled:
-    default:
-    - true
-  dom.image.srcset.enabled:
-    default:
-    - true
+    - false
   dom.imagecapture.enabled:
     default:
     - true
   dom.indexedDB.experimental:
     default:
+    - null
     - true
   dom.ipc.plugins.flash.disable-protected-mode:
     default:
@@ -301,9 +200,6 @@ pref:
   dom.ipc.plugins.flash.subprocess.crashreporter.enabled:
     default:
     - false
-  dom.max_child_script_run_time:
-    default:
-    - 0
   dom.max_chrome_script_run_time:
     default:
     - 0
@@ -324,9 +220,6 @@ pref:
     - true
   # needed when using MozAfterPaint event to control fuzzer
   dom.send_after_paint_to_content:
-    default:
-    - true
-  dom.server-events.enabled:
     default:
     - true
   # pref copied from domfuzz
@@ -353,14 +246,7 @@ pref:
   dom.vr.require-gesture:
     default:
     - false
-  dom.webcomponents.enabled:
-    default:
-    - true
   dom.worklet.enabled:
-    default:
-    - true
-  # Required to load fuzzPriv
-  extensions.allow-non-mpc-extensions:
     default:
     - true
   # pref copied from domfuzz
@@ -386,9 +272,6 @@ pref:
   extensions.showMismatchUI:
     default:
     - false
-  extensions.testpilot.runStudies:
-    default:
-    - false
   extensions.update.enabled:
     default:
     - false
@@ -411,9 +294,6 @@ pref:
   fuzzing.enabled:
     default:
     - true
-  gecko.handlerService.allowRegisterFromDifferentHost:
-    default:
-    - true
   # pref copied from domfuzz
   general.useragent.updates.enabled:
     default:
@@ -426,19 +306,23 @@ pref:
     - false
   gfx.color_management.enablev4:
     default:
+    - null
     - true
   # 0=off, 1=full, 2=tagged images only
   gfx.color_management.mode:
     default:
     - 1
-  gfx.content.use-native-pushlayer:
-    default:
-    - true
-  gfx.downloadable_fonts.keep_variation_tables:
+  gfx.downloadable_fonts.disable_cache:
     default:
     - true
   # required for some demo fonts
   gfx.downloadable_fonts.otl_validation:
+    default:
+    - false
+  gfx.downloadable_fonts.sanitize_omt:
+    default:
+    - false
+  gfx.downloadable_fonts.validate_variation_tables:
     default:
     - false
   # bug 1514869 (requested by jkew)
@@ -448,16 +332,10 @@ pref:
   gfx.offscreencanvas.enabled:
     default:
     - false
-  gfx.prefer-mesa-llvmpipe:
-    default:
-    - false
   gfx.webrender.all:
     default:
     - null
     webrender:
-    - true
-  html5.offmainthread:
-    default:
     - true
   image.animated.decode-on-demand.batch-size:
     default:
@@ -468,28 +346,16 @@ pref:
   image.cache.size:
     default:
     - 0
-  image.high_quality_downscaling.enabled:
-    default:
-    - false
-  image.high_quality_downscaling.min_factor:
-    default:
-    - 1000
   image.multithreaded_decoding.limit:
     default:
     - 1
-  image.webp.enabled:
-    default:
-    - true
   # remove once bug 1599923 is fixed
   javascript.options.blinterp:
     default:
     - false
-  # pref copied from domfuzz
-  javascript.options.gczeal:
-    default:
-    - 0
   layers.acceleration.force-enabled:
     default:
+    - null
     - true
   # normally only enabled on devices with touchscreens (emilio)
   layout.accessiblecaret.enabled:
@@ -499,37 +365,10 @@ pref:
   layout.css.constructable-stylesheets.enabled:
     default:
     - true
-  layout.css.font-variations.enabled:
-    default:
-    - true
-  layout.css.individual-transform.enabled:
-    default:
-    - true
   # Enable @-moz-document
   layout.css.moz-document.content.enabled:
     default:
     - true
-  layout.css.resizeobserver.enabled:
-    default:
-    - true
-  layout.debug.enable_data_xbl:
-    default:
-    - true
-  lightweightThemes.update.enabled:
-    default:
-    - false
-  media.apple.mp3.enabled:
-    default:
-    - true
-  media.apple.mp4.enabled:
-    default:
-    - true
-  media.audio_data.enabled:
-    default:
-    - true
-  media.autoplay.ask-permission:
-    default:
-    - false
   # 0=Allowed, 1=Blocked, 2=Prompt
   media.autoplay.default:
     default:
@@ -537,28 +376,7 @@ pref:
   media.autoplay.enabled.user-gestures-needed:
     default:
     - false
-  media.av1.enabled:
-    default:
-    - true
-  media.av1.use-dav1d:
-    default:
-    - true
   media.eme.enabled:
-    default:
-    - true
-  media.fragmented-mp4.enabled:
-    default:
-    - true
-  media.fragmented-mp4.exposed:
-    default:
-    - true
-  media.fragmented-mp4.ffmpeg.enabled:
-    default:
-    - true
-  media.fragmented-mp4.gmp.enabled:
-    default:
-    - true
-  media.fragmented-mp4.use-blank-decoder:
     default:
     - true
   media.getusermedia.audiocapture.enabled:
@@ -567,97 +385,31 @@ pref:
   media.getusermedia.browser.enabled:
     default:
     - true
-  media.getusermedia.screensharing.allowed_domains:
-    default:
-    - localhost
-  media.getusermedia.screensharing.enabled:
-    default:
-    - true
   media.gmp-manager.url.override:
     default:
     - http://127.0.0.1:6/dummy-gmp-manager.xml
-  media.mediasource.allow_init_moov:
-    default:
-    - true
-  media.mediasource.ignore_codec:
-    default:
-    - true
   media.mediasource.webm.enabled:
     default:
     - true
-  media.mediasource.youtubeonly:
-    default:
-    - false
   media.navigator.permission.disabled:
     default:
     - true
   media.navigator.video.red_ulpfec_enabled:
     default:
     - true
-  media.num-decode-threads:
-    default:
-    - 1
-  media.ogg.enabled:
-    default:
-    - true
-  # pref copied from domfuzz
-  media.peerconnection.aec:
-    default:
-    - 1
-  # pref copied from domfuzz
-  media.peerconnection.aec_enabled:
-    default:
-    - true
-  # pref copied from domfuzz
-  media.peerconnection.agc:
-    default:
-    - 1
-  # pref copied from domfuzz
-  media.peerconnection.agc_enabled:
-    default:
-    - false
   # pref copied from domfuzz
   media.peerconnection.default_iceservers:
     default:
     - '[{"url": "stun:23.21.150.121"}]'
-  # pref copied from domfuzz
-  media.peerconnection.noise:
-    default:
-    - 1
-  # pref copied from domfuzz
-  media.peerconnection.noise_enabled:
-    default:
-    - false
-  media.peerconnection.remoteTrackId.enabled:
-    default:
-    - true
-  media.peerconnection.video.h264_enabled:
-    default:
-    - true
-  media.raw.enabled:
-    default:
-    - true
   media.track.enabled:
     default:
     - true
-  media.use-blank-decoder:
-    default:
-    - false
   media.useAudioChannelAPI:
-    default:
-    - true
-  media.webaudio.enabled:
     default:
     - true
   media.webspeech.recognition.enable:
     default:
     - true
-  media.webvtt.enabled:
-    default:
-    - true
-  memory.free_dirty_pages:
-    default:
-    - false
   # max time to wait for connection (default is 300)
   network.http.response.timeout:
     default:
@@ -665,30 +417,11 @@ pref:
   network.http.spdy.enabled:
     default:
     - false
-  network.http.spdy.enabled.http2draft:
-    default:
-    - true
-  network.http.spdy.enabled.v2:
-    default:
-    - true
-  network.http.spdy.enabled.v3:
-    default:
-    - true
-  network.http.spdy.enabled.v3-1:
-    default:
-    - true
-  network.http.use-cache:
-    default:
-    - false
-  # pref copied from domfuzz
-  network.jar.open-unsafe-types:
-    default:
-    - true
   # pref copied from domfuzz
   network.manage-offline-status:
     default:
     - false
-  network.network.protocol-handler.external.mailto:
+  network.protocol-handler.external.mailto:
     default:
     - false
   # helps keep browser and fuzzer sync'd
@@ -707,28 +440,15 @@ pref:
   network.proxy.type:
     default:
     - 2
-  # pref copied from domfuzz
-  network.proxy.use_direct_on_fail:
-    default:
-    - false
   network.websocket.allowInsecureFromHTTPS:
     default:
     - true
   network.websocket.delay-failed-reconnects:
     default:
     - false
-  network.websocket.enabled:
-    default:
-    - true
   nglayout.debug.disable_xul_cache:
     default:
     - false
-  pdfium.enabled:
-    default:
-    - true
-  pdfjs.enableWebGL:
-    default:
-    - true
   pdfjs.firstRun:
     default:
     - false
@@ -750,16 +470,6 @@ pref:
   plugin.disable:
     default:
     - true
-  plugins.hide_infobar_for_missing_plugin:
-    default:
-    - true
-  plugins.update.url:
-    default:
-    - ''
-  # pref copied from domfuzz
-  privacy.trackingprotection.pbmode.enabled:
-    default:
-    - false
   security.OCSP.enabled:
     default:
     - 0
@@ -772,76 +482,31 @@ pref:
   security.fileuri.strict_origin_policy:
     default:
     - false
-  security.ssl.enable_false_start:
-    default:
-    - true
-  security.warn_submit_insecure:
-    default:
-    - false
-  security.webauth.u2f:
-    default:
-    - true
-  security.webauth.u2f_enable_softtoken:
-    default:
-    - true
-  security.webauth.u2f_enable_usbtoken:
-    default:
-    - false
-  security.webauth.webauthn:
-    default:
-    - true
   security.webauth.webauthn_enable_softtoken:
     default:
     - true
   security.webauth.webauthn_enable_usbtoken:
     default:
     - false
-  shumway.disabled:
+  toolkit.cosmeticAnimations.enabled:
     default:
-    - true
-  startup.homepage_welcome_url:
-    default:
-    - about:blank
+    - false
   toolkit.startup.max_resumed_crashes:
     default:
     - -1
   toolkit.telemetry.enabled:
     default:
     - false
-  toolkit.telemetry.prompted:
-    default:
-    - 2
-  toolkit.telemetry.rejected:
-    default:
-    - true
   toolkit.telemetry.server:
     default:
     - ''
-  # pref copied from domfuzz
-  toolkit.telemetry.unified:
-    default:
-    - false
-  view_source.wrap_long_lines:
-    default:
-    - true
   webgl.enable-draft-extensions:
     default:
+    - null
     - true
   webgl.enable-privileged-extensions:
     default:
     - true
-  webgl.enable-prototype-webgl2:
-    default:
-    - true
-  webgl.lose-context-on-heap-minimize:
-    default:
-    - false
   webgl.prefer-native-gl:
-    default:
-    - false
-  webgl.shader_validator:
-    default:
-    - true
-  webgl.verbose:
     default:
     - false
