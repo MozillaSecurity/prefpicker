@@ -240,9 +240,10 @@ pref:
   dom.vr.poseprediction.enabled:
     default:
     - false
+  # disabled until bug 1573528 is resolved
   dom.vr.puppet.enabled:
     default:
-    - true
+    - false
   dom.vr.require-gesture:
     default:
     - false
