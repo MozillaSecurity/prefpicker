@@ -23,13 +23,7 @@ class PrefPicker(object):
 
     def __init__(self):
         self.prefs = dict()
-        self.templates = list()
         self.variants = set(["default"])
-        template_path = os.path.join(os.path.dirname(__file__), "..", "templates")
-        if os.path.isdir(template_path):
-            for template in os.listdir(template_path):
-                if template.lower().endswith(".yml"):
-                    self.templates.append(os.path.abspath(template))
 
     def check_combinations(self):
         """Count the number of combinations for each variation. Only return
@@ -150,6 +144,22 @@ class PrefPicker(object):
         picker.variants = set(raw_prefs["variant"] + ["default"])
         picker.prefs = raw_prefs["pref"]
         return picker
+
+    @staticmethod
+    def templates():
+        """Available YAML template files.
+
+        Args:
+            None
+
+        Yields:
+            str: Filename including path to each template file.
+        """
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
+        if os.path.isdir(path):
+            for template in os.listdir(path):
+                if template.lower().endswith(".yml"):
+                    yield os.path.join(path, template)
 
     @staticmethod
     def verify_data(raw_data):
