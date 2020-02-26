@@ -5,6 +5,7 @@
 
 import datetime
 import hashlib
+import os
 import random
 
 import yaml
@@ -22,7 +23,13 @@ class PrefPicker(object):
 
     def __init__(self):
         self.prefs = dict()
+        self.templates = list()
         self.variants = set(["default"])
+        template_path = os.path.join(os.path.dirname(__file__), "..", "templates")
+        if os.path.isdir(template_path):
+            for template in os.listdir(template_path):
+                if template.lower().endswith(".yml"):
+                    self.templates.append(os.path.abspath(template))
 
     def check_combinations(self):
         """Count the number of combinations for each variation. Only return
