@@ -7,21 +7,16 @@
 import os
 
 from .main import main
+from .prefpicker import PrefPicker
 
 
 def test_templates(tmp_path):
     """sanity check template YAML files"""
     prefs_js = (tmp_path / "prefs.js")
-    yml_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        "..",
-        "templates")
     checked = []
-    for yml in os.listdir(yml_path):
-        if not yml.endswith(".yml"):
-            continue
-        assert main([os.path.join(yml_path, yml), str(prefs_js), "--check"]) == 0
+    for template in PrefPicker.templates():
+        assert main([template, str(prefs_js), "--check"]) == 0
         assert prefs_js.is_file()
         prefs_js.unlink()
-        checked.append(yml)
+        checked.append(os.path.basename(template))
     assert "browser-fuzzing.yml" in checked

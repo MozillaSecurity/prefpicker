@@ -5,6 +5,7 @@
 
 import datetime
 import hashlib
+import os
 import random
 
 import yaml
@@ -143,6 +144,22 @@ class PrefPicker(object):
         picker.variants = set(raw_prefs["variant"] + ["default"])
         picker.prefs = raw_prefs["pref"]
         return picker
+
+    @staticmethod
+    def templates():
+        """Available YAML template files.
+
+        Args:
+            None
+
+        Yields:
+            str: Filename including path to each template file.
+        """
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
+        if os.path.isdir(path):
+            for template in os.listdir(path):
+                if template.lower().endswith(".yml"):
+                    yield os.path.join(path, template)
 
     @staticmethod
     def verify_data(raw_data):
