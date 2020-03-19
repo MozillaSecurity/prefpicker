@@ -350,10 +350,6 @@ pref:
   image.multithreaded_decoding.limit:
     default:
     - 1
-  # remove once bug 1599923 is fixed
-  javascript.options.blinterp:
-    default:
-    - false
   layers.acceleration.force-enabled:
     default:
     - null
