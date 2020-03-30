@@ -218,6 +218,9 @@ pref:
   dom.presentation.enabled:
     default:
     - true
+  dom.push.testing.ignorePermission:
+    default:
+    - true
   # needed when using MozAfterPaint event to control fuzzer
   dom.send_after_paint_to_content:
     default:
@@ -446,6 +449,12 @@ pref:
   nglayout.debug.disable_xul_cache:
     default:
     - false
+  notification.prompt.testing:
+    default:
+    - true
+  notification.prompt.testing.allow:
+    default:
+    - true
   pdfjs.firstRun:
     default:
     - false
