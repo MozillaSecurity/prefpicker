@@ -94,12 +94,6 @@ pref:
   browser.search.update:
     default:
     - false
-  browser.sessionhistory.max_entries:
-    default:
-    - 0
-  browser.sessionhistory.max_total_viewers:
-    default:
-    - 0
   browser.sessionstore.resume_from_crash:
     default:
     - false
