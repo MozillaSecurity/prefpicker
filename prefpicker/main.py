@@ -17,20 +17,30 @@ LOG = logging.getLogger("prefpicker")
 
 
 def parse_args(argv=None):
+    templates = (os.path.basename(x) for x in PrefPicker.templates())
     parser = argparse.ArgumentParser(description="PrefPicker - Manage & generate prefs.js files")
     parser.add_argument(
         "input",
-        help="YAML file containing definitions")
+        help="Template containing definitions. This can be the path "
+             "to a template (YAML) file or the name of a built-in template. "
+             "Built-in templates: %s" % (",".join(templates),))
     parser.add_argument(
         "output",
-        help="Name of prefs.js file to create")
+        help="Name of prefs.js file to create.")
     parser.add_argument(
         "--check", action="store_true",
-        help="Display output of sanity checks")
+        help="Display output of sanity checks.")
     parser.add_argument(
         "--variant", default="default",
-        help="Specify variant to use")
-    return parser.parse_args(argv)
+        help="Specify variant to use.")
+    args = parser.parse_args(argv)
+    # handle using built-in templates
+    if not os.path.isfile(args.input):
+        tpath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
+        builtin = os.path.join(tpath, args.input)
+        if os.path.isfile(builtin):
+            args.input = builtin
+    return args
 
 
 def main(argv=None):  # pylint: disable=missing-docstring
@@ -54,7 +64,7 @@ def main(argv=None):  # pylint: disable=missing-docstring
             LOG.info("Check: %r variant has %r possible combination(s)", result[0], result[1])
         for result in pick.check_overwrites():
             LOG.info("Check: %r variant %r redefines value %r (may be intentional)",
-                result[0], result[1], result[2])
+                     result[0], result[1], result[2])
         for result in pick.check_duplicates():
             LOG.info("Check: %r variant %r contains duplicate values", result[0], result[1])
     if args.variant not in pick.variants:
