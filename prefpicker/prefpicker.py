@@ -3,12 +3,13 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import datetime
-import hashlib
-import os
-import random
+from datetime import datetime
+from hashlib import sha1
+from os import listdir
+from os.path import abspath, dirname, isdir, join as pathjoin
+from random import choice
 
-import yaml
+from yaml import safe_load
 
 
 __author__ = "Tyson Smith"
@@ -92,18 +93,18 @@ class PrefPicker(object):
             None
         """
         # create a fingerprint based on prefs/values combinations
-        uid = hashlib.sha1()
+        uid = sha1()
         with open(dest, "w") as prefs_fp:
             prefs_fp.write("// Generated with PrefPicker @ ")
-            prefs_fp.write(datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
+            prefs_fp.write(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
             prefs_fp.write("\n// Variant %r\n" % (variant,))
             for pref, variants in sorted(self.prefs.items()):
                 # choose values
                 if variant not in variants or variant == "default":
-                    value = random.choice(variants["default"])
+                    value = choice(variants["default"])
                     default_variant = True
                 else:
-                    value = random.choice(variants[variant])
+                    value = choice(variants[variant])
                     default_variant = False
                 if value is None:
                     # skipping pref
@@ -138,7 +139,7 @@ class PrefPicker(object):
             PrefPicker
         """
         with open(input_yml, "r") as in_fp:
-            raw_prefs = yaml.safe_load(in_fp.read())
+            raw_prefs = safe_load(in_fp.read())
         cls.verify_data(raw_prefs)
         picker = cls()
         picker.variants = set(raw_prefs["variant"] + ["default"])
@@ -155,11 +156,11 @@ class PrefPicker(object):
         Yields:
             str: Filename including path to each template file.
         """
-        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
-        if os.path.isdir(path):
-            for template in os.listdir(path):
+        path = abspath(pathjoin(dirname(__file__), "..", "templates"))
+        if isdir(path):
+            for template in listdir(path):
                 if template.lower().endswith(".yml"):
-                    yield os.path.join(path, template)
+                    yield pathjoin(path, template)
 
     @staticmethod
     def verify_data(raw_data):
