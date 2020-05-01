@@ -22,6 +22,8 @@ class SourceDataError(Exception):
 
 class PrefPicker(object):
 
+    __slots__ = ("prefs", "variants")
+
     def __init__(self):
         self.prefs = dict()
         self.variants = set(["default"])
