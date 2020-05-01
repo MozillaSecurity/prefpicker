@@ -25,3 +25,14 @@ script:
   - pytest
 after_success:
   - codecov
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: mozillasecurity
+  password:
+    secure: FtX88Uio18I+q+XkNkiosbZA80Wj03fFFEHIegUrkoHcnkxFVvOS3L8qHzkk5QJFA7i+O9bttkz+j/p6umd+gMlPrOvs9pw0F3JT9wlFh/e8EklyHCtLIhn9wgnEZeuMt0XsW6emdxVLNlCwo+L5965dKKnytWUPLyRGBQOqw4UQrHnBOnd4owQ352Xr4Yf/Zea22gA6bH7v/rw48M8qMasUwseCvzXgtvPnwU3y0+C/thrR8CJQDECi0ZTbKCFhtWn9dmnwhwrB1Ofe37NsON0YCTUYrXY7Yd7pblPtT8Ek/d6Wf06zPdbo1wasEUqEUzxkO5JXEmQGF9seEEWQ2U0/9s/JwhQf/mFReC1ti8ZuO8eMK6gtCtu3f38jcobGt4nZNV/Ilv9nvNOH4qeNykrhpDnFjkKtvXJQHfhLx+aVqXa9gMa7l060JaVA9gocxCjUMkvkvoesmzJTkY6d6oMQZbST4Y2NNnQJBi9kdNladLC2RM7mzkMMxPLLMvIsgyxH0RBmV/UzwhOOI8NLaQegJ0ewQ79asHTLkyQG8osbWfMxNm3cqq3A/MuV4HvV8Pxf4lLqVt3aIDTxYKJkXjmfKqVl0pcYTBg8OEHfB/PWBiwaQcyzTnVURbi9gg++q2wJ4E8A7q6mS2ksgrnXLRdFpVUhsqb4oBPh+MDGZMw=
+  on:
+    branch: master
+    tags: true
+    os: linux
+    python: 3.8
