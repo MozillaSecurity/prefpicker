@@ -23,7 +23,7 @@ def parse_args(argv=None):
         "input",
         help="Template containing definitions. This can be the path "
              "to a template (YAML) file or the name of a built-in template. "
-             "Built-in templates: %s" % (",".join(templates),))
+             "Built-in templates: %s" % (", ".join(templates),))
     parser.add_argument(
         "output",
         help="Name of prefs.js file to create.")
@@ -36,7 +36,7 @@ def parse_args(argv=None):
     args = parser.parse_args(argv)
     # handle using built-in templates
     if not os.path.isfile(args.input):
-        tpath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
+        tpath = os.path.abspath(os.path.join(os.path.dirname(__file__), "templates"))
         builtin = os.path.join(tpath, args.input)
         if os.path.isfile(builtin):
             args.input = builtin

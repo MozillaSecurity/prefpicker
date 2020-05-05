@@ -158,7 +158,7 @@ class PrefPicker(object):
         Yields:
             str: Filename including path to each template file.
         """
-        path = abspath(pathjoin(dirname(__file__), "..", "templates"))
+        path = abspath(pathjoin(dirname(__file__), "templates"))
         if isdir(path):
             for template in listdir(path):
                 if template.lower().endswith(".yml"):
