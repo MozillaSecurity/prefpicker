@@ -1,2 +1,1 @@
-graft templates
-include templates/*.yml
+include prefpicker/templates/ *.yml
