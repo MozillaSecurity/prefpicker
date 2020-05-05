@@ -13,6 +13,11 @@ if __name__ == "__main__":
     setup(
         author="Tyson Smith",
         author_email="twsmith@mozilla.com",
+        classifiers=[
+            'Topic :: Software Development :: Testing',
+            'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
+            'Programming Language :: Python :: 3',
+        ],
         description="PrefPicker - Manage & generate prefs.js files",
         entry_points={
             "console_scripts": ["prefpicker = prefpicker.main:main"]
@@ -35,4 +40,4 @@ if __name__ == "__main__":
         name="prefpicker",
         packages=["prefpicker"],
         url="https://github.com/MozillaSecurity/prefpicker",
-        version="1.0.3")
+        version="1.0.4")
