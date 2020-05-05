@@ -1,1 +1,2 @@
 graft templates
+include templates/*.yml
