@@ -43,14 +43,29 @@ pref:
      - null   # null is a special case meaning do not add the pref
 ```
 
-Example
------
+Quick Setup
+-----------
 
-This is an example of how to generate a `prefs.js` file from a template using the `webrender` variant:
+Use pip to install prefpicker.
 
 ```bash
-user@machine:~/prefpicker$ python -m prefpicker templates/browser-fuzzing.yml ~/Desktop/prefs.js --variant webrender
-Loading 'browser-fuzzing.yml'...
+user@machine:~/$ pip install prefpicker
+```
+
+Examples
+--------
+
+Use a built-in [template](https://github.com/MozillaSecurity/prefpicker/tree/master/prefpicker/templates) to generate an up-to-date `prefs.js` file.
+
+```bash
+user@machine:~/$ python -m prefpicker browser-fuzzing.yml prefs.js
+```
+
+Or generate a `prefs.js` file from a custom template using the `webrender` variant:
+
+```bash
+user@machine:~/prefpicker$ python -m prefpicker custom/template.yml ~/Desktop/prefs.js --variant webrender
+Loading 'template.yml'...
 Loaded 255 prefs and 5 variants
 Generating 'prefs.js' using variant 'webrender'...
 Done.
