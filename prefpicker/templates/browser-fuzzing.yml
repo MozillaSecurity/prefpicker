@@ -153,6 +153,12 @@ pref:
   datareporting.policy.firstRunURL:
     default:
     - ''
+  device.sensors.ambientLight.enabled:
+    default:
+      - true
+  device.sensors.proximity.enabled:
+    default:
+      - true
   devtools.selfxss.count:
     default:
     - 999
@@ -164,6 +170,12 @@ pref:
     default:
     - true
   dom.audioworklet.enabled:
+    default:
+    - true
+  dom.css_pseudo_element.enabled:
+    default:
+    - true
+  dom.dialog_element.enabled:
     default:
     - true
   # Popup blocker behavior - Required for Grizzly harness
@@ -178,6 +190,18 @@ pref:
     default:
     - null
     - true
+  dom.fetchObserver.enabled:
+    default:
+    - true
+  dom.gamepad.extensions.lightindicator:
+    default:
+    - true
+  dom.gamepad.extensions.multitouch:
+    default:
+    - true
+  dom.gamepad.test.enabled:
+    default:
+    - true
   dom.image-lazy-loading.enabled:
     default:
     - false
@@ -188,12 +212,15 @@ pref:
     default:
     - null
     - true
+  dom.input.dirpicker:
+    default:
+    - true
+  dom.input_events.beforeinput.enabled:
+    default:
+    - true
   dom.ipc.plugins.flash.disable-protected-mode:
     default:
     - true
-  dom.ipc.plugins.flash.subprocess.crashreporter.enabled:
-    default:
-    - false
   dom.max_chrome_script_run_time:
     default:
     - 0
@@ -209,10 +236,19 @@ pref:
   dom.payments.request.enabled:
     default:
     - true
+  dom.presentation.controller.enabled:
+    default:
+    - true
   dom.presentation.enabled:
     default:
     - true
+  dom.presentation.receiver.enabled:
+    default:
+    - true
   dom.push.testing.ignorePermission:
+    default:
+    - true
+  dom.security.featurePolicy.webidl.enabled:
     default:
     - true
   # needed when using MozAfterPaint event to control fuzzer
@@ -223,6 +259,18 @@ pref:
   dom.successive_dialog_time_limit:
     default:
     - 0
+  dom.textMetrics.baselines.enabled:
+    default:
+    - true
+  dom.textMetrics.emHeight.enabled:
+    default:
+    - true
+  dom.textMetrics.fontBoundingBox.enabled:
+    default:
+    - true
+  dom.visualviewport.enabled:
+    default:
+      - true
   dom.vr.enabled:
     default:
     - true
@@ -244,6 +292,12 @@ pref:
   dom.vr.require-gesture:
     default:
     - false
+  dom.vr.webxr.enabled:
+    default:
+    - true
+  dom.webgpu.enabled:
+    default:
+    - true
   dom.worklet.enabled:
     default:
     - true
@@ -355,8 +409,16 @@ pref:
   layout.accessiblecaret.enabled:
     default:
     - true
+  layout.css.backdrop-filter.enabled:
+    default:
+    - null
+    webrender:
+    - true
   # requested in bug 1609994
   layout.css.constructable-stylesheets.enabled:
+    default:
+    - true
+  layout.css.contain.enabled:
     default:
     - true
   # Enable @-moz-document
@@ -371,6 +433,9 @@ pref:
     default:
     - false
   media.eme.enabled:
+    default:
+    - true
+  media.eme.hdcp-policy-check.enabled:
     default:
     - true
   media.getusermedia.audiocapture.enabled:
@@ -395,6 +460,9 @@ pref:
   media.peerconnection.default_iceservers:
     default:
     - '[{"url": "stun:23.21.150.121"}]'
+  media.setsinkid.enabled:
+    default:
+    - true
   media.track.enabled:
     default:
     - true
