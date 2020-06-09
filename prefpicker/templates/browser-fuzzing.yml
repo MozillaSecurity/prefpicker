@@ -1,8 +1,3 @@
-variant:
-- fission
-- no-e10s
-- no-vr
-- webrender
 pref:
   app.normandy.enabled:
     default:
@@ -17,11 +12,6 @@ pref:
   app.update.url.android:
     default:
     - ''
-  browser.tabs.remote.autostart:
-    default:
-    - null
-    no-e10s:
-    - false
   browser.EULA.override:
     default:
     - true
@@ -114,6 +104,11 @@ pref:
   browser.startup.page:
     default:
     - 0
+  browser.tabs.remote.autostart:
+    default:
+    - null
+    no-e10s:
+    - false
   browser.tabs.warnOnClose:
     default:
     - false
@@ -415,17 +410,18 @@ pref:
   network.manage-offline-status:
     default:
     - false
-  network.protocol-handler.external.mailto:
-    default:
-    - false
   # helps keep browser and fuzzer sync'd
   network.prefetch-next:
+    default:
+    - false
+  network.protocol-handler.external.mailto:
     default:
     - false
   # pref copied from domfuzz
   network.proxy.autoconfig_url:
     default:
-    - data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1') { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }
+    - data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1')
+      { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }
   # pref copied from domfuzz
   network.proxy.share_proxy_settings:
     default:
@@ -510,3 +506,8 @@ pref:
   webgl.prefer-native-gl:
     default:
     - false
+variant:
+- fission
+- no-e10s
+- no-vr
+- webrender

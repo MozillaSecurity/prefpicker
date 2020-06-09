@@ -4,13 +4,16 @@
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 """template.py tests"""
 
-import os
+from difflib import unified_diff
+from os.path import basename
+
+from yaml import safe_dump, safe_load
 
 from .main import main
 from .prefpicker import PrefPicker
 
 
-def test_templates(tmp_path):
+def test_templates_01(tmp_path):
     """sanity check template YAML files"""
     prefs_js = (tmp_path / "prefs.js")
     checked = []
@@ -18,5 +21,22 @@ def test_templates(tmp_path):
         assert main([template, str(prefs_js), "--check"]) == 0
         assert prefs_js.is_file()
         prefs_js.unlink()
-        checked.append(os.path.basename(template))
+        checked.append(basename(template))
     assert "browser-fuzzing.yml" in checked
+
+def test_templates_02():
+    """check formatting of template YAML files"""
+    for template in PrefPicker.templates():
+        with open(template, "r") as in_fp:
+            input_yml = "".join(x for x in in_fp if not x.lstrip().startswith("#"))
+        formatted_yml = safe_dump(
+            safe_load(input_yml),
+            indent=2,
+            width=100)
+        diff = tuple(unified_diff(
+            input_yml.splitlines(),
+            formatted_yml.splitlines(),
+            fromfile=template,
+            tofile="formatting fixes",
+            lineterm=""))
+        assert not diff, "Formatting changes required:\n%s" % ("\n".join(diff),)
