@@ -417,6 +417,9 @@ pref:
     - null
     webrender:
     - true
+  layout.css.conic-gradient.enabled:
+    default:
+      - true
   # requested in bug 1609994
   layout.css.constructable-stylesheets.enabled:
     default:
