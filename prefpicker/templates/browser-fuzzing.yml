@@ -381,9 +381,10 @@ pref:
     default:
     - false
   # bug 1514869 (requested by jkew)
+  # disabled until 1656017 is fixed
   gfx.e10s.font-list.shared:
     default:
-    - true
+    - false
   gfx.offscreencanvas.enabled:
     default:
     - false
