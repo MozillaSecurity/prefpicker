@@ -399,6 +399,9 @@ pref:
   image.animated.decode-on-demand.threshold-kb:
     default:
     - 0
+  image.avif.enabled:
+    default:
+    - true
   image.cache.size:
     default:
     - 0
