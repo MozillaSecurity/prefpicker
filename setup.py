@@ -40,4 +40,4 @@ if __name__ == "__main__":
         name="prefpicker",
         packages=["prefpicker"],
         url="https://github.com/MozillaSecurity/prefpicker",
-        version="1.0.4")
+        version="1.0.6")
