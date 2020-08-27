@@ -547,6 +547,15 @@ pref:
   plugin.disable:
     default:
     - true
+  print.always_print_silent:
+    default:
+    - true
+  print.print_to_file:
+    default:
+    - true
+  print.show_print_progress:
+    default:
+    - true
   security.OCSP.enabled:
     default:
     - 0
