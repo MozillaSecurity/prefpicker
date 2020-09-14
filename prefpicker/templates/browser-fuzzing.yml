@@ -251,6 +251,10 @@ pref:
   dom.security.featurePolicy.webidl.enabled:
     default:
     - true
+  # see bug 1650370
+  dom.security.sanitizer.enabled:
+    default:
+    - true
   # needed when using MozAfterPaint event to control fuzzer
   dom.send_after_paint_to_content:
     default:
