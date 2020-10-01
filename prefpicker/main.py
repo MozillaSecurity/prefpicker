@@ -44,12 +44,13 @@ def parse_args(argv=None):
 
 
 def main(argv=None):  # pylint: disable=missing-docstring
-    log_level = logging.INFO
-    log_fmt = "%(message)s"
     if bool(os.getenv("DEBUG")):  # pragma: no cover
+        log_fmt = "%(asctime)s %(levelname).1s %(name)s | %(message)s"
         log_level = logging.DEBUG
-        log_fmt = "%(levelname).1s %(name)s [%(asctime)s] %(message)s"
-    logging.basicConfig(format=log_fmt, datefmt="%Y-%m-%d %H:%M:%S", level=log_level)
+    else:
+        log_fmt = "%(message)s"
+        log_level = logging.INFO
+    logging.basicConfig(format=log_fmt, level=log_level)
 
     args = parse_args(argv)
 
