@@ -13,7 +13,7 @@ from . import PrefPicker
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
 
-LOG = logging.getLogger("prefpicker")
+LOG = logging.getLogger(__name__)
 
 
 def parse_args(argv=None):
