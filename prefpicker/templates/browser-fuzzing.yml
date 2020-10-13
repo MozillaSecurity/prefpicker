@@ -195,16 +195,24 @@ pref:
     - true
   dom.gamepad.extensions.lightindicator:
     default:
+    - false
+    vr:
     - true
   dom.gamepad.extensions.multitouch:
     default:
+    - false
+    vr:
     - true
   dom.gamepad.test.enabled:
     default:
+    - false
+    vr:
     - true
   dom.image-lazy-loading.enabled:
     default:
     - false
+    vr:
+    - true
   dom.imagecapture.enabled:
     default:
     - true
@@ -292,15 +300,23 @@ pref:
   dom.vr.poseprediction.enabled:
     default:
     - false
+    vr:
+    - true
   # disabled until bug 1573528 is resolved
   dom.vr.puppet.enabled:
     default:
     - false
+    vr:
+    - true
   dom.vr.require-gesture:
     default:
     - false
+    vr:
+    - true
   dom.vr.webxr.enabled:
     default:
+    - false
+    vr:
     - true
   dom.webgpu.enabled:
     default:
