@@ -1,7 +1,7 @@
 variant:
 - fission
 - no-e10s
-- no-vr
+- vr
 - webrender
 pref:
   app.normandy.enabled:
@@ -280,9 +280,9 @@ pref:
       - true
   dom.vr.enabled:
     default:
-    - true
-    no-vr:
     - false
+    vr:
+    - true
   dom.vr.external.notdetected.timeout:
     default:
     - 0
