@@ -359,6 +359,11 @@ pref:
     - null
     fission:
     - true
+  fission.sessionHistoryInParent:
+    default:
+    - false
+    fission:
+    - true
   full-screen-api.allow-trusted-requests-only:
     default:
     - false
