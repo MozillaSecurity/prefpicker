@@ -410,6 +410,8 @@ pref:
   gfx.webrender.all:
     default:
     - null
+    fission:
+    - true
     webrender:
     - true
   image.animated.decode-on-demand.batch-size:
