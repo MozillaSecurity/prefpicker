@@ -414,7 +414,7 @@ pref:
     - false
   gfx.webrender.all:
     default:
-    - null
+    - false
     fission:
     - true
     webrender:
