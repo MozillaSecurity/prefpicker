@@ -419,6 +419,16 @@ pref:
     - true
     webrender:
     - true
+  # when gfx.webrender.all=true randomly set gfx.webrender.software to true or false
+  gfx.webrender.software:
+    default:
+    - null
+    fission:
+    - false
+    - true
+    webrender:
+    - false
+    - true
   image.animated.decode-on-demand.batch-size:
     default:
     - 1
