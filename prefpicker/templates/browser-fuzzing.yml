@@ -238,9 +238,10 @@ pref:
   dom.min_background_timeout_value:
     default:
     - 4
+  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685228
   dom.paintWorklet.enabled:
     default:
-    - true
+    - null
   dom.payments.request.enabled:
     default:
     - true
@@ -484,9 +485,10 @@ pref:
   media.eme.hdcp-policy-check.enabled:
     default:
     - true
+  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685233
   media.getusermedia.audiocapture.enabled:
     default:
-    - true
+    - null
   media.getusermedia.browser.enabled:
     default:
     - true
@@ -509,9 +511,10 @@ pref:
   media.setsinkid.enabled:
     default:
     - true
+  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685235
   media.track.enabled:
     default:
-    - true
+    - null
   media.useAudioChannelAPI:
     default:
     - true
