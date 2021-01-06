@@ -489,9 +489,10 @@ pref:
   media.getusermedia.audiocapture.enabled:
     default:
     - null
+  # development is stalled. https://bugzilla.mozilla.org/show_bug.cgi?id=1685415
   media.getusermedia.browser.enabled:
     default:
-    - true
+    - null
   media.gmp-manager.url.override:
     default:
     - http://127.0.0.1:6/dummy-gmp-manager.xml
@@ -518,9 +519,10 @@ pref:
   media.useAudioChannelAPI:
     default:
     - true
+  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685417
   media.webspeech.recognition.enable:
     default:
-    - true
+    - null
   # max time to wait for connection (default is 300)
   network.http.response.timeout:
     default:
