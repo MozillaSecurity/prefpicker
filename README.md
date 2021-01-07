@@ -15,14 +15,14 @@ YAML Template Structure
 
 The template document is made up of variants, prefs and values.
 
-`pref` is the name of the preference that will be added to the prefs.js file. This is an unquoted string.
+_**pref**_ is the name of the preference that will be added to the prefs.js file. This is an unquoted string.
 Valid prefs can be found in [all.js](https://hg.mozilla.org/mozilla-central/file/tip/modules/libpref/init/all.js) or in [StaticPrefList.yml](https://hg.mozilla.org/mozilla-central/file/tip/modules/libpref/init/StaticPrefList.yaml).
 
-`value` can be a bool, int, string or null. Adding multiple potential values is possible.
+_**value**_ can be a `bool`, `int`, `string` or `null`. Adding multiple potential values is possible.
 When multiple values are present one is chosen at random when generating the output.
-Using a value of null will skip adding the pref to the output prefs.js file.
+Using a value of `null` will skip adding the pref to the output prefs.js file (acts as browser default).
 
-`variant` is a subset of values to be used in place of the default values.
+_**variant**_ is a subset of values to be used in place of the default values.
 The default variant is used unless a variant is specified.
 
 There are a few mechanisms in place to help keep the file in order:
@@ -50,7 +50,7 @@ Quick Setup
 Use pip to install prefpicker.
 
 ```bash
-user@machine:~/$ pip install prefpicker
+pip install prefpicker
 ```
 
 Examples
@@ -59,13 +59,13 @@ Examples
 Use a built-in [template](https://github.com/MozillaSecurity/prefpicker/tree/master/prefpicker/templates) to generate an up-to-date `prefs.js` file.
 
 ```bash
-user@machine:~/$ python -m prefpicker browser-fuzzing.yml prefs.js
+prefpicker browser-fuzzing.yml prefs.js
 ```
 
 Or generate a `prefs.js` file from a custom template using the `webrender` variant:
 
 ```bash
-user@machine:~/prefpicker$ python -m prefpicker custom/template.yml ~/Desktop/prefs.js --variant webrender
+user@machine:~/prefpicker$ prefpicker custom/template.yml ~/Desktop/prefs.js --variant webrender
 Loading 'template.yml'...
 Loaded 255 prefs and 5 variants
 Generating 'prefs.js' using variant 'webrender'...
@@ -85,3 +85,10 @@ user_pref("gfx.webrender.all", true);
 /// ... snip
 // Fingerprint '13370ddba11'
 ```
+
+Updating Templates
+------------------
+
+When adding a pref to a template it is encouraged to add a comment that provides justification and points to a bug in Bugzilla for additional context. If a pref does not already exist and is only used with non-default variants a 'null' entry must be added for the default variant.
+
+When removing a pref it maybe most effective to use a 'null' entry. This will provide an opportunity to annotate the pref and also prevent it from being added to the generated prefs.js file.
