@@ -91,6 +91,14 @@ def test_prefpicker_08():
         PrefPicker.verify_data(raw_data)
 
 def test_prefpicker_09():
+    """test PrefPicker.verify_data() template with invalid variant"""
+    raw_data = {
+        "variant": [],
+        "pref": {"test.a": {"default": [1.11]}}}
+    with pytest.raises(SourceDataError, match="unsupported datatype 'float'"):
+        PrefPicker.verify_data(raw_data)
+
+def test_prefpicker_10():
     """test PrefPicker.check_overwrites()"""
     raw_data = {
         "variant": ["fail", "safe"],
@@ -114,7 +122,7 @@ def test_prefpicker_09():
     assert results[0][1] == "fail"
     assert results[0][2] == 1
 
-def test_prefpicker_10():
+def test_prefpicker_11():
     """test PrefPicker.check_duplicates()"""
     raw_data = {
         "variant": ["fail", "safe"],
@@ -137,7 +145,7 @@ def test_prefpicker_10():
     assert results[0][0] == "test.a"
     assert results[0][1] == "fail"
 
-def test_prefpicker_11():
+def test_prefpicker_12():
     """test PrefPicker.check_combinations()"""
     raw_data = {
         "variant": ["v1", "v2"],
@@ -167,7 +175,7 @@ def test_prefpicker_11():
     assert results[1][0] == "v1"
     assert results[1][1] == 16
 
-def test_prefpicker_12(tmp_path):
+def test_prefpicker_13(tmp_path):
     """test simple PrefPicker.create_prefsjs()"""
     ppick = PrefPicker()
     prefs = (tmp_path / "prefs.js")
@@ -179,7 +187,7 @@ def test_prefpicker_12(tmp_path):
             assert line.startswith("//")
         assert in_fp.tell() > 0
 
-def test_prefpicker_13(tmp_path):
+def test_prefpicker_14(tmp_path):
     """test PrefPicker.create_prefsjs() with variants"""
     raw_data = {
         "variant": ["test", "skip"],
@@ -211,7 +219,7 @@ def test_prefpicker_13(tmp_path):
     assert "user_pref(\"test.b\", true);\n" in prefs_data
     assert "// 'test.a' defined by variant 'test'" in prefs_data
 
-def test_prefpicker_14(tmp_path):
+def test_prefpicker_15(tmp_path):
     """test PrefPicker.create_prefsjs() with different values"""
     raw_data = {
         "variant": [],
@@ -249,11 +257,11 @@ def test_prefpicker_14(tmp_path):
         "pref": {"boom.": {"default": [1.01]}}}
     ppick.variants = set(raw_data["variant"] + ["default"])
     ppick.prefs = raw_data["pref"]
-    with pytest.raises(SourceDataError, match="Unknown datatype"):
+    with pytest.raises(SourceDataError, match="Unsupported datatype"):
         ppick.create_prefsjs(str(prefs))
 
-def test_prefpicker_15(tmp_path):
-    """test PrefPicker.load_template() with invalid yml"""
+def test_prefpicker_16(tmp_path):
+    """test PrefPicker.load_template() with invalid YAML"""
     yml = (tmp_path / "test.yml")
     yml.write_text("{-{-{-{-:::")
     with pytest.raises(SourceDataError, match=r"invalid YAML"):
