@@ -4,21 +4,22 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """prefpicker module main"""
 
-import argparse
-import logging
-import os
+from argparse import ArgumentParser
+from logging import basicConfig, getLogger, DEBUG, INFO
+from os import getenv
+from os.path import abspath, basename, dirname, isdir, isfile, join as pathjoin
 
 from .prefpicker import PrefPicker, SourceDataError
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
 
-LOG = logging.getLogger(__name__)
+LOG = getLogger(__name__)
 
 
 def parse_args(argv=None):
-    templates = (os.path.basename(x) for x in PrefPicker.templates())
-    parser = argparse.ArgumentParser(description="PrefPicker - Manage & generate prefs.js files")
+    templates = (basename(x) for x in PrefPicker.templates())
+    parser = ArgumentParser(description="PrefPicker - Manage & generate prefs.js files")
     parser.add_argument(
         "input",
         help="Template containing definitions. This can be the path "
@@ -35,35 +36,35 @@ def parse_args(argv=None):
         help="Specify variant to use.")
     args = parser.parse_args(argv)
     # handle using built-in templates
-    if not os.path.isfile(args.input):
-        tpath = os.path.abspath(os.path.join(os.path.dirname(__file__), "templates"))
-        builtin = os.path.join(tpath, args.input)
-        if os.path.isfile(builtin):
+    if not isfile(args.input):
+        tpath = abspath(pathjoin(dirname(__file__), "templates"))
+        builtin = pathjoin(tpath, args.input)
+        if isfile(builtin):
             args.input = builtin
     # sanity check input
-    if not os.path.isfile(args.input):
+    if not isfile(args.input):
         parser.error("Cannot find input file %r" % (args.input,))
     # sanity check output
-    if os.path.isdir(args.output):
+    if isdir(args.output):
         parser.error("Output %r is a directory." % (args.output,))
-    out_dir = os.path.abspath(os.path.dirname(args.output))
-    if not os.path.isdir(out_dir):
+    out_dir = abspath(dirname(args.output))
+    if not isdir(out_dir):
         parser.error("Output %r directory does not exist." % (out_dir,))
     return args
 
 
 def main(argv=None):  # pylint: disable=missing-docstring
-    if bool(os.getenv("DEBUG")):  # pragma: no cover
+    if bool(getenv("DEBUG")):  # pragma: no cover
         log_fmt = "%(asctime)s %(levelname).1s %(name)s | %(message)s"
-        log_level = logging.DEBUG
+        log_level = DEBUG
     else:
         log_fmt = "%(message)s"
-        log_level = logging.INFO
-    logging.basicConfig(format=log_fmt, level=log_level)
+        log_level = INFO
+    basicConfig(format=log_fmt, level=log_level)
 
     args = parse_args(argv)
 
-    LOG.info("Loading %r...", os.path.basename(args.input))
+    LOG.info("Loading %r...", basename(args.input))
     try:
         pick = PrefPicker.load_template(args.input)
     except SourceDataError as exc:
@@ -81,7 +82,7 @@ def main(argv=None):  # pylint: disable=missing-docstring
     if args.variant not in pick.variants:
         LOG.error("Error: Variant %r does not exist", args.variant)
         return 1
-    LOG.info("Generating %r using variant %r...", os.path.basename(args.output), args.variant)
+    LOG.info("Generating %r using variant %r...", basename(args.output), args.variant)
     pick.create_prefsjs(args.output, args.variant)
     LOG.info("Done.")
     return 0
