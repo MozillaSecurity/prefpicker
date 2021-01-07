@@ -1,8 +1,4 @@
-variant:
-- fission
-- no-e10s
-- vr
-- webrender
+# variant list is found at the end of the template
 pref:
   app.normandy.enabled:
     default:
@@ -17,11 +13,6 @@ pref:
   app.update.url.android:
     default:
     - ''
-  browser.tabs.remote.autostart:
-    default:
-    - null
-    no-e10s:
-    - false
   browser.EULA.override:
     default:
     - true
@@ -114,6 +105,11 @@ pref:
   browser.startup.page:
     default:
     - 0
+  browser.tabs.remote.autostart:
+    default:
+    - null
+    no-e10s:
+    - false
   browser.tabs.warnOnClose:
     default:
     - false
@@ -155,10 +151,10 @@ pref:
     - ''
   device.sensors.ambientLight.enabled:
     default:
-      - true
+    - true
   device.sensors.proximity.enabled:
     default:
-      - true
+    - true
   devtools.selfxss.count:
     default:
     - 999
@@ -270,7 +266,7 @@ pref:
     - true
   dom.serviceWorkers.testing.enabled:
     default:
-      - true
+    - true
   # pref copied from domfuzz
   dom.successive_dialog_time_limit:
     default:
@@ -286,7 +282,7 @@ pref:
     - true
   dom.visualviewport.enabled:
     default:
-      - true
+    - true
   dom.vr.enabled:
     default:
     - false
@@ -460,7 +456,7 @@ pref:
     - true
   layout.css.conic-gradient.enabled:
     default:
-      - true
+    - true
   # requested in bug 1609994
   layout.css.constructable-stylesheets.enabled:
     default:
@@ -534,17 +530,18 @@ pref:
   network.manage-offline-status:
     default:
     - false
-  network.protocol-handler.external.mailto:
-    default:
-    - false
   # helps keep browser and fuzzer sync'd
   network.prefetch-next:
+    default:
+    - false
+  network.protocol-handler.external.mailto:
     default:
     - false
   # pref copied from domfuzz
   network.proxy.autoconfig_url:
     default:
-    - data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1') { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }
+    - data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1')
+      { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }
   # pref copied from domfuzz
   network.proxy.share_proxy_settings:
     default:
@@ -638,3 +635,8 @@ pref:
   webgl.prefer-native-gl:
     default:
     - false
+variant:
+- fission
+- no-e10s
+- vr
+- webrender
