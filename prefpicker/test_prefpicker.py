@@ -251,3 +251,10 @@ def test_prefpicker_14(tmp_path):
     ppick.prefs = raw_data["pref"]
     with pytest.raises(SourceDataError, match="Unknown datatype"):
         ppick.create_prefsjs(str(prefs))
+
+def test_prefpicker_15(tmp_path):
+    """test PrefPicker.load_template() with invalid yml"""
+    yml = (tmp_path / "test.yml")
+    yml.write_text("{-{-{-{-:::")
+    with pytest.raises(SourceDataError, match=r"invalid YAML"):
+        PrefPicker.load_template(str(yml))

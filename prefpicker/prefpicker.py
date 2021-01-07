@@ -10,6 +10,8 @@ from os.path import abspath, dirname, isdir, join as pathjoin
 from random import choice
 
 from yaml import safe_load
+from yaml.parser import ParserError
+from yaml.scanner import ScannerError
 
 
 __author__ = "Tyson Smith"
@@ -140,8 +142,11 @@ class PrefPicker(object):
         Returns:
             PrefPicker
         """
-        with open(input_yml, "r") as in_fp:
-            raw_prefs = safe_load(in_fp.read())
+        try:
+            with open(input_yml, "r") as in_fp:
+                raw_prefs = safe_load(in_fp.read())
+        except (ScannerError, ParserError):
+            raise SourceDataError("invalid YAML") from None
         cls.verify_data(raw_prefs)
         picker = cls()
         picker.variants = set(raw_prefs["variant"] + ["default"])
