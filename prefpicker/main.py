@@ -8,7 +8,7 @@ import argparse
 import logging
 import os
 
-from . import PrefPicker
+from .prefpicker import PrefPicker, SourceDataError
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
@@ -26,7 +26,7 @@ def parse_args(argv=None):
              "Built-in templates: %s" % (", ".join(templates),))
     parser.add_argument(
         "output",
-        help="Name of prefs.js file to create.")
+        help="Path of prefs.js file to create.")
     parser.add_argument(
         "--check", action="store_true",
         help="Display output of sanity checks.")
@@ -40,6 +40,15 @@ def parse_args(argv=None):
         builtin = os.path.join(tpath, args.input)
         if os.path.isfile(builtin):
             args.input = builtin
+    # sanity check input
+    if not os.path.isfile(args.input):
+        parser.error("Cannot find input file %r" % (args.input,))
+    # sanity check output
+    if os.path.isdir(args.output):
+        parser.error("Output %r is a directory." % (args.output,))
+    out_dir = os.path.abspath(os.path.dirname(args.output))
+    if not os.path.isdir(out_dir):
+        parser.error("Output %r directory does not exist." % (out_dir,))
     return args
 
 
@@ -55,10 +64,11 @@ def main(argv=None):  # pylint: disable=missing-docstring
     args = parse_args(argv)
 
     LOG.info("Loading %r...", os.path.basename(args.input))
-    if not os.path.isfile(args.input):
-        LOG.error("Error: Cannot find input YAML %r", args.input)
+    try:
+        pick = PrefPicker.load_template(args.input)
+    except SourceDataError as exc:
+        LOG.error("Failed to load %r: %s", args.input, str(exc))
         return 1
-    pick = PrefPicker.load_template(args.input)
     LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants))
     if args.check:
         for result in pick.check_combinations():
