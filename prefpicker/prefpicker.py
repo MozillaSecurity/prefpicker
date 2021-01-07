@@ -121,8 +121,8 @@ class PrefPicker(object):
                 elif isinstance(value, str):
                     sanitized = repr(value)
                 else:
-                    prefs_fp.write("// Error sanitizing pref %r value %r\n" % (pref, value))
-                    raise SourceDataError("Unknown datatype %r" % (type(value),))
+                    prefs_fp.write("// Failed to sanitized %r (%s)\n" % (value, pref))
+                    raise SourceDataError("Unsupported datatype %r" % (type(value).__name__,))
                 # write to prefs.js file
                 if not default_variant:
                     prefs_fp.write("// %r defined by variant %r\n" % (pref, variant))
@@ -199,11 +199,24 @@ class PrefPicker(object):
                 raise SourceDataError("%r is missing 'default' variant" % (pref,))
             for variant in variants:
                 if variant not in valid_variants:
-                    raise SourceDataError("%r in %r is not a defined variant" % (variant, pref))
+                    raise SourceDataError(
+                        "%r in %r is not a defined variant" % (variant, pref)
+                    )
                 if not isinstance(variants[variant], list):
-                    raise SourceDataError("variant %r in %r is not a list" % (variant, pref))
+                    raise SourceDataError(
+                        "variant %r in %r is not a list" % (variant, pref)
+                    )
                 if not variants[variant]:
-                    raise SourceDataError("%r in %r is empty" % (variant, pref))
+                    raise SourceDataError(
+                        "%r in %r is empty" % (variant, pref)
+                    )
+                for value in variants[variant]:
+                    if value is not None and not isinstance(value, (bool, int, str)):
+                        raise SourceDataError(
+                            "unsupported datatype %r (%s)" % (type(value).__name__, pref)
+                        )
                 used_variants.add(variant)
         if valid_variants - used_variants:
-            raise SourceDataError("Unused variants %r" % (" ".join(valid_variants - used_variants),))
+            raise SourceDataError(
+                "Unused variants %r" % (" ".join(valid_variants - used_variants),)
+            )
