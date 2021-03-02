@@ -5,9 +5,10 @@
 """prefpicker module main"""
 
 from argparse import ArgumentParser
-from logging import basicConfig, getLogger, DEBUG, INFO
+from logging import DEBUG, INFO, basicConfig, getLogger
 from os import getenv
-from os.path import abspath, basename, dirname, isdir, isfile, join as pathjoin
+from os.path import abspath, basename, dirname, isdir, isfile
+from os.path import join as pathjoin
 
 from .prefpicker import PrefPicker, SourceDataError
 
@@ -17,23 +18,20 @@ __credits__ = ["Tyson Smith"]
 LOG = getLogger(__name__)
 
 
-def parse_args(argv=None):
+def parse_args(argv=None):  # pylint: disable=missing-docstring
     templates = (basename(x) for x in PrefPicker.templates())
     parser = ArgumentParser(description="PrefPicker - Manage & generate prefs.js files")
     parser.add_argument(
         "input",
         help="Template containing definitions. This can be the path "
-             "to a template (YAML) file or the name of a built-in template. "
-             "Built-in templates: %s" % (", ".join(templates),))
+        "to a template (YAML) file or the name of a built-in template. "
+        "Built-in templates: %s" % (", ".join(templates),),
+    )
+    parser.add_argument("output", help="Path of prefs.js file to create.")
     parser.add_argument(
-        "output",
-        help="Path of prefs.js file to create.")
-    parser.add_argument(
-        "--check", action="store_true",
-        help="Display output of sanity checks.")
-    parser.add_argument(
-        "--variant", default="default",
-        help="Specify variant to use.")
+        "--check", action="store_true", help="Display output of sanity checks."
+    )
+    parser.add_argument("--variant", default="default", help="Specify variant to use.")
     args = parser.parse_args(argv)
     # handle using built-in templates
     if not isfile(args.input):
@@ -73,12 +71,20 @@ def main(argv=None):  # pylint: disable=missing-docstring
     LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants))
     if args.check:
         for result in pick.check_combinations():
-            LOG.info("Check: %r variant has %r possible combination(s)", result[0], result[1])
+            LOG.info(
+                "Check: %r variant has %r possible combination(s)", result[0], result[1]
+            )
         for result in pick.check_overwrites():
-            LOG.info("Check: %r variant %r redefines value %r (may be intentional)",
-                     result[0], result[1], result[2])
+            LOG.info(
+                "Check: %r variant %r redefines value %r (may be intentional)",
+                result[0],
+                result[1],
+                result[2],
+            )
         for result in pick.check_duplicates():
-            LOG.info("Check: %r variant %r contains duplicate values", result[0], result[1])
+            LOG.info(
+                "Check: %r variant %r contains duplicate values", result[0], result[1]
+            )
     if args.variant not in pick.variants:
         LOG.error("Error: Variant %r does not exist", args.variant)
         return 1

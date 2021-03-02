@@ -2,17 +2,18 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+"""prefpicker module"""
 
 from datetime import datetime
 from hashlib import sha1
 from os import listdir
-from os.path import abspath, dirname, isdir, join as pathjoin
+from os.path import abspath, dirname, isdir
+from os.path import join as pathjoin
 from random import choice
 
 from yaml import safe_load
 from yaml.parser import ParserError
 from yaml.scanner import ScannerError
-
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
@@ -22,7 +23,7 @@ class SourceDataError(Exception):
     """This is raised when issues are found in the source data."""
 
 
-class PrefPicker(object):
+class PrefPicker:  # pylint: disable=missing-docstring
 
     __slots__ = ("prefs", "variants")
 
@@ -122,11 +123,13 @@ class PrefPicker(object):
                     sanitized = repr(value)
                 else:
                     prefs_fp.write("// Failed to sanitized %r (%s)\n" % (value, pref))
-                    raise SourceDataError("Unsupported datatype %r" % (type(value).__name__,))
+                    raise SourceDataError(
+                        "Unsupported datatype %r" % (type(value).__name__,)
+                    )
                 # write to prefs.js file
                 if not default_variant:
                     prefs_fp.write("// %r defined by variant %r\n" % (pref, variant))
-                prefs_fp.write("user_pref(\"%s\", %s);\n" % (pref, sanitized))
+                prefs_fp.write('user_pref("%s", %s);\n' % (pref, sanitized))
                 # update fingerprint
                 uid.update(pref.encode(encoding="utf-8", errors="ignore"))
                 uid.update(sanitized.encode(encoding="utf-8", errors="ignore"))
@@ -207,13 +210,12 @@ class PrefPicker(object):
                         "variant %r in %r is not a list" % (variant, pref)
                     )
                 if not variants[variant]:
-                    raise SourceDataError(
-                        "%r in %r is empty" % (variant, pref)
-                    )
+                    raise SourceDataError("%r in %r is empty" % (variant, pref))
                 for value in variants[variant]:
                     if value is not None and not isinstance(value, (bool, int, str)):
                         raise SourceDataError(
-                            "unsupported datatype %r (%s)" % (type(value).__name__, pref)
+                            "unsupported datatype %r (%s)"
+                            % (type(value).__name__, pref)
                         )
                 used_variants.add(variant)
         if valid_variants - used_variants:
