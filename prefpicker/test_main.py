@@ -8,20 +8,24 @@ from os.path import basename
 
 from pytest import raises
 
-from .main import main
 from . import PrefPicker
+from .main import main
+
 
 def test_main_01(tmp_path):
     """test main()"""
-    prefs_js = (tmp_path / "prefs.js")
-    yml = (tmp_path / "test.yml")
-    yml.write_text("""
+    prefs_js = tmp_path / "prefs.js"
+    yml = tmp_path / "test.yml"
+    yml.write_text(
+        """
         variant: []
         pref:
           test.a:
-            default: [1]""")
+            default: [1]"""
+    )
     assert main([str(yml), str(prefs_js), "--variant", "default"]) == 0
     assert prefs_js.is_file()
+
 
 def test_main_02(capsys):
     """test main() with missing input"""
@@ -29,42 +33,50 @@ def test_main_02(capsys):
         main(["missing.yml", "prefs.js"])
     assert "Cannot find input file 'missing.yml'" in capsys.readouterr()[1]
 
+
 def test_main_03(tmp_path):
     """test main() with builtin input"""
-    prefs_js = (tmp_path / "prefs.js")
+    prefs_js = tmp_path / "prefs.js"
     templates = tuple(basename(x) for x in PrefPicker.templates())
     assert templates
     assert main([templates[0], str(prefs_js)]) == 0
     assert prefs_js.is_file()
 
+
 def test_main_04(tmp_path):
     """test main() with invalid variant"""
-    prefs_js = (tmp_path / "prefs.js")
-    yml = (tmp_path / "test.yml")
-    yml.write_text("""
+    prefs_js = tmp_path / "prefs.js"
+    yml = tmp_path / "test.yml"
+    yml.write_text(
+        """
         variant: []
         pref:
           test.a:
-            default: [1]""")
+            default: [1]"""
+    )
     assert main([str(yml), str(prefs_js), "--variant", "x"]) == 1
     assert not prefs_js.is_file()
 
+
 def test_main_05(tmp_path):
     """test main() with check results"""
-    prefs_js = (tmp_path / "prefs.js")
-    yml = (tmp_path / "test.yml")
-    yml.write_text("""
+    prefs_js = tmp_path / "prefs.js"
+    yml = tmp_path / "test.yml"
+    yml.write_text(
+        """
         variant: [extra]
         pref:
           test.a:
             default: [1, 1]
-            extra: [1, 1]""")
+            extra: [1, 1]"""
+    )
     assert main([str(yml), str(prefs_js), "--check", "--variant", "extra"]) == 0
     assert prefs_js.is_file()
 
+
 def test_main_06(capsys, tmp_path):
     """test main() with invalid output path"""
-    yml = (tmp_path / "test.yml")
+    yml = tmp_path / "test.yml"
     yml.touch()
     # output is a directory
     with raises(SystemExit):
@@ -75,9 +87,10 @@ def test_main_06(capsys, tmp_path):
         main([str(yml), str(tmp_path / "missing" / "prefs.js")])
     assert "directory does not exist." in capsys.readouterr()[1]
 
+
 def test_main_07(tmp_path):
     """test main() with invalid input"""
-    prefs_js = (tmp_path / "prefs.js")
-    yml = (tmp_path / "test.yml")
+    prefs_js = tmp_path / "prefs.js"
+    yml = tmp_path / "test.yml"
     yml.write_text("{test{")
     assert main([str(yml), str(prefs_js)]) == 1

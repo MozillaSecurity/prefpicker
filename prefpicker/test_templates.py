@@ -15,7 +15,7 @@ from .prefpicker import PrefPicker
 
 def test_templates_01(tmp_path):
     """sanity check template YAML files"""
-    prefs_js = (tmp_path / "prefs.js")
+    prefs_js = tmp_path / "prefs.js"
     checked = []
     for template in PrefPicker.templates():
         assert main([template, str(prefs_js), "--check"]) == 0
@@ -24,20 +24,21 @@ def test_templates_01(tmp_path):
         checked.append(basename(template))
     assert "browser-fuzzing.yml" in checked
 
+
 def test_templates_02():
     """check formatting of template YAML files"""
     for template in PrefPicker.templates():
         with open(template, "r") as in_fp:
             # remove comments
             input_yml = "".join(x for x in in_fp if not x.lstrip().startswith("#"))
-        formatted_yml = safe_dump(
-            safe_load(input_yml),
-            indent=2,
-            width=100)
-        diff = tuple(unified_diff(
-            input_yml.splitlines(),
-            formatted_yml.splitlines(),
-            fromfile=template,
-            tofile="formatting fixes",
-            lineterm=""))
+        formatted_yml = safe_dump(safe_load(input_yml), indent=2, width=100)
+        diff = tuple(
+            unified_diff(
+                input_yml.splitlines(),
+                formatted_yml.splitlines(),
+                fromfile=template,
+                tofile="formatting fixes",
+                lineterm="",
+            )
+        )
         assert not diff, "Formatting changes required:\n%s" % ("\n".join(diff),)
