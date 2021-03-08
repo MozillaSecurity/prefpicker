@@ -13,6 +13,17 @@ pref:
   app.update.url.android:
     default:
     - ''
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1695957#c15
+  apz.nonwr.activate_all_scroll_frames:
+    default:
+    - false
+    - true
+  apz.wr.activate_all_scroll_frames:
+    default:
+    - null
+    webrender:
+    - false
+    - true
   browser.EULA.override:
     default:
     - true
