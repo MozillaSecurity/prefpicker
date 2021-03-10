@@ -36,11 +36,11 @@ tasks:
       PrefPicker
 
   in:
-    $if: 'tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]'
+    $if: 'tasks_for in ["github-push", "github-release"] || (tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"])'
     then:
       $flatten:
         - $map: []
-          #- {msys: 'LmAVb_EOSVi9I1U6e75yEA', toxenv: 'py38', name: 'tests python 3.8'}
+          #- {msys: 'NmOU83KwRJGjk-btMbOOPA', toxenv: 'py38', name: 'tests python 3.8'}
           each(build):
             taskId: {$eval: as_slugid(build.toxenv + '-win')}
             provisionerId: proj-fuzzing
@@ -123,7 +123,7 @@ tasks:
                   . py-ci.sh;
                   clone;
                   tox;
-                  tox_codecov;
+                  if [[ "${build.toxenv}" != "lint" ]]; then tox_codecov; fi;
             metadata:
               name: ${project_name} ${build.name}
               description: ${project_name} ${build.name}
@@ -138,7 +138,7 @@ tasks:
                 - {$eval: as_slugid("py36")}
                 - {$eval: as_slugid("py37")}
                 - {$eval: as_slugid("py38")}
-                - {$eval: as_slugid("py38-win")}
+                #- {$eval: as_slugid("py38-win")}
                 - {$eval: as_slugid("py39")}
                 - {$eval: as_slugid("lint")}
               created: {$fromNow: ''}
