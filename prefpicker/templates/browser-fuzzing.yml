@@ -330,6 +330,9 @@ pref:
   dom.webgpu.enabled:
     default:
     - true
+  dom.window_print.fuzzing.block_while_printing:
+    default:
+    - true
   dom.worklet.enabled:
     default:
     - true
