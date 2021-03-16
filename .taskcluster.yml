@@ -39,8 +39,8 @@ tasks:
     $if: 'tasks_for in ["github-push", "github-release"] || (tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"])'
     then:
       $flatten:
-        - $map: []
-          #- {msys: 'NmOU83KwRJGjk-btMbOOPA', toxenv: 'py38', name: 'tests python 3.8'}
+        - $map:
+          - {msys: 'NmOU83KwRJGjk-btMbOOPA', toxenv: 'py38', name: 'tests python 3.8'}
           each(build):
             taskId: {$eval: as_slugid(build.toxenv + '-win')}
             provisionerId: proj-fuzzing
