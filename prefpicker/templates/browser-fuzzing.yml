@@ -527,9 +527,6 @@ pref:
   media.track.enabled:
     default:
     - null
-  media.useAudioChannelAPI:
-    default:
-    - true
   # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685417
   media.webspeech.recognition.enable:
     default:
