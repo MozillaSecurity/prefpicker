@@ -535,6 +535,16 @@ pref:
   media.webspeech.recognition.enable:
     default:
     - null
+  # disable automatic connection
+  # https://support.mozilla.org/en-US/kb/how-stop-firefox-making-automatic-connections
+  network.captive-portal-service.enabled:
+    default:
+    - false
+  # disable automatic connection
+  # https://support.mozilla.org/en-US/kb/how-stop-firefox-making-automatic-connections
+  network.connectivity-service.enabled:
+    default:
+    - false
   # max time to wait for connection (default is 300)
   network.http.response.timeout:
     default:
