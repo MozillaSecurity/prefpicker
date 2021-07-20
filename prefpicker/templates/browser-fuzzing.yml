@@ -558,6 +558,11 @@ pref:
     default:
     - data:text/plain,function FindProxyForURL(url, host) { if (host == 'localhost' || host == '127.0.0.1')
       { return 'DIRECT'; } else { return 'PROXY 127.0.0.1:6'; } }
+  # disable 'proxy failover'. We explicitly configure the proxy settings.
+  # Added by https://bugzilla.mozilla.org/show_bug.cgi?id=1720221
+  network.proxy.failover_direct:
+    default:
+    - false
   # pref copied from domfuzz
   network.proxy.share_proxy_settings:
     default:
