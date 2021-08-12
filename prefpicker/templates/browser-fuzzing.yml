@@ -179,6 +179,9 @@ pref:
   dom.audioworklet.enabled:
     default:
     - true
+  dom.caches.testing.enabled:
+    default:
+    - true
   dom.css_pseudo_element.enabled:
     default:
     - true
