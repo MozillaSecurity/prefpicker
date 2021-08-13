@@ -13,15 +13,8 @@ pref:
   app.update.url.android:
     default:
     - ''
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=1695957#c15
-  apz.nonwr.activate_all_scroll_frames:
-    default:
-    - false
-    - true
   apz.wr.activate_all_scroll_frames:
     default:
-    - null
-    webrender:
     - false
     - true
   browser.EULA.override:
@@ -427,21 +420,20 @@ pref:
   gfx.offscreencanvas.enabled:
     default:
     - false
+  # combinations of gfx.webrender.all & gfx.webrender.software:
+  # ---
+  # GPU=N | gfx.webrender.all=True  | gfx.webrender.software=True  | SW-WR
+  # GPU=N | gfx.webrender.all=True  | gfx.webrender.software=False | HR-WR (attempt)
+  # GPU=Y | gfx.webrender.all=True  | gfx.webrender.software=True  | SW-WR
+  # GPU=Y | gfx.webrender.all=True  | gfx.webrender.software=False | HW-WR
+  # ---
+  # when machines do not have GPUs 'true' will try to use HW-WR (on top of llvmpipe)
   gfx.webrender.all:
     default:
-    - false
-    fission:
     - true
-    webrender:
-    - true
-  # when gfx.webrender.all=true randomly set gfx.webrender.software to true or false
+  # when machines do have GPUs 'true' will force SW-WR
   gfx.webrender.software:
     default:
-    - null
-    fission:
-    - false
-    - true
-    webrender:
     - false
     - true
   image.animated.decode-on-demand.batch-size:
@@ -473,8 +465,6 @@ pref:
     - true
   layout.css.backdrop-filter.enabled:
     default:
-    - null
-    webrender:
     - true
   layout.css.conic-gradient.enabled:
     default:
@@ -673,4 +663,3 @@ variant:
 - fission
 - no-e10s
 - vr
-- webrender
