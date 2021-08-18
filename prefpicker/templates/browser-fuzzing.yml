@@ -293,7 +293,7 @@ pref:
     - true
   dom.vr.enabled:
     default:
-    - false
+    - null
     vr:
     - true
   dom.vr.external.notdetected.timeout:
