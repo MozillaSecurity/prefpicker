@@ -476,6 +476,12 @@ pref:
   layout.css.contain.enabled:
     default:
     - true
+  # requested by dholbert to assist with bug 1732082
+  layout.css.grid-item-baxis-measurement.enabled:
+    default:
+    - null
+    lqc-control:
+    - false
   # Enable @-moz-document
   layout.css.moz-document.content.enabled:
     default:
@@ -660,6 +666,10 @@ pref:
     default:
     - false
 variant:
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1451850
 - fission
+# lqc-control variant is intended to be used when verifying findings against 'release'
+# values. It is not intended to be used while fuzzing for results.
+- lqc-control
 - no-e10s
 - vr
