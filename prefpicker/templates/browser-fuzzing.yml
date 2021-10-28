@@ -566,6 +566,11 @@ pref:
   network.proxy.failover_direct:
     default:
     - false
+  # Disable proxy bypass.  Necessary to avoid local connection crashes.
+  # Added by https://bugzilla.mozilla.org/show_bug.cgi?id=1732792
+  network.proxy.allow_bypass:
+    default:
+    - false
   # pref copied from domfuzz
   network.proxy.share_proxy_settings:
     default:
