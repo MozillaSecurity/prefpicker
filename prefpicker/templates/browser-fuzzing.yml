@@ -556,6 +556,11 @@ pref:
   network.protocol-handler.external.mailto:
     default:
     - false
+  # Disable proxy bypass.  Necessary to avoid local connection crashes.
+  # Added by https://bugzilla.mozilla.org/show_bug.cgi?id=1732792
+  network.proxy.allow_bypass:
+    default:
+    - false
   # pref copied from domfuzz
   network.proxy.autoconfig_url:
     default:
@@ -564,11 +569,6 @@ pref:
   # disable 'proxy failover'. We explicitly configure the proxy settings.
   # Added by https://bugzilla.mozilla.org/show_bug.cgi?id=1720221
   network.proxy.failover_direct:
-    default:
-    - false
-  # Disable proxy bypass.  Necessary to avoid local connection crashes.
-  # Added by https://bugzilla.mozilla.org/show_bug.cgi?id=1732792
-  network.proxy.allow_bypass:
     default:
     - false
   # pref copied from domfuzz
