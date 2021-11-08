@@ -451,10 +451,6 @@ pref:
   image.multithreaded_decoding.limit:
     default:
     - 1
-  # Disable until https://bugzilla.mozilla.org/show_bug.cgi?id=1716622 is resolved
-  javascript.options.large_arraybuffers:
-    default:
-    - false
   layers.acceleration.force-enabled:
     default:
     - null
