@@ -326,6 +326,9 @@ pref:
   dom.webgpu.enabled:
     default:
     - true
+  dom.weblocks.enabled:
+    default:
+    - true
   dom.window_print.fuzzing.block_while_printing:
     default:
     - true
