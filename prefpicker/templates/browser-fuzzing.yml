@@ -230,9 +230,6 @@ pref:
   dom.input_events.beforeinput.enabled:
     default:
     - true
-  dom.ipc.plugins.flash.disable-protected-mode:
-    default:
-    - true
   dom.max_chrome_script_run_time:
     default:
     - 0
