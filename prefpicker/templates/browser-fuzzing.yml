@@ -660,6 +660,10 @@ pref:
   webgl.enable-privileged-extensions:
     default:
     - true
+  # Needed to prevent spamming of the webgl-xpcshell fuzzing target
+  webgl.max-warnings-per-context:
+    default:
+    - 0
   webgl.prefer-native-gl:
     default:
     - false
