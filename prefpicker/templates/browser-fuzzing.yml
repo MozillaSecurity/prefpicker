@@ -362,10 +362,17 @@ pref:
   extensions.update.notifyUser:
     default:
     - false
+  fission.autostart:
+    default:
+    - null
+    no-fission:
+    - false
   fission.sessionHistoryInParent:
     default:
     - null
     - true
+    no-fission:
+    - null
   full-screen-api.allow-trusted-requests-only:
     default:
     - false
@@ -660,4 +667,5 @@ pref:
     - false
 variant:
 - no-e10s
+- no-fission
 - vr
