@@ -466,14 +466,8 @@ pref:
   layout.css.backdrop-filter.enabled:
     default:
     - true
-  layout.css.conic-gradient.enabled:
-    default:
-    - true
   # requested in bug 1609994
   layout.css.constructable-stylesheets.enabled:
-    default:
-    - true
-  layout.css.contain.enabled:
     default:
     - true
   # Enable @-moz-document
