@@ -423,7 +423,7 @@ pref:
     - true
   gfx.offscreencanvas.enabled:
     default:
-    - false
+    - true
   # combinations of gfx.webrender.all & gfx.webrender.software:
   # ---
   # GPU=N | gfx.webrender.all=True  | gfx.webrender.software=True  | SW-WR
