@@ -1,4 +1,3 @@
-# coding=utf-8
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -29,7 +28,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
 
     def __init__(self):
         self.prefs = dict()
-        self.variants = set(["default"])
+        self.variants = {"default"}
 
     def check_combinations(self):
         """Count the number of combinations for each variation. Only return
@@ -102,7 +101,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
         with open(dest, "w") as prefs_fp:
             prefs_fp.write("// Generated with PrefPicker @ ")
             prefs_fp.write(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
-            prefs_fp.write("\n// Variant %r\n" % (variant,))
+            prefs_fp.write(f"\n// Variant {variant!r}\n")
             for pref, variants in sorted(self.prefs.items()):
                 # choose values
                 if variant not in variants or variant == "default":
@@ -122,18 +121,18 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 elif isinstance(value, str):
                     sanitized = repr(value)
                 else:
-                    prefs_fp.write("// Failed to sanitized %r (%s)\n" % (value, pref))
+                    prefs_fp.write(f"// Failed to sanitized {value!r} ({pref})\n")
                     raise SourceDataError(
-                        "Unsupported datatype %r" % (type(value).__name__,)
+                        f"Unsupported datatype {type(value).__name__!r}"
                     )
                 # write to prefs.js file
                 if not default_variant:
-                    prefs_fp.write("// %r defined by variant %r\n" % (pref, variant))
-                prefs_fp.write('user_pref("%s", %s);\n' % (pref, sanitized))
+                    prefs_fp.write(f"// {pref!r} defined by variant {variant!r}\n")
+                prefs_fp.write(f'user_pref("{pref}", {sanitized});\n')
                 # update fingerprint
                 uid.update(pref.encode(encoding="utf-8", errors="ignore"))
                 uid.update(sanitized.encode(encoding="utf-8", errors="ignore"))
-            prefs_fp.write("// Fingerprint %r\n" % (uid.hexdigest(),))
+            prefs_fp.write(f"// Fingerprint {uid.hexdigest()!r}\n")
 
     @classmethod
     def load_template(cls, input_yml):
@@ -146,7 +145,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
             PrefPicker
         """
         try:
-            with open(input_yml, "r") as in_fp:
+            with open(input_yml) as in_fp:
                 raw_prefs = safe_load(in_fp.read())
         except (ScannerError, ParserError):
             raise SourceDataError("invalid YAML") from None
@@ -187,7 +186,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
             raise SourceDataError("variant list is missing")
         if not isinstance(raw_data["variant"], list):
             raise SourceDataError("variant is not a list")
-        valid_variants = set(["default"])
+        valid_variants = {"default"}
         for variant in raw_data["variant"]:
             if not isinstance(variant, str):
                 raise SourceDataError("variant definition must be a string")
@@ -199,18 +198,18 @@ class PrefPicker:  # pylint: disable=missing-docstring
         used_variants = set()
         for pref, variants in raw_data["pref"].items():
             if not variants or "default" not in variants:
-                raise SourceDataError("%r is missing 'default' variant" % (pref,))
+                raise SourceDataError(f"{pref!r} is missing 'default' variant")
             for variant in variants:
                 if variant not in valid_variants:
                     raise SourceDataError(
-                        "%r in %r is not a defined variant" % (variant, pref)
+                        f"{variant!r} in {pref!r} is not a defined variant"
                     )
                 if not isinstance(variants[variant], list):
                     raise SourceDataError(
-                        "variant %r in %r is not a list" % (variant, pref)
+                        f"variant {variant!r} in {pref!r} is not a list"
                     )
                 if not variants[variant]:
-                    raise SourceDataError("%r in %r is empty" % (variant, pref))
+                    raise SourceDataError(f"{variant!r} in {pref!r} is empty")
                 for value in variants[variant]:
                     if value is not None and not isinstance(value, (bool, int, str)):
                         raise SourceDataError(
@@ -220,5 +219,5 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 used_variants.add(variant)
         if valid_variants - used_variants:
             raise SourceDataError(
-                "Unused variants %r" % (" ".join(valid_variants - used_variants),)
+                f"Unused variants {' '.join(valid_variants - used_variants)!r}"
             )

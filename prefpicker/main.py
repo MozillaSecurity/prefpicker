@@ -1,4 +1,3 @@
-# coding=utf-8
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -41,13 +40,13 @@ def parse_args(argv=None):  # pylint: disable=missing-docstring
             args.input = builtin
     # sanity check input
     if not isfile(args.input):
-        parser.error("Cannot find input file %r" % (args.input,))
+        parser.error(f"Cannot find input file {args.input!r}")
     # sanity check output
     if isdir(args.output):
-        parser.error("Output %r is a directory." % (args.output,))
+        parser.error(f"Output {args.output!r} is a directory.")
     out_dir = abspath(dirname(args.output))
     if not isdir(out_dir):
-        parser.error("Output %r directory does not exist." % (out_dir,))
+        parser.error(f"Output {out_dir!r} directory does not exist.")
     return args
 
 
