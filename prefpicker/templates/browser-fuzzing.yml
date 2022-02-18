@@ -550,7 +550,7 @@ pref:
   network.protocol-handler.external.mailto:
     default:
     - false
-  # Disable proxy bypass.  Necessary to avoid local connection crashes.
+  # Disable proxy bypass. Necessary to avoid local connection crashes.
   # Added by https://bugzilla.mozilla.org/show_bug.cgi?id=1732792
   network.proxy.allow_bypass:
     default:

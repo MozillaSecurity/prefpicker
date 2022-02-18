@@ -1,4 +1,3 @@
-# coding=utf-8
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -28,7 +27,7 @@ def test_templates_01(tmp_path):
 def test_templates_02():
     """check formatting of template YAML files"""
     for template in PrefPicker.templates():
-        with open(template, "r") as in_fp:
+        with open(template) as in_fp:
             # remove comments
             input_yml = "".join(x for x in in_fp if not x.lstrip().startswith("#"))
         formatted_yml = safe_dump(safe_load(input_yml), indent=2, width=100)
@@ -41,4 +40,4 @@ def test_templates_02():
                 lineterm="",
             )
         )
-        assert not diff, "Formatting changes required:\n%s" % ("\n".join(diff),)
+        assert not diff, "Formatting changes required:\n{}".format("\n".join(diff))
