@@ -274,12 +274,12 @@ pref:
     - true
   dom.streams.writable_streams.enabled:
     default:
-    - false
+    - null
     writable-streams:
     - true
   dom.streams.pipeTo.enabled:
     default:
-    - false
+    - null
     writable-streams:
     - true
   # pref copied from domfuzz
