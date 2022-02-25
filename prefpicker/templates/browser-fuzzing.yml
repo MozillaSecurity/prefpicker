@@ -274,12 +274,14 @@ pref:
     - true
   dom.streams.writable_streams.enabled:
     default:
-    - true
     - false
+    writable-streams:
+    - true
   dom.streams.pipeTo.enabled:
     default:
-    - true
     - false
+    writable-streams:
+    - true
   # pref copied from domfuzz
   dom.successive_dialog_time_limit:
     default:
@@ -671,3 +673,4 @@ variant:
 - no-e10s
 - no-fission
 - vr
+- writable-streams
