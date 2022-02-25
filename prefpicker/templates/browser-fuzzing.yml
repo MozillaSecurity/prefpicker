@@ -275,9 +275,11 @@ pref:
   dom.streams.writable_streams.enabled:
     default:
     - true
+    - false
   dom.streams.pipeTo.enabled:
     default:
     - true
+    - false
   # pref copied from domfuzz
   dom.successive_dialog_time_limit:
     default:
