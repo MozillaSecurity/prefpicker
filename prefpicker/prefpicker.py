@@ -41,7 +41,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
             tuple: variant and number of potential combinations
         """
         combos = dict.fromkeys(self.variants, 1)
-        for variants in self.prefs.values():
+        for variants in (x["variants"] for x in self.prefs.values()):
             for variant in combos:
                 # use 'default' if pref does not have a matching variant entry
                 if variant not in variants:
@@ -61,7 +61,8 @@ class PrefPicker:  # pylint: disable=missing-docstring
         Yields:
             tuple: pref and the variant
         """
-        for pref, variants in sorted(self.prefs.items()):
+        for pref, keys in sorted(self.prefs.items()):
+            variants = keys["variants"]
             for variant in variants:
                 if len(variants[variant]) != len(set(variants[variant])):
                     yield (pref, variant)
@@ -75,7 +76,8 @@ class PrefPicker:  # pylint: disable=missing-docstring
         Yields:
             tuple: pref, variant and the value
         """
-        for pref, variants in sorted(self.prefs.items()):
+        for pref, keys in sorted(self.prefs.items()):
+            variants = keys["variants"]
             for variant in variants:
                 if variant == "default":
                     continue
@@ -102,7 +104,8 @@ class PrefPicker:  # pylint: disable=missing-docstring
             prefs_fp.write("// Generated with PrefPicker @ ")
             prefs_fp.write(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
             prefs_fp.write(f"\n// Variant {variant!r}\n")
-            for pref, variants in sorted(self.prefs.items()):
+            for pref, keys in sorted(self.prefs.items()):
+                variants = keys["variants"]
                 # choose values
                 if variant not in variants or variant == "default":
                     value = choice(variants["default"])
@@ -196,9 +199,15 @@ class PrefPicker:  # pylint: disable=missing-docstring
         if not isinstance(raw_data["pref"], dict):
             raise SourceDataError("pref is not a dict")
         used_variants = set()
-        for pref, variants in raw_data["pref"].items():
-            if not variants or "default" not in variants:
+        for pref, keys in raw_data["pref"].items():
+            if not isinstance(keys, dict):
+                raise SourceDataError(f"{pref!r} entry must contain a dict")
+            variants = keys.get("variants")
+            if not isinstance(variants, dict):
+                raise SourceDataError(f"{pref!r} is missing 'variants' dict")
+            if "default" not in variants:
                 raise SourceDataError(f"{pref!r} is missing 'default' variant")
+            # verify variants
             for variant in variants:
                 if variant not in valid_variants:
                     raise SourceDataError(
