@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "prefpicker template schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "pref": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {
+            "variants": {
+              "type": "object",
+              "patternProperties": {
+                "^.*$": {
+                  "type": "array"
+                }
+              }
+            },
+            "review_on_close": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "variant": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "pref",
+    "variant"
+  ]
+}
+

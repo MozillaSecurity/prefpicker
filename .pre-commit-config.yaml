@@ -52,6 +52,14 @@ repos:
   - repo: meta
     hooks:
       - id: check-useless-excludes
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.13.0
+    hooks:
+      - id: check-jsonschema
+        name: "Check prefpicker template schema"
+        files: ^prefpicker/templates/
+        types: [ yaml ]
+        args: [ "--schemafile", "./prefpicker/templates/schema.json" ]
   - repo: local
     hooks:
       - id: pylint
