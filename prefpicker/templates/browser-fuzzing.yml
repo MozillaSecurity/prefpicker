@@ -272,8 +272,15 @@ pref:
   dom.serviceWorkers.testing.enabled:
     default:
     - true
-  dom.streams.expose.ReadableStreamDefaultController:
+  dom.streams.writable_streams.enabled:
     default:
+    - null
+    writable-streams:
+    - true
+  dom.streams.pipeTo.enabled:
+    default:
+    - null
+    writable-streams:
     - true
   # pref copied from domfuzz
   dom.successive_dialog_time_limit:
@@ -666,3 +673,4 @@ variant:
 - no-e10s
 - no-fission
 - vr
+- writable-streams
