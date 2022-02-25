@@ -16,7 +16,8 @@ def test_prefpicker_01(tmp_path):
         variant: []
         pref:
           test.a:
-            default: [1]"""
+            variants:
+              default: [1]"""
     )
     picker = PrefPicker.load_template(str(yml))
     assert len(picker.variants) == 1
@@ -27,14 +28,14 @@ def test_prefpicker_01(tmp_path):
 
 def test_prefpicker_02():
     """test PrefPicker.verify_data() template missing/bad variant"""
-    raw_data = {"pref": {"a.b": {"default": [1]}}}
+    raw_data = {"pref": {"a.b": {"variants": {"default": [1]}}}}
     with pytest.raises(SourceDataError, match="variant list is missing"):
         PrefPicker.verify_data(raw_data)
     # variant is invalid type
     raw_data = {"variant": [{"bad": 1}]}
     with pytest.raises(SourceDataError, match="variant definition must be a string"):
         PrefPicker.verify_data(raw_data)
-    raw_data = {"pref": {"a.b": {"default": [1]}}, "variant": "invalid"}
+    raw_data = {"pref": {"a.b": {"variants": {"default": [1]}}}, "variant": "invalid"}
     with pytest.raises(SourceDataError, match="variant is not a list"):
         PrefPicker.verify_data(raw_data)
 
@@ -48,18 +49,29 @@ def test_prefpicker_03():
     raw_data = {"pref": [], "variant": []}
     with pytest.raises(SourceDataError, match="pref is not a dict"):
         PrefPicker.verify_data(raw_data)
+    # pref entry is invalid
+    raw_data = {"pref": {"a.b": None}, "variant": []}
+    with pytest.raises(SourceDataError, match="'a.b' entry must contain a dict"):
+        PrefPicker.verify_data(raw_data)
+    # pref variants is invalid
+    raw_data = {"pref": {"a.b": {"variants": None}}, "variant": []}
+    with pytest.raises(SourceDataError, match="'a.b' is missing 'variants' dict"):
+        PrefPicker.verify_data(raw_data)
 
 
 def test_prefpicker_04():
     """test PrefPicker.verify_data() template with pref missing default variant"""
-    raw_data = {"variant": [], "pref": {"test.a": ""}}
+    raw_data = {"variant": [], "pref": {"test.a": {"variants": {}}}}
     with pytest.raises(SourceDataError, match="'test.a' is missing 'default' variant"):
         PrefPicker.verify_data(raw_data)
 
 
 def test_prefpicker_05():
     """test PrefPicker.verify_data() template with undefined variant"""
-    raw_data = {"variant": [], "pref": {"test.a": {"default": [1], "typo": [2]}}}
+    raw_data = {
+        "variant": [],
+        "pref": {"test.a": {"variants": {"default": [1], "typo": [2]}}},
+    }
     with pytest.raises(
         SourceDataError, match="'typo' in 'test.a' is not a defined variant"
     ):
@@ -68,30 +80,30 @@ def test_prefpicker_05():
 
 def test_prefpicker_06():
     """test PrefPicker.verify_data() template with unused variant"""
-    raw_data = {"variant": ["unused"], "pref": {"a.b": {"default": [1]}}}
+    raw_data = {"variant": ["unused"], "pref": {"a.b": {"variants": {"default": [1]}}}}
     with pytest.raises(SourceDataError, match="Unused variants 'unused'"):
         PrefPicker.verify_data(raw_data)
 
 
 def test_prefpicker_07():
     """test PrefPicker.verify_data() template with empty variant"""
-    raw_data = {"variant": [], "pref": {"test.a": {"default": []}}}
-    with pytest.raises(SourceDataError, match="'default' in 'test.a' is empty"):
+    raw_data = {"variant": [], "pref": {"a.b": {"variants": {"default": []}}}}
+    with pytest.raises(SourceDataError, match="'default' in 'a.b' is empty"):
         PrefPicker.verify_data(raw_data)
 
 
 def test_prefpicker_08():
     """test PrefPicker.verify_data() template with invalid variant"""
-    raw_data = {"variant": [], "pref": {"test.a": {"default": "invalid"}}}
+    raw_data = {"variant": [], "pref": {"a.b": {"variants": {"default": "invalid"}}}}
     with pytest.raises(
-        SourceDataError, match="variant 'default' in 'test.a' is not a list"
+        SourceDataError, match="variant 'default' in 'a.b' is not a list"
     ):
         PrefPicker.verify_data(raw_data)
 
 
 def test_prefpicker_09():
     """test PrefPicker.verify_data() template with invalid variant"""
-    raw_data = {"variant": [], "pref": {"test.a": {"default": [1.11]}}}
+    raw_data = {"variant": [], "pref": {"a.b": {"variants": {"default": [1.11]}}}}
     with pytest.raises(SourceDataError, match="unsupported datatype 'float'"):
         PrefPicker.verify_data(raw_data)
 
@@ -101,8 +113,8 @@ def test_prefpicker_10():
     raw_data = {
         "variant": ["fail", "safe"],
         "pref": {
-            "test.a": {"default": [1], "fail": [1, 2], "safe": [3]},
-            "test.b": {"default": [9], "safe": [None]},
+            "test.a": {"variants": {"default": [1], "fail": [1, 2], "safe": [3]}},
+            "test.b": {"variants": {"default": [9], "safe": [None]}},
         },
     }
     # use verify_data just to sanity check test data
@@ -122,8 +134,8 @@ def test_prefpicker_11():
     raw_data = {
         "variant": ["fail", "safe"],
         "pref": {
-            "test.a": {"default": [1], "fail": [1, 2, 3, 1], "safe": [3]},
-            "test.b": {"default": [9], "safe": [None]},
+            "test.a": {"variants": {"default": [1], "fail": [1, 2, 3, 1], "safe": [3]}},
+            "test.b": {"variants": {"default": [9], "safe": [None]}},
         },
     }
     # use verify_data just to sanity check test data
@@ -142,9 +154,9 @@ def test_prefpicker_12():
     raw_data = {
         "variant": ["v1", "v2"],
         "pref": {
-            "test.a": {"default": [1], "v1": [1, 2, 3, 4], "v2": [3]},
-            "test.b": {"default": [2], "v1": [1, 2], "v2": [3]},
-            "test.c": {"default": [1, 3], "v2": [None]},
+            "test.a": {"variants": {"default": [1], "v1": [1, 2, 3, 4], "v2": [3]}},
+            "test.b": {"variants": {"default": [2], "v1": [1, 2], "v2": [3]}},
+            "test.c": {"variants": {"default": [1, 3], "v2": [None]}},
         },
     }
     # use verify_data just to sanity check test data
@@ -178,8 +190,8 @@ def test_prefpicker_14(tmp_path):
     raw_data = {
         "variant": ["test", "skip"],
         "pref": {
-            "test.a": {"default": [0], "test": [1], "skip": [2]},
-            "test.b": {"default": [True]},
+            "test.a": {"variants": {"default": [0], "test": [1], "skip": [2]}},
+            "test.b": {"variants": {"default": [True]}},
         },
     }
     PrefPicker.verify_data(raw_data)
@@ -209,21 +221,35 @@ def test_prefpicker_15(tmp_path):
         "variant": [],
         "pref": {
             "test.a": {
-                "default": [0, 1],
+                "variants": {
+                    "default": [0, 1],
+                }
             },
             "test.b": {
-                "default": [None],
+                "variants": {
+                    "default": [None],
+                }
             },
             "test.c": {
-                "default": ["test string"],
+                "variants": {
+                    "default": ["test string"],
+                }
             },
             "test.d": {
-                "default": ["'test' \"string\""],
+                "variants": {
+                    "default": ["'test' \"string\""],
+                }
             },
             "test.e": {
-                "default": [True],
+                "variants": {
+                    "default": [True],
+                }
             },
-            "test.f": {"default": [False]},
+            "test.f": {
+                "variants": {
+                    "default": [False],
+                }
+            },
         },
     }
     PrefPicker.verify_data(raw_data)
@@ -237,7 +263,7 @@ def test_prefpicker_15(tmp_path):
     assert 'user_pref("test.b",' not in prefs_data
     assert "user_pref(\"test.c\", 'test string');" in prefs_data
     # test with unsupported value datatype
-    raw_data = {"variant": [], "pref": {"boom.": {"default": [1.01]}}}
+    raw_data = {"variant": [], "pref": {"boom.": {"variants": {"default": [1.01]}}}}
     ppick.variants = set(raw_data["variant"] + ["default"])
     ppick.prefs = raw_data["pref"]
     with pytest.raises(SourceDataError, match="Unsupported datatype"):

@@ -20,7 +20,8 @@ def test_main_01(tmp_path):
         variant: []
         pref:
           test.a:
-            default: [1]"""
+            variants:
+              default: [1]"""
     )
     assert main([str(yml), str(prefs_js), "--variant", "default"]) == 0
     assert prefs_js.is_file()
@@ -51,7 +52,8 @@ def test_main_04(tmp_path):
         variant: []
         pref:
           test.a:
-            default: [1]"""
+            variants:
+              default: [1]"""
     )
     assert main([str(yml), str(prefs_js), "--variant", "x"]) == 1
     assert not prefs_js.is_file()
@@ -66,8 +68,9 @@ def test_main_05(tmp_path):
         variant: [extra]
         pref:
           test.a:
-            default: [1, 1]
-            extra: [1, 1]"""
+            variants:
+              default: [1, 1]
+              extra: [1, 1]"""
     )
     assert main([str(yml), str(prefs_js), "--check", "--variant", "extra"]) == 0
     assert prefs_js.is_file()
