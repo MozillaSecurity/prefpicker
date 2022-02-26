@@ -92,7 +92,6 @@ def test_main_06(capsys, tmp_path):
 
 def test_main_07(tmp_path):
     """test main() with invalid input"""
-    prefs_js = tmp_path / "prefs.js"
     yml = tmp_path / "test.yml"
     yml.write_text("{test{")
-    assert main([str(yml), str(prefs_js)]) == 1
+    assert main([str(yml), str(tmp_path / "prefs.js")]) == 1
