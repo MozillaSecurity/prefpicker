@@ -6,8 +6,7 @@
 from argparse import ArgumentParser
 from logging import DEBUG, INFO, basicConfig, getLogger
 from os import getenv
-from os.path import abspath, basename, dirname, isdir, isfile
-from os.path import join as pathjoin
+from pathlib import Path
 
 from .prefpicker import PrefPicker, SourceDataError
 
@@ -18,35 +17,33 @@ LOG = getLogger(__name__)
 
 
 def parse_args(argv=None):  # pylint: disable=missing-docstring
-    templates = (basename(x) for x in PrefPicker.templates())
     parser = ArgumentParser(description="PrefPicker - Manage & generate prefs.js files")
     parser.add_argument(
         "input",
+        type=Path,
         help="Template containing definitions. This can be the path "
         "to a template (YAML) file or the name of a built-in template. "
-        "Built-in templates: %s" % (", ".join(templates),),
+        "Built-in templates: %s" % (", ".join(x.name for x in PrefPicker.templates()),),
     )
-    parser.add_argument("output", help="Path of prefs.js file to create.")
+    parser.add_argument("output", type=Path, help="Path of prefs.js file to create.")
     parser.add_argument(
         "--check", action="store_true", help="Display output of sanity checks."
     )
     parser.add_argument("--variant", default="default", help="Specify variant to use.")
     args = parser.parse_args(argv)
     # handle using built-in templates
-    if not isfile(args.input):
-        tpath = abspath(pathjoin(dirname(__file__), "templates"))
-        builtin = pathjoin(tpath, args.input)
-        if isfile(builtin):
+    if not args.input.is_file():
+        builtin = Path(__file__).parent / "templates" / args.input.name
+        if builtin.is_file():
             args.input = builtin
     # sanity check input
-    if not isfile(args.input):
-        parser.error(f"Cannot find input file {args.input!r}")
+    if not args.input.is_file():
+        parser.error(f"Cannot find input file '{args.input}'")
     # sanity check output
-    if isdir(args.output):
-        parser.error(f"Output {args.output!r} is a directory.")
-    out_dir = abspath(dirname(args.output))
-    if not isdir(out_dir):
-        parser.error(f"Output {out_dir!r} directory does not exist.")
+    if args.output.is_dir():
+        parser.error(f"Output '{args.output}' is a directory.")
+    if not args.output.parent.is_dir():
+        parser.error(f"Output '{args.output.parent}' directory does not exist.")
     return args
 
 
@@ -61,11 +58,11 @@ def main(argv=None):  # pylint: disable=missing-docstring
 
     args = parse_args(argv)
 
-    LOG.info("Loading %r...", basename(args.input))
+    LOG.info("Loading %r...", args.input.name)
     try:
         pick = PrefPicker.load_template(args.input)
     except SourceDataError as exc:
-        LOG.error("Failed to load %r: %s", args.input, str(exc))
+        LOG.error("Failed to load '%s': %s", args.input, exc)
         return 1
     LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants))
     if args.check:
@@ -87,7 +84,7 @@ def main(argv=None):  # pylint: disable=missing-docstring
     if args.variant not in pick.variants:
         LOG.error("Error: Variant %r does not exist", args.variant)
         return 1
-    LOG.info("Generating %r using variant %r...", basename(args.output), args.variant)
+    LOG.info("Generating %r using variant %r...", args.output.name, args.variant)
     pick.create_prefsjs(args.output, args.variant)
     LOG.info("Done.")
     return 0
