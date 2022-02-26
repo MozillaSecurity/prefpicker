@@ -5,9 +5,7 @@
 
 from datetime import datetime
 from hashlib import sha1
-from os import listdir
-from os.path import abspath, dirname, isdir
-from os.path import join as pathjoin
+from pathlib import Path
 from random import choice
 
 from yaml import safe_load
@@ -92,7 +90,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
            be used to help catch different files without a diff.
 
         Args:
-            dest (str): Name including path of file to create.
+            dest (Path): Name including path of file to create.
             variant (str): Used to pick the values to output.
 
         Returns:
@@ -100,7 +98,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
         """
         # create a fingerprint based on prefs/values combinations
         uid = sha1()
-        with open(dest, "w") as prefs_fp:
+        with dest.open("w") as prefs_fp:
             prefs_fp.write("// Generated with PrefPicker @ ")
             prefs_fp.write(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
             prefs_fp.write(f"\n// Variant {variant!r}\n")
@@ -142,14 +140,13 @@ class PrefPicker:  # pylint: disable=missing-docstring
         """Load data from a template YAML file.
 
         Args:
-            input_yml (str): Path to input file.
+            input_yml (Path): Input file.
 
         Returns:
             PrefPicker
         """
         try:
-            with open(input_yml) as in_fp:
-                raw_prefs = safe_load(in_fp.read())
+            raw_prefs = safe_load(input_yml.read_bytes())
         except (ScannerError, ParserError):
             raise SourceDataError("invalid YAML") from None
         cls.verify_data(raw_prefs)
@@ -166,13 +163,13 @@ class PrefPicker:  # pylint: disable=missing-docstring
             None
 
         Yields:
-            str: Filename including path to each template file.
+            Path: Template file.
         """
-        path = abspath(pathjoin(dirname(__file__), "templates"))
-        if isdir(path):
-            for template in listdir(path):
-                if template.lower().endswith(".yml"):
-                    yield pathjoin(path, template)
+        path = Path(__file__).parent.resolve() / "templates"
+        if path.is_dir():
+            for template in path.iterdir():
+                if template.suffix.lower().endswith(".yml"):
+                    yield template
 
     @staticmethod
     def verify_data(raw_data):
@@ -185,19 +182,23 @@ class PrefPicker:  # pylint: disable=missing-docstring
         Returns:
             None
         """
+        # check variant list
         if "variant" not in raw_data:
             raise SourceDataError("variant list is missing")
         if not isinstance(raw_data["variant"], list):
             raise SourceDataError("variant is not a list")
+        # check variant list entries
         valid_variants = {"default"}
         for variant in raw_data["variant"]:
             if not isinstance(variant, str):
                 raise SourceDataError("variant definition must be a string")
             valid_variants.add(variant)
+        # check prefs dict
         if "pref" not in raw_data:
             raise SourceDataError("pref group is missing")
         if not isinstance(raw_data["pref"], dict):
             raise SourceDataError("pref is not a dict")
+        # check entries in prefs dict
         used_variants = set()
         for pref, keys in raw_data["pref"].items():
             if not isinstance(keys, dict):
@@ -222,8 +223,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 for value in variants[variant]:
                     if value is not None and not isinstance(value, (bool, int, str)):
                         raise SourceDataError(
-                            "unsupported datatype %r (%s)"
-                            % (type(value).__name__, pref)
+                            f"unsupported datatype {type(value).__name__!r} ({pref})"
                         )
                 used_variants.add(variant)
         if valid_variants - used_variants:

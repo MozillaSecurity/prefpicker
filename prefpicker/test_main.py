@@ -3,12 +3,10 @@
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 """main.py tests"""
 
-from os.path import basename
-
 from pytest import raises
 
-from . import PrefPicker
 from .main import main
+from .prefpicker import PrefPicker
 
 
 def test_main_01(tmp_path):
@@ -35,9 +33,9 @@ def test_main_02(capsys):
 
 
 def test_main_03(tmp_path):
-    """test main() with builtin input"""
+    """test main() with built-in input"""
     prefs_js = tmp_path / "prefs.js"
-    templates = tuple(basename(x) for x in PrefPicker.templates())
+    templates = tuple(x.name for x in PrefPicker.templates())
     assert templates
     assert main([templates[0], str(prefs_js)]) == 0
     assert prefs_js.is_file()

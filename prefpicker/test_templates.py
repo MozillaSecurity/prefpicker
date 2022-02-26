@@ -4,7 +4,6 @@
 """template.py tests"""
 
 from difflib import unified_diff
-from os.path import basename
 
 from yaml import safe_dump, safe_load
 
@@ -17,17 +16,17 @@ def test_templates_01(tmp_path):
     prefs_js = tmp_path / "prefs.js"
     checked = []
     for template in PrefPicker.templates():
-        assert main([template, str(prefs_js), "--check"]) == 0
+        assert main([str(template), str(prefs_js), "--check"]) == 0
         assert prefs_js.is_file()
         prefs_js.unlink()
-        checked.append(basename(template))
+        checked.append(template.name)
     assert "browser-fuzzing.yml" in checked
 
 
 def test_templates_02():
     """check formatting of template YAML files"""
     for template in PrefPicker.templates():
-        with open(template) as in_fp:
+        with template.open() as in_fp:
             # remove comments
             input_yml = "".join(x for x in in_fp if not x.lstrip().startswith("#"))
         formatted_yml = safe_dump(safe_load(input_yml), indent=2, width=100)
@@ -35,7 +34,7 @@ def test_templates_02():
             unified_diff(
                 input_yml.splitlines(),
                 formatted_yml.splitlines(),
-                fromfile=template,
+                fromfile=str(template),
                 tofile="formatting fixes",
                 lineterm="",
             )

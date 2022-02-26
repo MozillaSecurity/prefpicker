@@ -19,7 +19,7 @@ def test_prefpicker_01(tmp_path):
             variants:
               default: [1]"""
     )
-    picker = PrefPicker.load_template(str(yml))
+    picker = PrefPicker.load_template(yml)
     assert len(picker.variants) == 1
     assert "default" in picker.variants
     assert len(picker.prefs) == 1
@@ -152,7 +152,7 @@ def test_prefpicker_06(tmp_path):
     """test simple PrefPicker.create_prefsjs()"""
     ppick = PrefPicker()
     prefs = tmp_path / "prefs.js"
-    ppick.create_prefsjs(str(prefs))
+    ppick.create_prefsjs(prefs)
     assert prefs.is_file()
     # check only comments were written to the document
     with prefs.open("r") as in_fp:
@@ -176,14 +176,14 @@ def test_prefpicker_07(tmp_path):
     ppick.prefs = raw_data["pref"]
     prefs = tmp_path / "prefs.js"
     # test with 'default' variant
-    ppick.create_prefsjs(str(prefs))
+    ppick.create_prefsjs(prefs)
     assert prefs.is_file()
     prefs_data = prefs.read_text()
     assert "defined by variant 'default'" not in prefs_data
     assert 'user_pref("test.a", 0);\n' in prefs_data
     assert 'user_pref("test.b", true);\n' in prefs_data
     # test with 'test' variant
-    ppick.create_prefsjs(str(prefs), variant="test")
+    ppick.create_prefsjs(prefs, variant="test")
     assert prefs.is_file()
     prefs_data = prefs.read_text()
     assert 'user_pref("test.a", 1);\n' in prefs_data
@@ -233,7 +233,7 @@ def test_prefpicker_08(tmp_path):
     ppick.variants = set(raw_data["variant"] + ["default"])
     ppick.prefs = raw_data["pref"]
     prefs = tmp_path / "prefs.js"
-    ppick.create_prefsjs(str(prefs))
+    ppick.create_prefsjs(prefs)
     assert prefs.is_file()
     prefs_data = prefs.read_text()
     assert 'user_pref("test.b",' not in prefs_data
@@ -243,7 +243,7 @@ def test_prefpicker_08(tmp_path):
     ppick.variants = set(raw_data["variant"] + ["default"])
     ppick.prefs = raw_data["pref"]
     with raises(SourceDataError, match="Unsupported datatype"):
-        ppick.create_prefsjs(str(prefs))
+        ppick.create_prefsjs(prefs)
 
 
 def test_prefpicker_09(tmp_path):
@@ -251,4 +251,4 @@ def test_prefpicker_09(tmp_path):
     yml = tmp_path / "test.yml"
     yml.write_text("{-{-{-{-:::")
     with raises(SourceDataError, match=r"invalid YAML"):
-        PrefPicker.load_template(str(yml))
+        PrefPicker.load_template(yml)
