@@ -136,6 +136,21 @@ class PrefPicker:  # pylint: disable=missing-docstring
             prefs_fp.write(f"// Fingerprint {uid.hexdigest()!r}\n")
 
     @classmethod
+    def lookup_template(cls, name):
+        """Lookup built-in template Path.
+
+        Args:
+            Name (str): Name of template.
+
+        Returns:
+            Path: Template that matches 'name' or None.
+        """
+        path = Path(__file__).parent / "templates" / name
+        if path.is_file():
+            return path
+        return None
+
+    @classmethod
     def load_template(cls, input_yml):
         """Load data from a template YAML file.
 

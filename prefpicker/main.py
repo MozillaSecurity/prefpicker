@@ -32,12 +32,10 @@ def parse_args(argv=None):  # pylint: disable=missing-docstring
     parser.add_argument("--variant", default="default", help="Specify variant to use.")
     args = parser.parse_args(argv)
     # handle using built-in templates
-    if not args.input.is_file():
-        builtin = Path(__file__).parent / "templates" / args.input.name
-        if builtin.is_file():
-            args.input = builtin
-    # sanity check input
-    if not args.input.is_file():
+    builtin_template = PrefPicker.lookup_template(args.input.name)
+    if builtin_template:
+        args.input = builtin_template
+    elif not args.input.is_file():
         parser.error(f"Cannot find input file '{args.input}'")
     # sanity check output
     if args.output.is_dir():
