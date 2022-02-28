@@ -252,3 +252,13 @@ def test_prefpicker_09(tmp_path):
     yml.write_text("{-{-{-{-:::")
     with raises(SourceDataError, match=r"invalid YAML"):
         PrefPicker.load_template(yml)
+
+
+def test_prefpicker_10():
+    """test PrefPicker.lookup_template()"""
+    # unknown template
+    assert PrefPicker.lookup_template("missing") is None
+    # existing template
+    template = tuple(PrefPicker.templates())[0]
+    assert template
+    assert PrefPicker.lookup_template(template.name)
