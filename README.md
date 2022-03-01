@@ -27,21 +27,22 @@ The default variant is used unless a variant is specified.
 
 There are a few mechanisms in place to help keep the file in order:
 - All prefs must have a default variant
-- All variants be defined in the variant list
+- All variants must be defined in the variant list
 - All variants in the variant list must be used
 - All variants must be a list and contain values
 
 ```yml
 # example.yml
-variant:      # list for extra variants, default is implied
- - alt        # name of variant
+variant:        # list for extra variants, default is implied
+- alt           # name of variant
 pref:
- pref.name:   # unquoted name of the pref used in prefs.js
-   default:   # variant definition, default is required
-     - 0      # potential value
-   alt:       # extra optional variant
-     - 1      # if multiple values are defined one is chosen randomly
-     - null   # null is a special case meaning do not add the pref
+  pref.name:    # unquoted name of the pref used in prefs.js
+    variants:
+      default:  # variant definition, default is required
+      - 0       # potential value
+      alt:      # extra optional variant
+      - 1       # if multiple values are defined one is chosen randomly
+      - null    # null is a special case meaning do not add the pref
 ```
 
 Quick Setup
@@ -90,5 +91,3 @@ Updating Templates
 ------------------
 
 When adding a pref to a template it is encouraged to add a comment that provides justification and points to a bug in Bugzilla for additional context. If a pref does not already exist and is only used with non-default variants a 'null' entry must be added for the default variant.
-
-When removing a pref it maybe most effective to use a 'null' entry. This will provide an opportunity to annotate the pref and also prevent it from being added to the generated prefs.js file.
