@@ -410,8 +410,8 @@ pref:
     variants:
       default:
       - false
-    vr:
-    - true
+      vr:
+      - true
   dom.vr.require-gesture:
     variants:
       default:
