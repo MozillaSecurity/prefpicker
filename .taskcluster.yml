@@ -69,6 +69,10 @@ tasks:
             version: "3.9"
             env:
               TOXENV: py39,lint
+          - name: tests python 3.10
+            version: "3.10"
+            env:
+              TOXENV: py310,lint
           - name: PyPI upload
             version: "3.8"
             env:
