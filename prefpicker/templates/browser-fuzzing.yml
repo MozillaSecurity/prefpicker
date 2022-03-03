@@ -279,8 +279,9 @@ pref:
       - false
       vr:
       - true
-  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1686145
   dom.imagecapture.enabled:
+    review_on_close:
+    - 1686145
     variants:
       default:
       - null
@@ -309,8 +310,9 @@ pref:
     variants:
       default:
       - 4
-  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685228
   dom.paintWorklet.enabled:
+    review_on_close:
+    - 1685228
     variants:
       default:
       - null
@@ -338,8 +340,9 @@ pref:
     variants:
       default:
       - true
-  # see bug 1650370
   dom.security.sanitizer.enabled:
+    review_on_close:
+    - 1650370
     variants:
       default:
       - true
@@ -405,8 +408,9 @@ pref:
       - false
       vr:
       - true
-  # disabled until bug 1573528 is resolved
   dom.vr.puppet.enabled:
+    review_on_close:
+    - 1573528
     variants:
       default:
       - false
@@ -544,7 +548,7 @@ pref:
     variants:
       default:
       - false
-  # bug 1514869 (requested by jkew)
+  # bug 1514869 (requested by jkew)... TODO: this is now the default, remove it?
   gfx.e10s.font-list.shared:
     variants:
       default:
@@ -632,13 +636,17 @@ pref:
     variants:
       default:
       - true
-  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685233
+  # no plans to ship
   media.getusermedia.audiocapture.enabled:
+    review_on_close:
+    - 1685233
     variants:
       default:
       - null
-  # development is stalled. https://bugzilla.mozilla.org/show_bug.cgi?id=1685415
+  # development is stalled
   media.getusermedia.browser.enabled:
+    review_on_close:
+    - 1685415
     variants:
       default:
       - null
@@ -667,13 +675,17 @@ pref:
     variants:
       default:
       - true
-  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685235
+  # no plans to ship
   media.track.enabled:
+    review_on_close:
+    - 1685235
     variants:
       default:
       - null
-  # no plans to ship. https://bugzilla.mozilla.org/show_bug.cgi?id=1685417
+  # no plans to ship
   media.webspeech.recognition.enable:
+    review_on_close:
+    - 1685417
     variants:
       default:
       - null
