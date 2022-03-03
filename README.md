@@ -18,6 +18,8 @@ The template document is made up of variants, prefs and values.
 _**pref**_ is the name of the preference that will be added to the prefs.js file. This is an unquoted string.
 Valid prefs can be found in [all.js](https://hg.mozilla.org/mozilla-central/file/tip/modules/libpref/init/all.js) or in [StaticPrefList.yml](https://hg.mozilla.org/mozilla-central/file/tip/modules/libpref/init/StaticPrefList.yaml).
 
+__**review_on_close**__ is optional. It is a list of relevant Bugzilla IDs used to help avoid obsolete entries. When all bugs in the list are closed the entry will be reviewed and removed if appropriate.
+
 _**value**_ can be a `bool`, `int`, `string` or `null`. Adding multiple potential values is possible.
 When multiple values are present one is chosen at random when generating the output.
 Using a value of `null` will skip adding the pref to the output prefs.js file (acts as browser default).
@@ -33,16 +35,18 @@ There are a few mechanisms in place to help keep the file in order:
 
 ```yml
 # example.yml
-variant:        # list for extra variants, default is implied
-- alt           # name of variant
+variant:              # list of extra variants, default is implied
+- alt                 # name of variant
 pref:
-  pref.name:    # unquoted name of the pref used in prefs.js
+  pref.name:          # unquoted name of the pref used in prefs.js
+    review_on_close:  # optional
+    - 123456
     variants:
-      default:  # variant definition, default is required
-      - 0       # potential value
-      alt:      # extra optional variant
-      - 1       # if multiple values are defined one is chosen randomly
-      - null    # null is a special case meaning do not add the pref
+      default:        # variant definition, default is required
+      - 0             # potential value
+      alt:            # extra optional variant
+      - 1             # if multiple values are defined one is chosen randomly
+      - null          # null is a special case meaning do not add the pref
 ```
 
 Quick Setup
