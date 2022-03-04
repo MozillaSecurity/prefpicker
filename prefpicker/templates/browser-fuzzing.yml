@@ -548,11 +548,6 @@ pref:
     variants:
       default:
       - false
-  # bug 1514869 (requested by jkew)... TODO: this is now the default, remove it?
-  gfx.e10s.font-list.shared:
-    variants:
-      default:
-      - true
   gfx.offscreencanvas.enabled:
     variants:
       default:
