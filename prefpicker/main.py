@@ -21,9 +21,9 @@ def parse_args(argv=None):  # pylint: disable=missing-docstring
     parser.add_argument(
         "input",
         type=Path,
-        help="Template containing definitions. This can be the path "
-        "to a template (YAML) file or the name of a built-in template. "
-        "Built-in templates: %s" % (", ".join(x.name for x in PrefPicker.templates()),),
+        help="Template containing definitions. This can be the path to a template"
+        " (YAML) file or the name of a built-in template. Built-in templates:"
+        f" {', '.join(x.name for x in PrefPicker.templates())}",
     )
     parser.add_argument("output", type=Path, help="Path of prefs.js file to create.")
     parser.add_argument(
