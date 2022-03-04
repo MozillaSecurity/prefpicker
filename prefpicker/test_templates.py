@@ -39,4 +39,6 @@ def test_templates_02():
                 lineterm="",
             )
         )
-        assert not diff, "Formatting changes required:\n{}".format("\n".join(diff))
+        if diff:
+            formatted = "\n".join(diff)
+            raise AssertionError(f"Formatting changes required:\n{formatted}")
