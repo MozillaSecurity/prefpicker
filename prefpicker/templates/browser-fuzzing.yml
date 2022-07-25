@@ -609,6 +609,12 @@ pref:
     variants:
       default:
       - true
+  layout.css.container-queries.enabled:
+    review_on_close:
+    - 1744221
+    variants:
+      default:
+      - true
   layout.css.font-loading-api.workers.enabled:
     review_on_close:
     - 1779009
