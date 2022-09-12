@@ -306,10 +306,6 @@ pref:
     variants:
       default:
       - 0
-  dom.min_background_timeout_value:
-    variants:
-      default:
-      - 4
   dom.paintWorklet.enabled:
     review_on_close:
     - 1685228
