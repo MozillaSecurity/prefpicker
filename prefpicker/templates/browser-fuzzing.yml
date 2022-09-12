@@ -405,8 +405,6 @@ pref:
       vr:
       - true
   dom.vr.puppet.enabled:
-    review_on_close:
-    - 1573528
     variants:
       default:
       - false
