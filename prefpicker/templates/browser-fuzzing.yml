@@ -611,12 +611,6 @@ pref:
     variants:
       default:
       - true
-  layout.css.font-loading-api.workers.enabled:
-    review_on_close:
-    - 1779009
-    variants:
-      default:
-      - true
   # Enable @-moz-document
   layout.css.moz-document.content.enabled:
     variants:
