@@ -1,5 +1,11 @@
 # variant list is found at the end of the template
 pref:
+  accessibility.force-disabled:
+    variants:
+      a11y:
+      - -1
+      default:
+      - null
   app.normandy.enabled:
     variants:
       default:
@@ -872,6 +878,7 @@ pref:
       default:
       - false
 variant:
+- a11y
 - no-e10s
 - no-fission
 - vr
