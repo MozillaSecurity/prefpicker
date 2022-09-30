@@ -1,6 +1,6 @@
 # variant list is found at the end of the template
 pref:
-  accessibility.force-disabled:
+  accessibility.force_disabled:
     variants:
       a11y:
       - -1
