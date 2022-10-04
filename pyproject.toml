@@ -27,10 +27,7 @@ max-line-length = 88
 
 [tool.pylint.messages_control]
 disable = [
-    "bad-continuation",
     "fixme",
-    "import-error",
-    "subprocess-run-check",
     "too-few-public-methods",
     "too-many-arguments",
     "too-many-branches",
