@@ -25,7 +25,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
     __slots__ = ("prefs", "variants")
 
     def __init__(self):
-        self.prefs = dict()
+        self.prefs = {}
         self.variants = {"default"}
 
     def check_combinations(self):
