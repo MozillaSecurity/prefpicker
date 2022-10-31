@@ -3,7 +3,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """prefpicker module"""
 
-from .prefpicker import PrefPicker
+from .prefpicker import PrefPicker, SourceDataError
 
-__all__ = ("PrefPicker",)
+__all__ = ("PrefPicker", "SourceDataError")
 __author__ = "Tyson Smith"
