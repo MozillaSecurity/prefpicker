@@ -1,1 +1,1 @@
-include prefpicker/templates/*.yml
+include src/prefpicker/templates/*.yml

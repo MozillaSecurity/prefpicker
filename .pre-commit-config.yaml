@@ -57,9 +57,9 @@ repos:
     hooks:
       - id: check-jsonschema
         name: "Check prefpicker template schema"
-        files: ^prefpicker/templates/
-        types: [ yaml ]
-        args: [ "--schemafile", "./prefpicker/templates/schema.json" ]
+        files: ^src/prefpicker/templates/
+        types: [yaml]
+        args: ["--schemafile", "./src/prefpicker/templates/schema.json"]
   - repo: local
     hooks:
       - id: pylint
