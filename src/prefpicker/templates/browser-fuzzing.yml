@@ -626,6 +626,12 @@ pref:
     variants:
       default:
       - true
+  layout.css.named-pages.enabled:
+    review_on_close:
+    - 1723234
+    variants:
+      default:
+      - true
   # 0=Allowed, 1=Blocked, 2=Prompt
   media.autoplay.default:
     variants:
