@@ -621,6 +621,18 @@ pref:
     variants:
       default:
       - true
+  layout.css.content-visibility.enabled:
+    review_on_close:
+    - 1660384
+    variants:
+      default:
+      - true
+  layout.css.initial-letter.enabled:
+    review_on_close:
+    - 1223880
+    variants:
+      default:
+      - true
   # Enable @-moz-document
   layout.css.moz-document.content.enabled:
     variants:
@@ -629,6 +641,18 @@ pref:
   layout.css.named-pages.enabled:
     review_on_close:
     - 1723234
+    variants:
+      default:
+      - true
+  layout.css.scroll-linked-animations.enabled:
+    review_on_close:
+    - 1676780
+    variants:
+      default:
+      - true
+  layout.css.zoom-transform-hack.enabled:
+    review_on_close:
+    - 390936
     variants:
       default:
       - true
