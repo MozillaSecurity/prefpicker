@@ -91,6 +91,31 @@ tasks:
                 secret: project/fuzzing/pypi-prefpicker
                 name: TWINE_PASSWORD
                 key: password
+          - name: semantic-release
+            version: "3.8"
+            script:
+              - bash
+              - '-xec'
+              - >-
+                git config --global user.email "prefpicker@mozilla.com";
+                git config --global user.name "semantic-release";
+                git fetch origin master --tags;
+                tox -e release
+            when:
+              branch: master
+              all_passed: true
+            secrets:
+              - type: env
+                secret: project/fuzzing/pypi-prefpicker
+                name: TWINE_USERNAME
+                key: username
+              - type: env
+                secret: project/fuzzing/pypi-prefpicker
+                name: TWINE_PASSWORD
+                key: password
+              - type: key
+                secret: project/fuzzing/deploy-prefpicker
+                key: key
 
   in:
     $if: 'tasks_for in ["github-push", "github-release"] || (tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"])'

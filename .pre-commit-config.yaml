@@ -64,6 +64,12 @@ repos:
         files: ^src/prefpicker/templates/
         types: [yaml]
         args: ["--schemafile", "./src/prefpicker/templates/schema.json"]
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.18.0
+    hooks:
+      - id: gitlint
+        args: [--contrib=contrib-title-conventional-commits, --ignore=body-is-missing, --msg-filename]
+        stages: [ commit-msg ]
   - repo: local
     hooks:
       - id: pylint
