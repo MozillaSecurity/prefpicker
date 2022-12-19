@@ -873,6 +873,10 @@ pref:
     variants:
       default:
       - false
+  svg.context-properties.content.enabled:
+    variants:
+      default:
+      - true
   toolkit.cosmeticAnimations.enabled:
     variants:
       default:
