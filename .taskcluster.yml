@@ -146,6 +146,7 @@ tasks:
           - queue:create-task:highest:proj-fuzzing/ci-*
           - queue:scheduler-id:taskcluster-github
           - secrets:get:project/fuzzing/codecov-prefpicker
+          - secrets:get:project/fuzzing/deploy-prefpicker
           - secrets:get:project/fuzzing/pypi-prefpicker
         metadata:
           name: ${project_name} CI decision
