@@ -73,24 +73,6 @@ tasks:
             version: "3.11"
             env:
               TOXENV: py311,lint
-          - name: PyPI upload
-            version: "3.8"
-            env:
-              TOXENV: pypi
-            script:
-              - tox
-            when:
-              release: true
-              all_passed: true
-            secrets:
-              - type: env
-                secret: project/fuzzing/pypi-prefpicker
-                name: TWINE_USERNAME
-                key: username
-              - type: env
-                secret: project/fuzzing/pypi-prefpicker
-                name: TWINE_PASSWORD
-                key: password
           - name: semantic-release
             version: "3.8"
             script:
