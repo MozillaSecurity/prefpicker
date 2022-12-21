@@ -633,6 +633,10 @@ pref:
     variants:
       default:
       - true
+  layout.css.moz-control-character-visibility.enabled:
+    variants:
+      default:
+      - true
   # Enable @-moz-document
   layout.css.moz-document.content.enabled:
     variants:
