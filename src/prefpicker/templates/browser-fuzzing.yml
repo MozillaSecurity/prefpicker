@@ -354,6 +354,12 @@ pref:
     variants:
       default:
       - true
+  dom.security.setHTML.enabled:
+    review_on_close:
+    - 1650370
+    variants:
+      default:
+      - true
   # needed when using MozAfterPaint event to control fuzzer
   dom.send_after_paint_to_content:
     variants:
