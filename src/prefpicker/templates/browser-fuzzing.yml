@@ -437,6 +437,8 @@ pref:
       vr:
       - true
   dom.webgpu.enabled:
+    review_on_close:
+    - 1746245
     variants:
       default:
       - true
