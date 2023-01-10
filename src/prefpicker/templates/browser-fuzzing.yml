@@ -226,10 +226,6 @@ pref:
     variants:
       default:
       - true
-  dom.audioworklet.enabled:
-    variants:
-      default:
-      - true
   dom.caches.testing.enabled:
     variants:
       default:
@@ -449,10 +445,6 @@ pref:
       default:
       - true
   dom.window_print.fuzzing.block_while_printing:
-    variants:
-      default:
-      - true
-  dom.worklet.enabled:
     variants:
       default:
       - true
