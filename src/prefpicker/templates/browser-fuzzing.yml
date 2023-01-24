@@ -257,12 +257,6 @@ pref:
     variants:
       default:
       - true
-  dom.fs.enabled:
-    review_on_close:
-    - 1785123
-    variants:
-      default:
-      - true
   dom.gamepad.extensions.lightindicator:
     variants:
       default:
