@@ -1,0 +1,27 @@
+name: Run prefmonitor weekly
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+jobs:
+  build:
+    name: Run prefmonitor
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout prefpicker
+        uses: actions/checkout@v3
+        with:
+          path: prefpicker
+      - name: Checkout prefmonitor
+        uses: actions/checkout@v3
+        with:
+          repository: MozillaSecurity/prefpicker-monitor
+          path: prefmonitor
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip' # caching pip dependencies
+      - run: |
+          pip install ./prefpicker
+          pip install ./prefmonitor
+          python -m prefmonitor --log-level DEBUG --token ${{ secrets.GITHUB_TOKEN }}
