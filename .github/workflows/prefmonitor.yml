@@ -2,7 +2,7 @@ name: Run prefmonitor weekly
 
 on:
   schedule:
-    - cron: '0 8 * * 1'
+    - cron: '*/10 * * * *' # '0 8 * * 1'
 jobs:
   build:
     name: Run prefmonitor
