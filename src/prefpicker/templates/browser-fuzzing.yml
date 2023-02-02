@@ -582,10 +582,6 @@ pref:
     variants:
       default:
       - 0
-  image.avif.enabled:
-    variants:
-      default:
-      - true
   image.cache.size:
     variants:
       default:
