@@ -582,6 +582,12 @@ pref:
     variants:
       default:
       - 0
+  image.avif.sequence.enabled:
+    review_on_close:
+    - 1813145
+    variants:
+      default:
+      - true
   image.cache.size:
     variants:
       default:
