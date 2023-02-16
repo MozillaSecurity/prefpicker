@@ -568,6 +568,13 @@ pref:
     variants:
       default:
       - true
+  # See Bug 1815272 for details.
+  gfx.webrender.debug.restrict-blob-size:
+    review_on_close:
+    - 1815397
+    variants:
+      default:
+      - true
   # when machines do have GPUs 'true' will force SW-WR
   gfx.webrender.software:
     variants:
