@@ -649,12 +649,6 @@ pref:
     variants:
       default:
       - true
-  layout.css.named-pages.enabled:
-    review_on_close:
-    - 1723234
-    variants:
-      default:
-      - true
   layout.css.overflow-clip-box.enabled:
     variants:
       default:
