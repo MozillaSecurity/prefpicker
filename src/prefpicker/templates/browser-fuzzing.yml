@@ -248,6 +248,12 @@ pref:
     variants:
       default:
       - false
+  dom.element.popover.enabled:
+    review_on_close:
+    - 1808823
+    variants:
+      default:
+      - true
   dom.experimental_forms:
     variants:
       default:
