@@ -365,18 +365,6 @@ pref:
     variants:
       default:
       - true
-  dom.streams.pipeTo.enabled:
-    variants:
-      default:
-      - null
-      writable-streams:
-      - true
-  dom.streams.writable_streams.enabled:
-    variants:
-      default:
-      - null
-      writable-streams:
-      - true
   # pref copied from domfuzz
   dom.successive_dialog_time_limit:
     variants:
@@ -931,4 +919,3 @@ variant:
 - no-e10s
 - no-fission
 - vr
-- writable-streams
