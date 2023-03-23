@@ -609,6 +609,31 @@ pref:
     variants:
       default:
       - 1
+  javascript.options.baselinejit.threshold:
+    variants:
+      default:
+      - null
+      jit:
+      - 5
+  javascript.options.blinterp.threshold:
+    variants:
+      default:
+      - null
+      jit:
+      - 2
+  javascript.options.ion.offthread_compilation:
+    variants:
+      default:
+      - null
+      jit:
+      - true
+      - false
+  javascript.options.ion.threshold:
+    variants:
+      default:
+      - null
+      jit:
+      - 10
   layers.acceleration.force-enabled:
     variants:
       default:
@@ -928,6 +953,7 @@ pref:
       - false
 variant:
 - a11y
+- jit
 - no-e10s
 - no-fission
 - vr
