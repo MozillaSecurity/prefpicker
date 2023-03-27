@@ -614,7 +614,6 @@ pref:
       default:
       - null
       jit:
-      - true
       - false
   javascript.options.ion.threshold:
     variants:
