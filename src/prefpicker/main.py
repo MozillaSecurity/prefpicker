@@ -8,7 +8,7 @@ from logging import DEBUG, INFO, basicConfig, getLogger
 from os import getenv
 from pathlib import Path
 
-from .prefpicker import PrefPicker, SourceDataError
+from .prefpicker import PrefPicker, SourceDataError, __version__
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
@@ -17,7 +17,10 @@ LOG = getLogger(__name__)
 
 
 def parse_args(argv=None):  # pylint: disable=missing-docstring
-    parser = ArgumentParser(description="PrefPicker - Manage & generate prefs.js files")
+    parser = ArgumentParser(
+        description="Manage & generate prefs.js files",
+        prog="prefpicker",
+    )
     parser.add_argument(
         "input",
         type=Path,
@@ -30,6 +33,13 @@ def parse_args(argv=None):  # pylint: disable=missing-docstring
         "--check", action="store_true", help="Display output of sanity checks."
     )
     parser.add_argument("--variant", default="default", help="Specify variant to use.")
+    parser.add_argument(
+        "--version",
+        "-V",
+        action="version",
+        version=f"%(prog)s {__version__}",
+        help="Show version number.",
+    )
     args = parser.parse_args(argv)
     # handle using built-in templates
     builtin_template = PrefPicker.lookup_template(args.input.name)

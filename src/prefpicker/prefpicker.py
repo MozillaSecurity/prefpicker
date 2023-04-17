@@ -5,6 +5,7 @@
 
 from datetime import datetime
 from hashlib import sha1
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from random import choice
 
@@ -14,6 +15,11 @@ from yaml.scanner import ScannerError
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
+try:
+    __version__ = version("prefpicker")
+except PackageNotFoundError:  # pragma: no cover
+    # package is not installed
+    __version__ = "unknown"
 
 
 class SourceDataError(Exception):
@@ -99,7 +105,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
         # create a fingerprint based on prefs/values combinations
         uid = sha1()
         with dest.open("w") as prefs_fp:
-            prefs_fp.write("// Generated with PrefPicker @ ")
+            prefs_fp.write(f"// Generated with PrefPicker ({__version__}) @ ")
             prefs_fp.write(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
             prefs_fp.write(f"\n// Variant {variant!r}\n")
             for pref, keys in sorted(self.prefs.items()):
