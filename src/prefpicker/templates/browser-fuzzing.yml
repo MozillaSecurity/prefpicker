@@ -263,6 +263,10 @@ pref:
     variants:
       default:
       - true
+  dom.forms.datetime.others:
+    variants:
+      default:
+      - true
   dom.gamepad.extensions.lightindicator:
     variants:
       default:
