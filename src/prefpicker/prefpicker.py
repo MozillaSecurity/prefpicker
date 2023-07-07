@@ -27,7 +27,6 @@ class SourceDataError(Exception):
 
 
 class PrefPicker:  # pylint: disable=missing-docstring
-
     __slots__ = ("prefs", "variants")
 
     def __init__(self):
