@@ -438,6 +438,12 @@ pref:
     variants:
       default:
       - true
+  dom.webmidi.enabled:
+    review_on_close:
+    - 836897
+    variants:
+      default:
+      - true
   dom.window_print.fuzzing.block_while_printing:
     variants:
       default:
@@ -757,6 +763,14 @@ pref:
     variants:
       default:
       - null
+  midi.prompt.testing:
+    variants:
+      default:
+      - true
+  midi.testing:
+    variants:
+      default:
+      - true
   # disable automatic connection
   # https://support.mozilla.org/en-US/kb/how-stop-firefox-making-automatic-connections
   network.captive-portal-service.enabled:
