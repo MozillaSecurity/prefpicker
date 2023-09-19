@@ -512,6 +512,15 @@ pref:
     variants:
       default:
       - true
+  fuzzing.webauthn.authenticator_config:
+    variants:
+      default:
+      # ctap2_1
+      - 127
+      # ctap2
+      # - 95
+      # ctap1/u2f
+      # - 63
   # pref copied from domfuzz
   general.useragent.updates.enabled:
     variants:
