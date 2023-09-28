@@ -745,6 +745,11 @@ pref:
     variants:
       default:
       - '[{"url": "stun:23.21.150.121"}]'
+  media.recorder.video.frame_drops:
+    variants:
+      default:
+      - true
+      - false
   media.setsinkid.enabled:
     variants:
       default:
