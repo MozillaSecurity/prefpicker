@@ -572,7 +572,7 @@ pref:
     variants:
       default:
       - true
-  gfx.webgpu.force-enabled:
+  gfx.webgpu.ignore-blocklist:
     variants:
       default:
       - true
