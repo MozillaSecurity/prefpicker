@@ -434,6 +434,13 @@ pref:
     variants:
       default:
       - true
+  dom.webgpu.wgpu-backend:
+    variants:
+      default:
+      - null
+      webgpu-win:
+      - dx12
+      - vulkan
   dom.weblocks.enabled:
     variants:
       default:
@@ -976,3 +983,4 @@ variant:
 - no-e10s
 - no-fission
 - vr
+- webgpu-win
