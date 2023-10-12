@@ -647,6 +647,22 @@ pref:
       - null
       jit:
       - 10
+  javascript.options.mem.gc_parallel_marking:
+    review_on_close:
+    - 1795640
+    variants:
+      default:
+      - null
+      gc-parallel:
+      - true
+  javascript.options.mem.gc_parallel_marking_threshold_mb:
+    review_on_close:
+    - 1795640
+    variants:
+      default:
+      - null
+      gc-parallel:
+      - 0
   layers.acceleration.force-enabled:
     variants:
       default:
@@ -979,6 +995,7 @@ pref:
       - false
 variant:
 - a11y
+- gc-parallel
 - jit
 - no-e10s
 - no-fission
