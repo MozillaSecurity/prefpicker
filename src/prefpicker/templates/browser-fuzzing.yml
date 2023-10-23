@@ -619,6 +619,10 @@ pref:
     variants:
       default:
       - 0
+  image.mem.max_legal_imgframe_size_kb:
+    variants:
+      default:
+      - 62500
   image.multithreaded_decoding.limit:
     variants:
       default:
