@@ -61,6 +61,10 @@ pref:
     variants:
       default:
       - true
+  browser.newtabpage.activity-stream.discoverystream.enabled:
+    variants:
+      default:
+      - false
   browser.newtabpage.enabled:
     variants:
       default:
@@ -484,6 +488,10 @@ pref:
       - false
   # pref copied from domfuzz
   extensions.installDistroAddons:
+    variants:
+      default:
+      - false
+  extensions.pocket.enabled:
     variants:
       default:
       - false
