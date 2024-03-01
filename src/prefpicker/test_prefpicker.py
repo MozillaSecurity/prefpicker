@@ -29,6 +29,8 @@ def test_prefpicker_01(tmp_path):
 @mark.parametrize(
     "data, msg",
     [
+        # invalid template
+        ([], "invalid template"),
         # variant list missing
         ({"pref": {"a.b": {"variants": {"default": [1]}}}}, "variant list is missing"),
         # variant definition is invalid type

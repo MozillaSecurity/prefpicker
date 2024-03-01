@@ -8,6 +8,7 @@ from hashlib import sha1
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from random import choice
+from typing import Any, Dict, Iterator, List, Optional, Set, Tuple, Union
 
 from yaml import safe_load
 from yaml.parser import ParserError
@@ -26,14 +27,18 @@ class SourceDataError(Exception):
     """This is raised when issues are found in the source data."""
 
 
+PrefValue = Optional[Union[bool, int, str]]
+PrefVariant = Dict[str, List[PrefValue]]
+
+
 class PrefPicker:  # pylint: disable=missing-docstring
     __slots__ = ("prefs", "variants")
 
-    def __init__(self):
-        self.prefs = {}
-        self.variants = {"default"}
+    def __init__(self) -> None:
+        self.prefs: Dict[str, Dict[str, PrefVariant]] = {}
+        self.variants: Set[str] = {"default"}
 
-    def check_combinations(self):
+    def check_combinations(self) -> Iterator[Tuple[str, int]]:
         """Count the number of combinations for each variation. Only return
            variants that have more than one combination.
 
@@ -41,7 +46,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
             None
 
         Yields:
-            tuple: variant and number of potential combinations
+            Variant and number of potential combinations.
         """
         combos = dict.fromkeys(self.variants, 1)
         for variants in (x["variants"] for x in self.prefs.values()):
@@ -55,14 +60,14 @@ class PrefPicker:  # pylint: disable=missing-docstring
             if count > 1:
                 yield (variant, count)
 
-    def check_duplicates(self):
+    def check_duplicates(self) -> Iterator[Tuple[str, str]]:
         """Look for variants with values that appear more than once per variant.
 
         Args:
             None
 
         Yields:
-            tuple: pref and the variant
+            Pref name and the variant.
         """
         for pref, keys in sorted(self.prefs.items()):
             variants = keys["variants"]
@@ -70,14 +75,14 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 if len(variants[variant]) != len(set(variants[variant])):
                     yield (pref, variant)
 
-    def check_overwrites(self):
+    def check_overwrites(self) -> Iterator[Tuple[str, str, PrefValue]]:
         """Look for variants that overwrite the default with the same value.
 
         Args:
             None
 
         Yields:
-            tuple: pref, variant and the value
+            Pref, variant and value.
         """
         for pref, keys in sorted(self.prefs.items()):
             variants = keys["variants"]
@@ -88,15 +93,15 @@ class PrefPicker:  # pylint: disable=missing-docstring
                     if value in variants["default"]:
                         yield (pref, variant, value)
 
-    def create_prefsjs(self, dest, variant="default"):
+    def create_prefsjs(self, dest: Path, variant: str = "default") -> None:
         """Write a `prefs.js` file based on the specified variant. The output file
            will also include comments containing the variant, a timestamp and a
            fingerprint. The fingerprint is a hash of pref/value pairs which can
            be used to help catch different files without a diff.
 
         Args:
-            dest (Path): Name including path of file to create.
-            variant (str): Used to pick the values to output.
+            dest: Name including path of file to create.
+            variant: Used to pick the values to output.
 
         Returns:
             None
@@ -141,14 +146,14 @@ class PrefPicker:  # pylint: disable=missing-docstring
             prefs_fp.write(f"// Fingerprint {uid.hexdigest()!r}\n")
 
     @classmethod
-    def lookup_template(cls, name):
+    def lookup_template(cls, name: str) -> Optional[Path]:
         """Lookup built-in template Path.
 
         Args:
-            Name (str): Name of template.
+            name: Name of template.
 
         Returns:
-            Path: Template that matches 'name' or None.
+            Template that matches 'name' or None.
         """
         path = Path(__file__).parent / "templates" / name
         if path.is_file():
@@ -156,14 +161,14 @@ class PrefPicker:  # pylint: disable=missing-docstring
         return None
 
     @classmethod
-    def load_template(cls, input_yml):
+    def load_template(cls, input_yml: Path) -> "PrefPicker":
         """Load data from a template YAML file.
 
         Args:
-            input_yml (Path): Input file.
+            input_yml: Input file.
 
         Returns:
-            PrefPicker
+            PrefPicker object.
         """
         try:
             raw_prefs = safe_load(input_yml.read_bytes())
@@ -172,18 +177,20 @@ class PrefPicker:  # pylint: disable=missing-docstring
         cls.verify_data(raw_prefs)
         picker = cls()
         picker.variants = set(raw_prefs["variant"] + ["default"])
-        picker.prefs = raw_prefs["pref"]
+        # only add relevant parts
+        for pref, parts in raw_prefs["pref"].items():
+            picker.prefs[pref] = {"variants": parts["variants"]}
         return picker
 
     @staticmethod
-    def templates():
+    def templates() -> Iterator[Path]:
         """Available YAML template files.
 
         Args:
             None
 
         Yields:
-            Path: Template file.
+            Template files.
         """
         path = Path(__file__).parent.resolve() / "templates"
         if path.is_dir():
@@ -192,16 +199,18 @@ class PrefPicker:  # pylint: disable=missing-docstring
                     yield template
 
     @staticmethod
-    def verify_data(raw_data):
+    def verify_data(raw_data: Any) -> None:
         """Perform strict sanity checks on raw_data. This exists to help prevent
            the template file from breaking or becoming unmaintainable.
 
         Args:
-            raw_data (dict): Data to verify.
+            raw_data: Data to verify.
 
         Returns:
             None
         """
+        if not isinstance(raw_data, dict):
+            raise SourceDataError("invalid template")
         # check variant list
         if "variant" not in raw_data:
             raise SourceDataError("variant list is missing")
