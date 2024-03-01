@@ -3,10 +3,11 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """prefpicker module main"""
 
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from logging import DEBUG, INFO, basicConfig, getLogger
 from os import getenv
 from pathlib import Path
+from typing import List, Optional
 
 from .prefpicker import PrefPicker, SourceDataError, __version__
 
@@ -16,7 +17,15 @@ __credits__ = ["Tyson Smith"]
 LOG = getLogger(__name__)
 
 
-def parse_args(argv=None):  # pylint: disable=missing-docstring
+def parse_args(argv: Optional[List[str]] = None) -> Namespace:
+    """Handle argument parsing.
+
+    Args:
+        argv: Arguments from the user.
+
+    Returns:
+        Parsed and sanitized arguments.
+    """
     parser = ArgumentParser(
         description="Manage & generate prefs.js files",
         prog="prefpicker",
@@ -55,7 +64,12 @@ def parse_args(argv=None):  # pylint: disable=missing-docstring
     return args
 
 
-def main(argv=None):  # pylint: disable=missing-docstring
+def main(argv: Optional[List[str]] = None) -> int:
+    """
+    PrefPicker main entry point
+
+    Run with --help for usage
+    """
     if bool(getenv("DEBUG")):  # pragma: no cover
         log_fmt = "%(asctime)s %(levelname).1s %(name)s | %(message)s"
         log_level = DEBUG
@@ -74,20 +88,20 @@ def main(argv=None):  # pylint: disable=missing-docstring
         return 1
     LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants))
     if args.check:
-        for result in pick.check_combinations():
+        for combos in pick.check_combinations():
             LOG.info(
-                "Check: %r variant has %r possible combination(s)", result[0], result[1]
+                "Check: %r variant has %r possible combination(s)", combos[0], combos[1]
             )
-        for result in pick.check_overwrites():
+        for overwrites in pick.check_overwrites():
             LOG.info(
                 "Check: %r variant %r redefines value %r (may be intentional)",
-                result[0],
-                result[1],
-                result[2],
+                overwrites[0],
+                overwrites[1],
+                overwrites[2],
             )
-        for result in pick.check_duplicates():
+        for dupes in pick.check_duplicates():
             LOG.info(
-                "Check: %r variant %r contains duplicate values", result[0], result[1]
+                "Check: %r variant %r contains duplicate values", dupes[0], dupes[1]
             )
     if args.variant not in pick.variants:
         LOG.error("Error: Variant %r does not exist", args.variant)

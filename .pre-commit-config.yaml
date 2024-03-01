@@ -72,6 +72,13 @@ repos:
         stages: [ commit-msg ]
   - repo: local
     hooks:
+      - id: mypy
+        name: mypy
+        entry: tox -e mypy --
+        exclude: ^src/prefpicker/test_
+        language: system
+        require_serial: true
+        types: [python]
       - id: pylint
         name: pylint
         entry: tox -e pylint --
