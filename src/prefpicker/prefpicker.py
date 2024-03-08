@@ -4,7 +4,6 @@
 """prefpicker module"""
 
 from datetime import datetime
-from hashlib import sha1
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from random import choice
@@ -95,19 +94,15 @@ class PrefPicker:  # pylint: disable=missing-docstring
 
     def create_prefsjs(self, dest: Path, variant: str = "default") -> None:
         """Write a `prefs.js` file based on the specified variant. The output file
-           will also include comments containing the variant, a timestamp and a
-           fingerprint. The fingerprint is a hash of pref/value pairs which can
-           be used to help catch different files without a diff.
+           will also include comments containing the variant and a timestamp.
 
         Args:
-            dest: Name including path of file to create.
+            dest: Path of file to create.
             variant: Used to pick the values to output.
 
         Returns:
             None
         """
-        # create a fingerprint based on prefs/values combinations
-        uid = sha1()
         with dest.open("w") as prefs_fp:
             prefs_fp.write(f"// Generated with PrefPicker ({__version__}) @ ")
             prefs_fp.write(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
@@ -145,10 +140,6 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 if not default_variant:
                     prefs_fp.write(f"// {pref!r} defined by variant {variant!r}\n")
                 prefs_fp.write(f'user_pref("{pref}", {sanitized});\n')
-                # update fingerprint
-                uid.update(pref.encode(encoding="utf-8", errors="ignore"))
-                uid.update(sanitized.encode(encoding="utf-8", errors="ignore"))
-            prefs_fp.write(f"// Fingerprint {uid.hexdigest()!r}\n")
 
     @classmethod
     def lookup_template(cls, name: str) -> Optional[Path]:

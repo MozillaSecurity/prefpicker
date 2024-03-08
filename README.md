@@ -88,10 +88,9 @@ user_pref("fuzzing.enabled", true);
 // 'gfx.webrender.all' defined by variant 'webrender'
 user_pref("gfx.webrender.all", true);
 /// ... snip
-// Fingerprint '13370ddba11'
 ```
 
 Updating Templates
 ------------------
 
-When adding a pref to a template it is encouraged to add a comment that provides justification and points to a bug in Bugzilla for additional context. If a pref does not already exist and is only used with non-default variants a 'null' entry must be added for the default variant.
+When adding a pref to a template it is encouraged to add a comment that provides justification and points to a bug in Bugzilla for additional context. If a pref does not already exist and is only used with non-default variants a 'null' entry must be added to the default variant.
