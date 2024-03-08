@@ -198,34 +198,46 @@ def test_prefpicker_08(tmp_path):
     raw_data = {
         "variant": [],
         "pref": {
+            # type int
             "test.a": {
                 "variants": {
                     "default": [0, 1],
                 }
             },
+            # type None (skip)
             "test.b": {
                 "variants": {
                     "default": [None],
                 }
             },
+            # type string
             "test.c": {
                 "variants": {
                     "default": ["test string"],
                 }
             },
+            # type string (with quotes)
             "test.d": {
                 "variants": {
                     "default": ["'test' \"string\""],
                 }
             },
+            # type bool
             "test.e": {
                 "variants": {
-                    "default": [True],
+                    "default": [True, False],
                 }
             },
+            # add None twice to trigger the 'skip' code path and write out comment
             "test.f": {
                 "variants": {
-                    "default": [False],
+                    "default": [None, None],
+                }
+            },
+            # mixed types
+            "test.g": {
+                "variants": {
+                    "default": ["foo", True, 0],
                 }
             },
         },
