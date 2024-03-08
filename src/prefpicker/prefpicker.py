@@ -116,14 +116,19 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 variants = keys["variants"]
                 # choose values
                 if variant not in variants or variant == "default":
-                    value = choice(variants["default"])
+                    options = variants["default"]
                     default_variant = True
                 else:
-                    value = choice(variants[variant])
+                    options = variants[variant]
                     default_variant = False
+                value = choice(options)
                 if value is None:
+                    if len(options) > 1:
+                        prefs_fp.write(f"// '{pref}' randomly skipped\n")
                     # skipping pref
                     continue
+                if len(options) > 1:
+                    prefs_fp.write(f"// '{pref}' available values {options}\n")
                 # sanitize value for writing
                 if isinstance(value, bool):
                     sanitized = "true" if value else "false"
