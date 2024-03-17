@@ -3,7 +3,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """prefpicker module"""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from random import choice
@@ -105,7 +105,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
         """
         with dest.open("w") as prefs_fp:
             prefs_fp.write(f"// Generated with PrefPicker ({__version__}) @ ")
-            prefs_fp.write(datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"))
+            prefs_fp.write(datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z"))
             prefs_fp.write(f"\n// Variant {variant!r}\n")
             for pref, keys in sorted(self.prefs.items()):
                 variants = keys["variants"]
