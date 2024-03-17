@@ -5,6 +5,7 @@
 
 from datetime import datetime, timezone
 from importlib.metadata import PackageNotFoundError, version
+from json import dumps
 from pathlib import Path
 from random import choice
 from typing import Any, Dict, Iterator, List, Optional, Set, Tuple, Union
@@ -119,11 +120,13 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 value = choice(options)
                 if value is None:
                     if len(options) > 1:
-                        prefs_fp.write(f"// '{pref}' randomly skipped\n")
+                        prefs_fp.write(
+                            f"// '{pref}' skipped, options {dumps(options)}\n"
+                        )
                     # skipping pref
                     continue
                 if len(options) > 1:
-                    prefs_fp.write(f"// '{pref}' available values {options}\n")
+                    prefs_fp.write(f"// '{pref}' options {dumps(options)}\n")
                 # sanitize value for writing
                 if isinstance(value, bool):
                     sanitized = "true" if value else "false"
