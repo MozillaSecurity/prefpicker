@@ -980,6 +980,10 @@ pref:
     variants:
       default:
       - true
+  toolkit.content-background-hang-monitor.disabled:
+    variants:
+      default:
+      - true
   toolkit.cosmeticAnimations.enabled:
     variants:
       default:
