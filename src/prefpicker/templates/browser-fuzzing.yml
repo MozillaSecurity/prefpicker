@@ -69,6 +69,10 @@ pref:
     variants:
       default:
       - true
+  browser.launcherProcess.enabled:
+    variants:
+      default:
+      - false
   browser.newtabpage.activity-stream.discoverystream.enabled:
     variants:
       default:
