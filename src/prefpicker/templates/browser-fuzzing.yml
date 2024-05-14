@@ -115,6 +115,14 @@ pref:
     variants:
       default:
       - false
+  browser.safebrowsing.provider.google.updateURL:
+    variants:
+      default:
+      - ''
+  browser.safebrowsing.provider.mozilla.updateURL:
+    variants:
+      default:
+      - ''
   browser.search.geoip.url:
     variants:
       default:
@@ -175,6 +183,10 @@ pref:
       default:
       - false
   browser.tabs.warnOnCloseOtherTabs:
+    variants:
+      default:
+      - false
+  browser.topsites.contile.enabled:
     variants:
       default:
       - false
