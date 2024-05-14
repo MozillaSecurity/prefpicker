@@ -664,24 +664,41 @@ pref:
     variants:
       default:
       - null
+      - 0
+      - 1
+      - 10
       jit:
       - 5
   javascript.options.blinterp.threshold:
     variants:
       default:
       - null
+      - 0
+      - 1
+      - 100
       jit:
       - 2
+  javascript.options.inlining_bytecode_max_length:
+    variants:
+      default:
+      - null
+      - 1000
   javascript.options.ion.offthread_compilation:
     variants:
       default:
       - null
+      - false
       jit:
       - false
   javascript.options.ion.threshold:
     variants:
       default:
       - null
+      - 0
+      - 1
+      - 10
+      - 100
+      - 1000
       jit:
       - 10
   javascript.options.mem.gc_parallel_marking:
