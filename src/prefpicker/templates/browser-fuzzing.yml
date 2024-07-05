@@ -287,6 +287,10 @@ pref:
       default:
       - null
       - true
+  dom.fetchKeepalive.enabled
+    variants:
+      default:
+      - true
   dom.fetchObserver.enabled:
     variants:
       default:
