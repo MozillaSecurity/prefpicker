@@ -287,7 +287,7 @@ pref:
       default:
       - null
       - true
-  dom.fetchKeepalive.enabled
+  dom.fetchKeepalive.enabled:
     variants:
       default:
       - true
