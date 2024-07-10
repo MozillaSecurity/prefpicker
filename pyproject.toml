@@ -52,4 +52,9 @@ ignored-modules = ["pytest"]
 [tool.pytest.ini_options]
 log_level = "DEBUG"
 
+[semantic_release]
+build_command = "python -m build"
+commit_message = "chore(release): {version} [skip ci]"
+tag_format = "{version}"
+
 [tool.setuptools_scm]
