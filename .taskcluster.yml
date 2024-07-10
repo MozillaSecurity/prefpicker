@@ -79,8 +79,6 @@ tasks:
               - bash
               - '-xec'
               - >-
-                git config --global user.email "prefpicker@mozilla.com";
-                git config --global user.name "semantic-release";
                 git fetch origin master --tags;
                 git checkout -b master;
                 tox -e release
