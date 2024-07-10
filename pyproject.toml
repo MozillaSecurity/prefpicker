@@ -53,8 +53,10 @@ ignored-modules = ["pytest"]
 log_level = "DEBUG"
 
 [semantic_release]
-build_command = "python -m build"
-commit_message = "chore(release): {version} [skip ci]"
 tag_format = "{version}"
+
+[semantic_release.commit_author]
+env = "GIT_COMMIT_AUTHOR"
+default = "semantic-release <prefpicker@mozilla.com>"
 
 [tool.setuptools_scm]
