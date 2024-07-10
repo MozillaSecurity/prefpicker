@@ -90,7 +90,11 @@ tasks:
             secrets:
               - type: env
                 secret: project/fuzzing/pypi-prefpicker
-                name: PYPI_TOKEN
+                name: TWINE_USERNAME
+                key: username
+              - type: env
+                secret: project/fuzzing/pypi-prefpicker
+                name: TWINE_PASSWORD
                 key: password
               - type: key
                 secret: project/fuzzing/deploy-prefpicker
