@@ -273,6 +273,6 @@ def test_prefpicker_10():
     # unknown template
     assert PrefPicker.lookup_template("missing") is None
     # existing template
-    template = tuple(PrefPicker.templates())[0]
+    template = next(PrefPicker.templates())
     assert template
     assert PrefPicker.lookup_template(template.name)
