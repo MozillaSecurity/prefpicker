@@ -288,6 +288,8 @@ pref:
       - null
       - true
   dom.fetchKeepalive.enabled:
+    review_on_close:
+    - 1906952
     variants:
       default:
       - true
