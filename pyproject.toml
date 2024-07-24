@@ -70,8 +70,8 @@ select = [
 
 [semantic_release]
 tag_format = "{version}"
-build_command = "SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build -v && twine upload --skip-existing dist/*"
-build_command_env = ["SETUPTOOLS_SCM_DEBUG=1"]
+build_command = "SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PREFPICKER=$NEW_VERSION python -m build -v && twine upload --skip-existing dist/*"
+build_command_env = ["TWINE_USERNAME", "TWINE_PASSWORD"]
 
 [semantic_release.commit_author]
 env = "GIT_COMMIT_AUTHOR"
