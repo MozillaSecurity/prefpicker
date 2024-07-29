@@ -1081,6 +1081,13 @@ pref:
     variants:
       default:
       - ''
+  webgl.colorspaces.prototype:
+    review_on_close:
+    - 1885491
+    variants:
+      default:
+      - false
+      - true
   webgl.enable-draft-extensions:
     variants:
       default:
