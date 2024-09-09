@@ -2,12 +2,12 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """prefpicker module main"""
+from __future__ import annotations
 
 from argparse import ArgumentParser, Namespace
 from logging import DEBUG, INFO, basicConfig, getLogger
 from os import getenv
 from pathlib import Path
-from typing import List, Optional
 
 from .prefpicker import PrefPicker, SourceDataError, __version__
 
@@ -17,7 +17,7 @@ __credits__ = ["Tyson Smith"]
 LOG = getLogger(__name__)
 
 
-def parse_args(argv: Optional[List[str]] = None) -> Namespace:
+def parse_args(argv: list[str] | None = None) -> Namespace:
     """Handle argument parsing.
 
     Args:
@@ -64,7 +64,7 @@ def parse_args(argv: Optional[List[str]] = None) -> Namespace:
     return args
 
 
-def main(argv: Optional[List[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     """
     PrefPicker main entry point
 
