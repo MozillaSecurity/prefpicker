@@ -2,13 +2,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """prefpicker module"""
+from __future__ import annotations
 
 from datetime import datetime, timezone
 from importlib.metadata import PackageNotFoundError, version
 from json import dumps
 from pathlib import Path
 from random import choice
-from typing import Any, Dict, Iterator, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, Iterator, List, Union
 
 from yaml import safe_load
 from yaml.parser import ParserError
@@ -27,7 +28,9 @@ class SourceDataError(Exception):
     """This is raised when issues are found in the source data."""
 
 
-PrefValue = Optional[Union[bool, int, str]]
+# Python <= 3.9 requires the use of Union
+PrefValue = Union[bool, int, str, None]
+# Python 3.8 requires typing.Dict and typing.List even with __future__.annotations here
 PrefVariant = Dict[str, List[PrefValue]]
 
 
@@ -35,10 +38,10 @@ class PrefPicker:  # pylint: disable=missing-docstring
     __slots__ = ("prefs", "variants")
 
     def __init__(self) -> None:
-        self.prefs: Dict[str, Dict[str, PrefVariant]] = {}
-        self.variants: Set[str] = {"default"}
+        self.prefs: dict[str, dict[str, PrefVariant]] = {}
+        self.variants: set[str] = {"default"}
 
-    def check_combinations(self) -> Iterator[Tuple[str, int]]:
+    def check_combinations(self) -> Iterator[tuple[str, int]]:
         """Count the number of combinations for each variation. Only return
            variants that have more than one combination.
 
@@ -60,7 +63,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
             if count > 1:
                 yield (variant, count)
 
-    def check_duplicates(self) -> Iterator[Tuple[str, str]]:
+    def check_duplicates(self) -> Iterator[tuple[str, str]]:
         """Look for variants with values that appear more than once per variant.
 
         Args:
@@ -75,7 +78,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 if len(variants[variant]) != len(set(variants[variant])):
                     yield (pref, variant)
 
-    def check_overwrites(self) -> Iterator[Tuple[str, str, PrefValue]]:
+    def check_overwrites(self) -> Iterator[tuple[str, str, PrefValue]]:
         """Look for variants that overwrite the default with the same value.
 
         Args:
@@ -145,7 +148,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 prefs_fp.write(f'user_pref("{pref}", {sanitized});\n')
 
     @classmethod
-    def lookup_template(cls, name: str) -> Optional[Path]:
+    def lookup_template(cls, name: str) -> Path | None:
         """Lookup built-in template Path.
 
         Args:
@@ -160,7 +163,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
         return None
 
     @classmethod
-    def load_template(cls, input_yml: Path) -> "PrefPicker":
+    def load_template(cls, input_yml: Path) -> PrefPicker:
         """Load data from a template YAML file.
 
         Args:
