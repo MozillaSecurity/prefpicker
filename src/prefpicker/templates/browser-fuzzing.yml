@@ -816,12 +816,6 @@ pref:
     variants:
       default:
       - true
-  layout.css.zoom-transform-hack.enabled:
-    review_on_close:
-    - 390936
-    variants:
-      default:
-      - true
   # 0=Allowed, 1=Blocked, 2=Prompt
   media.autoplay.default:
     variants:
