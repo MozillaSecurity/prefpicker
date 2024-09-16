@@ -19,10 +19,6 @@ exclude_lines = [
     "pragma: no cover",
 ]
 
-[tool.isort]
-known_first_party = "prefpicker"
-profile = "black"
-
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true
@@ -53,6 +49,10 @@ ignored-modules = ["pytest"]
 [tool.pytest.ini_options]
 log_level = "DEBUG"
 
+[tool.ruff]
+fix = true
+target-version = "py38"
+
 [tool.ruff.lint]
 select = [
     # flake8-comprehensions
@@ -63,14 +63,18 @@ select = [
     "F",
     # Flynt
     "FLY",
+    # isort
+    "I",
     # Perflint
     "PERF",
+    # Ruff-specific rules
+    "RUF",
     # flake8-simplify
     "SIM",
     # flake8-type-checking
     "TCH",
-    # Ruff-specific rules
-    "RUF",
+    # pyupgrade
+    "UP",
     # pycodestyle
     "W",
 ]
