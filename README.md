@@ -22,7 +22,7 @@ __**review_on_close**__ is optional. It is a list of relevant Bugzilla IDs used 
 
 _**value**_ can be a `bool`, `int`, `string` or `null`. Adding multiple potential values is possible.
 When multiple values are present one is chosen at random when generating the output.
-Using a value of `null` will skip adding the pref to the output prefs.js file (acts as browser default).
+Using a value of `null` will exclude the pref from the prefs.js file (acts as browser default).
 
 _**variant**_ is a subset of values to be used in place of the default values.
 The default variant is used unless a variant is specified.
@@ -46,8 +46,15 @@ pref:
       - 0             # potential value
       alt:            # extra optional variant
       - 1             # if multiple values are defined one is chosen randomly
-      - null          # null is a special case meaning do not add the pref
+      - null          # null is a special case meaning exclude the pref
 ```
+
+Updating Templates and Adding Prefs
+-----------------------------------
+Prefs are found in the `.yml` files in the [template](/src/prefpicker/templates) directory.
+Only prefs that are ready to be tested should be added.
+When adding a pref to a template it is encouraged to add a comment that provides justification and points to a bug in Bugzilla for additional context.
+If a pref does not already exist and is only used with non-default variants a `null` entry must be added to the default variant.
 
 Quick Setup
 -----------
@@ -61,7 +68,7 @@ pip install prefpicker
 Examples
 --------
 
-Use a built-in [template](https://github.com/MozillaSecurity/prefpicker/tree/master/prefpicker/templates) to generate an up-to-date `prefs.js` file.
+Use a built-in [template](/src/prefpicker/templates) to generate an up-to-date `prefs.js` file.
 
 ```bash
 prefpicker browser-fuzzing.yml prefs.js
@@ -89,8 +96,3 @@ user_pref("fuzzing.enabled", true);
 user_pref("gfx.webrender.all", true);
 /// ... snip
 ```
-
-Updating Templates
-------------------
-
-When adding a pref to a template it is encouraged to add a comment that provides justification and points to a bug in Bugzilla for additional context. If a pref does not already exist and is only used with non-default variants a 'null' entry must be added to the default variant.
