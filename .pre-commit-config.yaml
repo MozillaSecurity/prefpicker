@@ -3,6 +3,7 @@ repos:
     rev: v0.6.5
     hooks:
       - id: ruff
+        args: [--fix]
   - repo: https://github.com/ambv/black
     rev: 24.8.0
     hooks:
@@ -56,7 +57,7 @@ repos:
     hooks:
       - id: gitlint
         args: [--contrib=contrib-title-conventional-commits, --ignore=body-is-missing, --msg-filename]
-        stages: [ commit-msg ]
+        stages: [commit-msg]
   - repo: local
     hooks:
       - id: mypy
