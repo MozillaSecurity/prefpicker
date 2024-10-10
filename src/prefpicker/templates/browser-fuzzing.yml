@@ -8,6 +8,14 @@ pref:
       - true
       default:
       - null
+  # this should be true when fuzzing a11y to increase coverage
+  # see https://bugzilla.mozilla.org/show_bug.cgi?id=1921917 for more details
+  accessibility.enable_all_cache_domains:
+    variants:
+      a11y:
+      - true
+      default:
+      - null
   accessibility.force_disabled:
     variants:
       a11y:
