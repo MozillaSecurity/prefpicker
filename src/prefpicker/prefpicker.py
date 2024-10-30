@@ -9,11 +9,14 @@ from importlib.metadata import PackageNotFoundError, version
 from json import dumps
 from pathlib import Path
 from random import choice
-from typing import Any, Dict, Iterator, List, Union
+from typing import TYPE_CHECKING, Any, Union
 
 from yaml import safe_load
 from yaml.parser import ParserError
 from yaml.scanner import ScannerError
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
@@ -30,8 +33,7 @@ class SourceDataError(Exception):
 
 # Python <= 3.9 requires the use of Union
 PrefValue = Union[bool, int, str, None]
-# Python 3.8 requires typing.Dict and typing.List even with __future__.annotations here
-PrefVariant = Dict[str, List[PrefValue]]
+PrefVariant = dict[str, list[PrefValue]]
 
 
 class PrefPicker:  # pylint: disable=missing-docstring
