@@ -767,6 +767,11 @@ pref:
       default:
       - null
       - true
+  # Always relaunch GPU Process
+  layers.gpu-process.max_restarts:
+    variants:
+      default:
+      - -1
   # normally only enabled on devices with touchscreens (emilio)
   layout.accessiblecaret.enabled:
     variants:
