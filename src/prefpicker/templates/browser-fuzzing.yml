@@ -262,10 +262,6 @@ pref:
     variants:
       default:
       - true
-  dom.caches.testing.enabled:
-    variants:
-      default:
-      - true
   dom.css_pseudo_element.enabled:
     variants:
       default:
@@ -404,10 +400,6 @@ pref:
       - true
   # needed when using MozAfterPaint event to control fuzzer
   dom.send_after_paint_to_content:
-    variants:
-      default:
-      - true
-  dom.serviceWorkers.testing.enabled:
     variants:
       default:
       - true
