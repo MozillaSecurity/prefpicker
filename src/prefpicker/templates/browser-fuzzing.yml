@@ -30,6 +30,10 @@ pref:
     variants:
       default:
       - false
+  app.update.service.enabled:
+    variants:
+      default:
+      - false
   app.update.staging.enabled:
     variants:
       default:
