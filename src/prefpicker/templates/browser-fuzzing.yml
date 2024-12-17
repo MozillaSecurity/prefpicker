@@ -809,10 +809,6 @@ pref:
     variants:
       default:
       - true
-  layout.css.overflow-clip-box.enabled:
-    variants:
-      default:
-      - true
   layout.css.scroll-linked-animations.enabled:
     review_on_close:
     - 1676780
