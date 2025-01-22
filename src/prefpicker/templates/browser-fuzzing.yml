@@ -800,6 +800,10 @@ pref:
     variants:
       default:
       - true
+  layout.css.margin-rules.enabled:
+    variants:
+      default:
+      - true
   layout.css.moz-control-character-visibility.enabled:
     variants:
       default:
