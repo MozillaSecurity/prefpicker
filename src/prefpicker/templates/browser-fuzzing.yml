@@ -773,6 +773,12 @@ pref:
     variants:
       default:
       - true
+  layout.css.at-scope.enabled:
+    review_on_close:
+    - 1830512
+    variants:
+      default:
+      - true
   layout.css.backdrop-filter.enabled:
     variants:
       default:
