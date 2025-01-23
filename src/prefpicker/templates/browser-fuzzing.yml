@@ -801,6 +801,8 @@ pref:
       default:
       - true
   layout.css.margin-rules.enabled:
+    review_on_close:
+    - 1853016
     variants:
       default:
       - true
