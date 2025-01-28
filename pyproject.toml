@@ -78,7 +78,6 @@ select = [
     # pycodestyle
     "W",
 ]
-ignore = ["SIM117"]
 
 [semantic_release]
 tag_format = "{version}"
