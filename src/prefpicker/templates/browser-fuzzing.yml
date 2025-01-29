@@ -827,6 +827,17 @@ pref:
     variants:
       default:
       - true
+  layout.css.stylo-local-work-queue.in-main-thread:
+    variants:
+      default:
+      - 0
+      - 32
+  layout.css.stylo-work-unit-size:
+    variants:
+      default:
+      - 4
+      - 8
+      - 16
   # 0=Allowed, 1=Blocked, 2=Prompt
   media.autoplay.default:
     variants:
