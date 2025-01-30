@@ -831,13 +831,13 @@ pref:
     variants:
       default:
       - 0
-      - 32
+      - null
   layout.css.stylo-work-unit-size:
     variants:
       default:
       - 4
       - 8
-      - 16
+      - null
   # 0=Allowed, 1=Blocked, 2=Prompt
   media.autoplay.default:
     variants:
