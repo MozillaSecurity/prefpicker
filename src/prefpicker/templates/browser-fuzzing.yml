@@ -938,6 +938,11 @@ pref:
     variants:
       default:
       - false
+  # required for local testing of webtransport
+  network.http.http3.disable_when_third_party_roots_found:
+    variants:
+      default:
+      - false
   # max time to wait for connection (default is 300)
   network.http.response.timeout:
     variants:
