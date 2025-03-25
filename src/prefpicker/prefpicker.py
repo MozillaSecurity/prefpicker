@@ -17,7 +17,7 @@ from yaml.parser import ParserError
 from yaml.scanner import ScannerError
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Generator
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith"]
@@ -44,7 +44,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
         self.prefs: dict[str, dict[str, PrefVariant]] = {}
         self.variants: set[str] = {"default"}
 
-    def check_combinations(self) -> Iterator[tuple[str, int]]:
+    def check_combinations(self) -> Generator[tuple[str, int]]:
         """Count the number of combinations for each variation. Only return
            variants that have more than one combination.
 
@@ -66,7 +66,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
             if count > 1:
                 yield (variant, count)
 
-    def check_duplicates(self) -> Iterator[tuple[str, str]]:
+    def check_duplicates(self) -> Generator[tuple[str, str]]:
         """Look for variants with values that appear more than once per variant.
 
         Args:
@@ -81,7 +81,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 if len(variants[variant]) != len(set(variants[variant])):
                     yield (pref, variant)
 
-    def check_overwrites(self) -> Iterator[tuple[str, str, PrefValue]]:
+    def check_overwrites(self) -> Generator[tuple[str, str, PrefValue]]:
         """Look for variants that overwrite the default with the same value.
 
         Args:
@@ -188,7 +188,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
         return picker
 
     @staticmethod
-    def templates() -> Iterator[Path]:
+    def templates() -> Generator[Path]:
         """Available YAML template files.
 
         Args:
