@@ -6,26 +6,39 @@
   "properties": {
     "pref": {
       "type": "object",
+      "additionalProperties": false,
       "patternProperties": {
-        "^.*$": {
+        "^.+$": {
           "additionalProperties": false,
           "type": "object",
           "properties": {
             "variants": {
               "type": "object",
+              "additionalProperties": false,
               "patternProperties": {
-                "^.*$": {
-                  "type": "array"
+                "^.+$": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": ["boolean", "integer", "null", "string"]
+                  }
                 }
-              }
+              },
+              "required": [
+                "default"
+              ]
             },
             "review_on_close": {
               "type": "array",
+              "minItems": 1,
               "items": {
-                "type": "number"
+                "type": "integer"
               }
             }
-          }
+          },
+          "required": [
+            "variants"
+          ]
         }
       }
     },
