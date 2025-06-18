@@ -1,6 +1,6 @@
 PrefPicker
 ==========
-[![Task Status](https://community-tc.services.mozilla.com/api/github/v1/repository/MozillaSecurity/prefpicker/master/badge.svg)](https://community-tc.services.mozilla.com/api/github/v1/repository/MozillaSecurity/prefpicker/master/latest)
+[![CI](https://github.com/MozillaSecurity/prefpicker/actions/workflows/ci.yml/badge.svg)](https://github.com/MozillaSecurity/prefpicker/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/MozillaSecurity/prefpicker/branch/master/graph/badge.svg)](https://codecov.io/gh/MozillaSecurity/prefpicker)
 [![Matrix](https://img.shields.io/badge/chat-%23fuzzing-green?logo=matrix)](https://matrix.to/#/#fuzzing:mozilla.org)
 [![PyPI](https://img.shields.io/pypi/v/prefpicker)](https://pypi.org/project/prefpicker)
