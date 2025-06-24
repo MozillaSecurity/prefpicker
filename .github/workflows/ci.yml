@@ -94,19 +94,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run semantic-release
+      - name: Install tox
+        run: pipx install tox
+
+      - name: Run release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.email "bugmon@mozilla.com"
-          git config --global user.name "semantic-release"
-          poetry run semantic-release -v version --no-changelog
-          poetry run semantic-release publish
-
-      - name: Upload to PyPi
-        env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: |
-          poetry build
-          twine upload --skip-existing dist/*
+        run: tox -e release
