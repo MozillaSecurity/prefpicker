@@ -21,11 +21,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install tox
-        run: pipx install tox
-
       - name: Run linters
-        run: tox -e lint
+        run: pipx run tox -e lint
 
   test:
     name: Python ${{ matrix.python-version }} (${{ matrix.platform }})
@@ -66,17 +63,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install tox
-        run: pipx install tox
-
       - name: Run tests
-        run: tox -e ${{ matrix.toxenv }}
+        run: pipx run tox -e ${{ matrix.toxenv }}
 
       - name: Run codecov
         env:
           CODECOV_TOKEN:
             ${{ secrets.CODECOV_TOKEN }}
-        run: tox -e codecov
+        run: pipx run tox -e codecov
 
   release:
     runs-on: ubuntu-latest
@@ -93,14 +87,13 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
-        run: pipx install tox twine
-
       - name: Run release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-        run: tox -e release
+        run: |
+          pipx run 'python-semantic-release[build]' -v version --no-changelog
+          pipx run 'python-semantic-release[build]' -v publish
 
       - name: Upload to PyPI
         env:
@@ -111,7 +104,7 @@ jobs:
           files=(dist/*)
           if [[ ${#files[@]} -gt 0 ]]; then
             echo "Uploading ${#files[@]} files to PyPI..."
-            twine upload --skip-existing "${files[@]}"
+            pipx run twine upload --skip-existing "${files[@]}"
           else
             echo "No distribution files found. Skipping upload."
           fi
