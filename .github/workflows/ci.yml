@@ -93,8 +93,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install tox
-        run: pipx install tox
+      - name: Install dependencies
+        run: pipx install tox twine
 
       - name: Run release
         env:
