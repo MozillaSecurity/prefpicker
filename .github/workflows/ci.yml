@@ -21,8 +21,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install tox
+        run: pipx install tox
+
       - name: Run linters
-        run: pipx run tox -e lint
+        run: tox -e lint
 
   test:
     name: Python ${{ matrix.python-version }} (${{ matrix.platform }})
