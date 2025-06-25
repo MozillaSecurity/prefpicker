@@ -360,6 +360,12 @@ pref:
     variants:
       default:
       - 0
+  dom.navigation.webidl.enabled:
+    review_on_close:
+    - 1777171
+    variants:
+      default:
+      - true
   dom.paintWorklet.enabled:
     review_on_close:
     - 1685228
