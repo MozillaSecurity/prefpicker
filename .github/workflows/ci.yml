@@ -95,8 +95,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         run: |
-          pipx run 'python-semantic-release[build]' -v version --no-changelog
-          pipx run 'python-semantic-release[build]' -v publish
+          pipx run 'python-semantic-release[build]~=10.0' -v version --no-changelog
+          pipx run 'python-semantic-release[build]~=10.0' -v publish
 
       - name: Upload to PyPI
         env:
