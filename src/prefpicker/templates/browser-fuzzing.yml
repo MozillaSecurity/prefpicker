@@ -365,7 +365,7 @@ pref:
     - 1777171
     variants:
       default:
-      - true
+      - false
   dom.paintWorklet.enabled:
     review_on_close:
     - 1685228
