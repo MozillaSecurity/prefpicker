@@ -81,6 +81,6 @@ select = [
 
 [tool.semantic_release]
 tag_format = "{version}"
-build_command = "SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PREFPICKER=$NEW_VERSION python -m build -v"
+build_command = "SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PREFPICKER=$NEW_VERSION pipx run build -v"
 
 [tool.setuptools_scm]
