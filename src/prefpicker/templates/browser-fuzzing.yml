@@ -438,10 +438,6 @@ pref:
     variants:
       default:
       - true
-  dom.visualviewport.enabled:
-    variants:
-      default:
-      - true
   dom.vr.enabled:
     variants:
       default:
