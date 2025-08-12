@@ -592,11 +592,13 @@ pref:
       default:
       - null
       - true
+  # tnikkel: 50/50 between 1 and 2 (2 is what we ship)
   # 0=off, 1=full, 2=tagged images only
   gfx.color_management.mode:
     variants:
       default:
       - 1
+      - 2
   gfx.downloadable_fonts.disable_cache:
     variants:
       default:
