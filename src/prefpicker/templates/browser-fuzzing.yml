@@ -851,6 +851,10 @@ pref:
     variants:
       default:
       - false
+  media.devices.enumerate.legacy.enabled:
+    variants:
+      default:
+      - true
   media.eme.enabled:
     variants:
       default:
