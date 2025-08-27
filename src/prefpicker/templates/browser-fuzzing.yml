@@ -900,10 +900,6 @@ pref:
       default:
       - true
       - false
-  media.setsinkid.enabled:
-    variants:
-      default:
-      - true
   # no plans to ship
   media.track.enabled:
     review_on_close:
