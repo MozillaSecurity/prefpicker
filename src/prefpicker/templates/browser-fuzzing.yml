@@ -885,10 +885,6 @@ pref:
     variants:
       default:
       - true
-  media.navigator.video.red_ulpfec_enabled:
-    variants:
-      default:
-      - true
   # pref copied from domfuzz
   media.peerconnection.default_iceservers:
     variants:
