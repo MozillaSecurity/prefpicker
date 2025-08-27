@@ -851,6 +851,10 @@ pref:
     variants:
       default:
       - false
+  media.cubeb.force_mock_context:
+    variants:
+      default:
+      - false
   media.devices.enumerate.legacy.enabled:
     variants:
       default:
@@ -877,6 +881,10 @@ pref:
     variants:
       default:
       - null
+  media.getusermedia.camera.fake.force:
+    variants:
+      default:
+      - true
   media.gmp-manager.url.override:
     variants:
       default:
