@@ -15,7 +15,7 @@ def test_main_01(tmp_path):
     yml = tmp_path / "test.yml"
     yml.write_text(
         """
-        variant: []
+        variant: {}
         pref:
           test.a:
             variants:
@@ -47,7 +47,7 @@ def test_main_04(tmp_path):
     yml = tmp_path / "test.yml"
     yml.write_text(
         """
-        variant: []
+        variant: {}
         pref:
           test.a:
             variants:
@@ -63,7 +63,7 @@ def test_main_05(tmp_path):
     yml = tmp_path / "test.yml"
     yml.write_text(
         """
-        variant: [extra]
+        variant: {extra: default}
         pref:
           test.a:
             variants:

@@ -87,12 +87,8 @@ def main(argv: list[str] | None = None) -> int:
     except SourceDataError as exc:
         LOG.error("Failed to load '%s': %s", args.input, exc)
         return 1
-    LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants))
+    LOG.info("Loaded %d prefs and %d variants", len(pick.prefs), len(pick.variants) + 1)
     if args.check:
-        for combos in pick.check_combinations():
-            LOG.info(
-                "Check: %r variant has %r possible combination(s)", combos[0], combos[1]
-            )
         for overwrites in pick.check_overwrites():
             LOG.info(
                 "Check: %r variant %r redefines value %r (may be intentional)",
@@ -104,7 +100,7 @@ def main(argv: list[str] | None = None) -> int:
             LOG.info(
                 "Check: %r variant %r contains duplicate values", dupes[0], dupes[1]
             )
-    if args.variant not in pick.variants:
+    if args.variant != "default" and args.variant not in pick.variants:
         LOG.error("Error: Variant %r does not exist", args.variant)
         return 1
     LOG.info("Generating %r using variant %r...", args.output.name, args.variant)

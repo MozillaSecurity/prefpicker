@@ -1125,10 +1125,10 @@ pref:
       default:
       - false
 variant:
-- a11y
-- gc-parallel
-- jit
-- no-e10s
-- no-fission
-- vr
-- webgpu-win
+  a11y: default
+  gc-parallel: default
+  jit: default
+  no-e10s: default
+  no-fission: default
+  vr: default
+  webgpu-win: default

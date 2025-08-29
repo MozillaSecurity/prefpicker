@@ -37,34 +37,19 @@ PrefValue = Union[bool, int, str, None]
 PrefVariant = dict[str, list[PrefValue]]
 
 
-class PrefPicker:  # pylint: disable=missing-docstring
+class PrefPicker:
+    """Manage prefs and generate prefs.js files for use with Firefox.
+
+    Attributes:
+        prefs: Contains pref names and values group by variant.
+        variants: Use to group sets of pref values.
+    """
+
     __slots__ = ("prefs", "variants")
 
     def __init__(self) -> None:
         self.prefs: dict[str, dict[str, PrefVariant]] = {}
-        self.variants: set[str] = {"default"}
-
-    def check_combinations(self) -> Generator[tuple[str, int]]:
-        """Count the number of combinations for each variation. Only return
-           variants that have more than one combination.
-
-        Args:
-            None
-
-        Yields:
-            Variant and number of potential combinations.
-        """
-        combos = dict.fromkeys(self.variants, 1)
-        for variants in (x["variants"] for x in self.prefs.values()):
-            for variant in combos:
-                # use 'default' if pref does not have a matching variant entry
-                if variant not in variants:
-                    combos[variant] *= len(variants["default"])
-                else:
-                    combos[variant] *= len(variants[variant])
-        for variant, count in sorted(combos.items()):
-            if count > 1:
-                yield (variant, count)
+        self.variants: dict[str, str] = {}
 
     def check_duplicates(self) -> Generator[tuple[str, str]]:
         """Look for variants with values that appear more than once per variant.
@@ -82,7 +67,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
                     yield (pref, variant)
 
     def check_overwrites(self) -> Generator[tuple[str, str, PrefValue]]:
-        """Look for variants that overwrite the default with the same value.
+        """Look for variants that overwrite the parent with the same value.
 
         Args:
             None
@@ -95,8 +80,9 @@ class PrefPicker:  # pylint: disable=missing-docstring
             for variant in variants:
                 if variant == "default":
                     continue
+                parent = self.variants[variant]
                 for value in variants[variant]:
-                    if value in variants["default"]:
+                    if value in variants[parent]:
                         yield (pref, variant, value)
 
     def create_prefsjs(self, dest: Path, variant: str = "default") -> None:
@@ -113,16 +99,18 @@ class PrefPicker:  # pylint: disable=missing-docstring
         with dest.open("w") as prefs_fp:
             prefs_fp.write(f"// Generated with PrefPicker ({__version__}) @ ")
             prefs_fp.write(datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z"))
-            prefs_fp.write(f"\n// Variant {variant!r}\n")
+            prefs_fp.write(f"\n// Variant '{variant}'\n")
             for pref, keys in sorted(self.prefs.items()):
-                variants = keys["variants"]
+                pref_variants = keys["variants"]
                 # choose values
-                if variant not in variants or variant == "default":
-                    options = variants["default"]
-                    default_variant = True
-                else:
-                    options = variants[variant]
-                    default_variant = False
+                current_variant = variant
+                while True:
+                    if current_variant in pref_variants:
+                        options = pref_variants[current_variant]
+                        break
+                    # no variant defined values, check parent
+                    current_variant = self.variants[current_variant]
+
                 value = choice(options)
                 if value is None:
                     if len(options) > 1:
@@ -139,15 +127,15 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 elif isinstance(value, int):
                     sanitized = str(value)
                 elif isinstance(value, str):
-                    sanitized = repr(value)
+                    sanitized = f"'{value}'"
                 else:
                     prefs_fp.write(f"// Failed to sanitized {value!r} ({pref})\n")
                     raise SourceDataError(
                         f"Unsupported datatype {type(value).__name__!r}"
                     )
                 # write to prefs.js file
-                if not default_variant:
-                    prefs_fp.write(f"// {pref!r} defined by variant {variant!r}\n")
+                if current_variant != "default":
+                    prefs_fp.write(f"// '{pref}' defined by variant '{variant}'\n")
                 prefs_fp.write(f'user_pref("{pref}", {sanitized});\n')
 
     @classmethod
@@ -181,7 +169,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
             raise SourceDataError("invalid YAML") from None
         cls.verify_data(raw_prefs)
         picker = cls()
-        picker.variants = set(raw_prefs["variant"] + ["default"])
+        picker.variants.update(raw_prefs["variant"])
         # only add relevant parts
         for pref, parts in raw_prefs["pref"].items():
             picker.prefs[pref] = {"variants": parts["variants"]}
@@ -216,24 +204,39 @@ class PrefPicker:  # pylint: disable=missing-docstring
         """
         if not isinstance(raw_data, dict):
             raise SourceDataError("invalid template")
-        # check variant list
+        # check variant dict
         if "variant" not in raw_data:
-            raise SourceDataError("variant list is missing")
-        if not isinstance(raw_data["variant"], list):
-            raise SourceDataError("variant is not a list")
-        # check variant list entries
+            raise SourceDataError("variant dict is missing")
+        if not isinstance(raw_data["variant"], dict):
+            raise SourceDataError("variant must be a dict")
+        # check variant entries
         valid_variants = {"default"}
-        for variant in raw_data["variant"]:
+        for variant, parent in raw_data["variant"].items():
             if not isinstance(variant, str):
-                raise SourceDataError("variant definition must be a string")
+                raise SourceDataError("variant name must be a string")
+            if not variant:
+                raise SourceDataError("variant name is empty")
             valid_variants.add(variant)
+            if not isinstance(parent, str):
+                raise SourceDataError("variant parent name must be a string")
+        # check variant parents
+        for variant in valid_variants:
+            parent = raw_data["variant"].get(variant, "default")
+            while parent != "default":
+                if parent == variant:
+                    raise SourceDataError("variant cannot be parent of itself")
+                if parent not in valid_variants:
+                    raise SourceDataError(
+                        f"variant parent '{parent}' is an undefined variant"
+                    )
+                parent = raw_data["variant"][parent]
         # check prefs dict
         if "pref" not in raw_data:
-            raise SourceDataError("pref group is missing")
+            raise SourceDataError("pref dict is missing")
         if not isinstance(raw_data["pref"], dict):
-            raise SourceDataError("pref is not a dict")
+            raise SourceDataError("pref must be a dict")
         # check entries in prefs dict
-        used_variants = set()
+        used_variants: set[str] = set()
         for pref, keys in raw_data["pref"].items():
             if not isinstance(keys, dict):
                 raise SourceDataError(f"{pref!r} entry must contain a dict")
@@ -242,15 +245,17 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 raise SourceDataError(f"{pref!r} is missing 'variants' dict")
             if "default" not in variants:
                 raise SourceDataError(f"{pref!r} is missing 'default' variant")
-            # verify variants
+            # verify pref specific variants
             for variant in variants:
+                if not isinstance(variant, str):
+                    raise SourceDataError(f"{pref!r} variants must be strings")
                 if variant not in valid_variants:
                     raise SourceDataError(
-                        f"{variant!r} in {pref!r} is not a defined variant"
+                        f"{variant!r} in {pref!r} is an undefined variant"
                     )
                 if not isinstance(variants[variant], list):
                     raise SourceDataError(
-                        f"variant {variant!r} in {pref!r} is not a list"
+                        f"variant {variant!r} in {pref!r} must be a list"
                     )
                 if not variants[variant]:
                     raise SourceDataError(f"{variant!r} in {pref!r} is empty")
