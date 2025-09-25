@@ -831,6 +831,12 @@ pref:
     variants:
       default:
       - true
+  layout.css.style-queries.enabled:
+    review_on_close:
+    - 1795622
+    variants:
+      default:
+      - true
   layout.css.stylo-local-work-queue.in-main-thread:
     variants:
       default:
