@@ -1125,6 +1125,10 @@ pref:
     variants:
       default:
       - true
+  webgl.force-enabled:
+    variants:
+      default:
+      - true
   # Needed to prevent spamming of the webgl-xpcshell fuzzing target
   webgl.max-warnings-per-context:
     variants:
