@@ -66,6 +66,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - run: echo "PIPX_DEFAULT_PYTHON=$(which python)" >> $GITHUB_ENV
+
       - name: Run tests
         run: pipx run tox -e ${{ matrix.toxenv }}
 
