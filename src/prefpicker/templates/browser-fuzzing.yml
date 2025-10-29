@@ -762,6 +762,12 @@ pref:
       - 23
       - 24
       - 25
+  javascript.options.use_js_microtask_queue:
+    review_on_close:
+    - 1997192
+    variants:
+      default:
+      - true
   layers.acceleration.force-enabled:
     variants:
       default:
