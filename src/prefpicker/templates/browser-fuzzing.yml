@@ -662,12 +662,6 @@ pref:
     variants:
       default:
       - 62500
-  intl.accept_languages:
-    review_on_close:
-    - 1760013
-    variants:
-      default:
-      - en-US, en
   javascript.options.baselinejit.threshold:
     variants:
       default:
