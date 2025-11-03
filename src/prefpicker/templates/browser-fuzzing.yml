@@ -804,6 +804,12 @@ pref:
     variants:
       default:
       - true
+  layout.css.heading-selector.enabled:
+    review_on_close:
+    - 1997601
+    variants:
+      default:
+      - true
   layout.css.initial-letter.enabled:
     review_on_close:
     - 1223880
