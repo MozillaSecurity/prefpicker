@@ -386,6 +386,10 @@ pref:
     variants:
       default:
       - true
+  dom.script_loader.experimental.navigation_cache:
+    variants:
+      default:
+      - true
   dom.security.featurePolicy.webidl.enabled:
     variants:
       default:
