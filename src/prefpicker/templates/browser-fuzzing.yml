@@ -386,6 +386,12 @@ pref:
     variants:
       default:
       - true
+  dom.reporting.enabled:
+    review_on_close:
+    - 1976074
+    variants:
+      default:
+      - true
   dom.script_loader.experimental.navigation_cache:
     variants:
       default:
