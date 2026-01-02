@@ -42,21 +42,24 @@ def test_prefpicker_01(tmp_path):
         # pref is invalid type
         ({"pref": [], "variant": []}, "pref is not a dict"),
         # pref entry is invalid
-        ({"pref": {"a.b": None}, "variant": []}, "'a.b' entry must contain a dict"),
+        (
+            {"pref": {"a.b": None}, "variant": []},
+            r"'a\.b' entry must contain a dict",
+        ),
         # pref variants is invalid
         (
             {"pref": {"a.b": {"variants": None}}, "variant": []},
-            "'a.b' is missing 'variants' dict",
+            r"'a\.b' is missing 'variants' dict",
         ),
         # pref missing default variant
         (
             {"variant": [], "pref": {"test.a": {"variants": {}}}},
-            "'test.a' is missing 'default' variant",
+            r"'test\.a' is missing 'default' variant",
         ),
         # template with undefined variant
         (
             {"variant": [], "pref": {"a.b": {"variants": {"default": [1], "x": [2]}}}},
-            "'x' in 'a.b' is not a defined variant",
+            r"'x' in 'a\.b' is not a defined variant",
         ),
         # template with unused variant
         (
@@ -66,17 +69,17 @@ def test_prefpicker_01(tmp_path):
         # pref with empty variant list
         (
             {"variant": [], "pref": {"a.b": {"variants": {"default": []}}}},
-            "'default' in 'a.b' is empty",
+            r"'default' in 'a\.b' is empty",
         ),
         # pref with invalid variant type
         (
             {"variant": [], "pref": {"a.b": {"variants": {"default": "x"}}}},
-            "variant 'default' in 'a.b' is not a list",
+            r"variant 'default' in 'a\.b' is not a list",
         ),
         # pref variant with invalid type
         (
             {"variant": [], "pref": {"a.b": {"variants": {"default": [1.11]}}}},
-            "unsupported datatype 'float' \\(a.b\\)",
+            r"unsupported datatype 'float' \(a\.b\)",
         ),
     ],
 )
@@ -273,6 +276,6 @@ def test_prefpicker_10():
     # unknown template
     assert PrefPicker.lookup_template("missing") is None
     # existing template
-    template = next(PrefPicker.templates())
-    assert template
+    template = next(PrefPicker.templates(), None)
+    assert template is not None
     assert PrefPicker.lookup_template(template.name)
