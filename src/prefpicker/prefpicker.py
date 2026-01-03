@@ -10,7 +10,7 @@ from importlib.metadata import PackageNotFoundError, version
 from json import dumps
 from pathlib import Path
 from random import choice
-from typing import TYPE_CHECKING, Any, Union
+from typing import TYPE_CHECKING, Any
 
 from yaml import safe_load
 from yaml.parser import ParserError
@@ -32,8 +32,7 @@ class SourceDataError(Exception):
     """This is raised when issues are found in the source data."""
 
 
-# Python <= 3.9 requires the use of Union
-PrefValue = Union[bool, int, str, None]
+PrefValue = bool | int | str | None
 PrefVariant = dict[str, list[PrefValue]]
 
 
@@ -255,7 +254,7 @@ class PrefPicker:  # pylint: disable=missing-docstring
                 if not variants[variant]:
                     raise SourceDataError(f"{variant!r} in {pref!r} is empty")
                 for value in variants[variant]:
-                    if value is not None and not isinstance(value, (bool, int, str)):
+                    if value is not None and not isinstance(value, bool | int | str):
                         raise SourceDataError(
                             f"unsupported datatype {type(value).__name__!r} ({pref})"
                         )
