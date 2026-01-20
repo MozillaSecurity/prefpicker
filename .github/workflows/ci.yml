@@ -72,6 +72,7 @@ jobs:
         run: pipx run tox -e ${{ matrix.toxenv }}
 
       - name: Run codecov
+        if: env.CODECOV_TOKEN != ''
         env:
           CODECOV_TOKEN:
             ${{ secrets.CODECOV_TOKEN }}
