@@ -71,12 +71,10 @@ jobs:
       - name: Run tests
         run: pipx run tox -e ${{ matrix.toxenv }}
 
-      - name: Run codecov
-        if: env.CODECOV_TOKEN != ''
-        env:
-          CODECOV_TOKEN:
-            ${{ secrets.CODECOV_TOKEN }}
-        run: pipx run tox -e codecov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   release:
     runs-on: ubuntu-latest
