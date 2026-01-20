@@ -777,6 +777,12 @@ pref:
     variants:
       default:
       - -1
+  layout.abspos.fragmentainer-aware-positioning.enabled:
+    review_on_close:
+    - 2002115
+    variants:
+      default:
+      - true
   # normally only enabled on devices with touchscreens (emilio)
   layout.accessiblecaret.enabled:
     variants:
