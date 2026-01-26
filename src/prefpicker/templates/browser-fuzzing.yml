@@ -284,6 +284,12 @@ pref:
     variants:
       default:
       - false
+  dom.element.blocking.enabled:
+    review_on_close:
+    - 2012558
+    variants:
+      default:
+      - true
   dom.experimental_forms:
     variants:
       default:
