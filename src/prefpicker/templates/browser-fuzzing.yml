@@ -865,6 +865,12 @@ pref:
       - 4
       - 8
       - null
+  layout.css.typed-om.enabled:
+    review_on_close:
+    - 1278697
+    variants:
+      default:
+      - true
   # 0=Allowed, 1=Blocked, 2=Prompt
   media.autoplay.default:
     variants:
