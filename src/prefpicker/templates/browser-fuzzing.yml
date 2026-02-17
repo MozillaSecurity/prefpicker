@@ -591,11 +591,6 @@ pref:
     variants:
       default:
       - false
-  # Always disable the blocklist
-  gfx.blocklist.all:
-    variants:
-      default:
-      - -1
   gfx.color_management.enablev4:
     variants:
       default:
