@@ -6,6 +6,8 @@
 from __future__ import annotations
 
 from argparse import ArgumentParser, Namespace
+from json import JSONDecodeError
+from json import load as json_load
 from logging import DEBUG, INFO, basicConfig, getLogger
 from os import getenv
 from pathlib import Path
@@ -44,6 +46,12 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
     )
     parser.add_argument("--variant", default="default", help="Specify variant to use.")
     parser.add_argument(
+        "--json",
+        "-j",
+        type=Path,
+        help="Path to JSON file containing additional prefs to include in the output.",
+    )
+    parser.add_argument(
         "--version",
         "-V",
         action="version",
@@ -62,6 +70,9 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
         parser.error(f"Output '{args.output}' is a directory.")
     if not args.output.parent.is_dir():
         parser.error(f"Output '{args.output.parent}' directory does not exist.")
+    # sanity check JSON file if provided
+    if args.json and not args.json.is_file():
+        parser.error(f"Cannot find JSON file '{args.json}'")
     return args
 
 
@@ -108,6 +119,21 @@ def main(argv: list[str] | None = None) -> int:
         LOG.error("Error: Variant %r does not exist", args.variant)
         return 1
     LOG.info("Generating %r using variant %r...", args.output.name, args.variant)
-    pick.create_prefsjs(args.output, args.variant)
+
+    # Load additional preferences from JSON file if provided
+    additional_prefs = {}
+    if args.json:
+        try:
+            with args.json.open() as json_fp:
+                additional_prefs = json_load(json_fp)
+        except (JSONDecodeError, UnicodeDecodeError) as exc:
+            LOG.error("Failed to load JSON file '%s': %s", args.json, exc)
+            return 1
+        if not isinstance(additional_prefs, dict):
+            LOG.error("Failed to load JSON file '%s': expected object", args.json)
+            return 1
+        LOG.info("Overriding %d prefs from JSON input", len(additional_prefs))
+
+    pick.create_prefsjs(args.output, args.variant, additional_prefs)
     LOG.info("Done.")
     return 0

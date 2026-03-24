@@ -93,3 +93,77 @@ def test_main_07(tmp_path):
     yml = tmp_path / "test.yml"
     yml.write_text("{test{")
     assert main([str(yml), str(tmp_path / "prefs.js")]) == 1
+
+
+def test_main_08(tmp_path):
+    """test main() with --json override and prefs not in template"""
+    prefs_js = tmp_path / "prefs.js"
+    yml = tmp_path / "test.yml"
+    yml.write_text(
+        """
+        variant: []
+        pref:
+          test.a:
+            variants:
+              default: [1]
+          test.b:
+            variants:
+              default: [true]"""
+    )
+    json_file = tmp_path / "overrides.json"
+    json_file.write_text('{"test.a": 99, "test.new": false}')
+    assert main([str(yml), str(prefs_js), "--json", str(json_file)]) == 0
+    assert prefs_js.is_file()
+    prefs_data = prefs_js.read_text()
+    assert 'user_pref("test.a", 99);' in prefs_data
+    assert "defined by --json override" in prefs_data
+    assert 'user_pref("test.b", true);' in prefs_data
+    assert 'user_pref("test.new", false);' in prefs_data
+    assert "// 'test.new' defined by --json (not in template)" in prefs_data
+
+
+def test_main_09(capsys, tmp_path):
+    """test main() with missing --json file"""
+    yml = tmp_path / "test.yml"
+    yml.touch()
+    with raises(SystemExit):
+        main([str(yml), str(tmp_path / "prefs.js"), "--json", "missing.json"])
+    assert "Cannot find JSON file 'missing.json'" in capsys.readouterr()[1]
+
+
+def test_main_10(tmp_path):
+    """test main() with invalid JSON content"""
+    prefs_js = tmp_path / "prefs.js"
+    yml = tmp_path / "test.yml"
+    yml.write_text(
+        """
+        variant: []
+        pref:
+          test.a:
+            variants:
+              default: [1]"""
+    )
+    # invalid JSON syntax
+    json_file = tmp_path / "bad.json"
+    json_file.write_text("{bad json")
+    assert main([str(yml), str(prefs_js), "--json", str(json_file)]) == 1
+    # non-UTF-8 bytes
+    json_file.write_bytes(b"\x80\x81\x82")
+    assert main([str(yml), str(prefs_js), "--json", str(json_file)]) == 1
+
+
+def test_main_11(tmp_path):
+    """test main() with non-dict JSON content"""
+    prefs_js = tmp_path / "prefs.js"
+    yml = tmp_path / "test.yml"
+    yml.write_text(
+        """
+        variant: []
+        pref:
+          test.a:
+            variants:
+              default: [1]"""
+    )
+    json_file = tmp_path / "list.json"
+    json_file.write_text("[1, 2, 3]")
+    assert main([str(yml), str(prefs_js), "--json", str(json_file)]) == 1

@@ -98,13 +98,19 @@ class PrefPicker:  # pylint: disable=missing-docstring
                     if value in variants["default"]:
                         yield (pref, variant, value)
 
-    def create_prefsjs(self, dest: Path, variant: str = "default") -> None:
+    def create_prefsjs(
+        self,
+        dest: Path,
+        variant: str = "default",
+        additional_prefs: dict[str, Any] | None = None,
+    ) -> None:
         """Write a `prefs.js` file based on the specified variant. The output file
            will also include comments containing the variant and a timestamp.
 
         Args:
             dest: Path of file to create.
             variant: Used to pick the values to output.
+            additional_prefs: Additional preferences to include in the output.
 
         Returns:
             None
@@ -113,16 +119,34 @@ class PrefPicker:  # pylint: disable=missing-docstring
             prefs_fp.write(f"// Generated with PrefPicker ({__version__}) @ ")
             prefs_fp.write(datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z"))
             prefs_fp.write(f"\n// Variant {variant!r}\n")
-            for pref, keys in sorted(self.prefs.items()):
-                variants = keys["variants"]
+
+            all_prefs = set(self.prefs)
+            if additional_prefs:
+                all_prefs |= set(additional_prefs)
+            for pref in sorted(all_prefs):
                 # choose values
-                if variant not in variants or variant == "default":
-                    options = variants["default"]
-                    default_variant = True
-                else:
-                    options = variants[variant]
+                if additional_prefs and pref in additional_prefs:
+                    value = additional_prefs[pref]
+                    if pref not in self.prefs:
+                        # pref is only from JSON, not in template
+                        if value is None:
+                            continue
+                        json_only = True
+                    else:
+                        json_only = False
+                    options = [value]
                     default_variant = False
-                value = choice(options)
+                else:
+                    json_only = False
+                    keys = self.prefs[pref]
+                    variants = keys["variants"]
+                    if variant not in variants or variant == "default":
+                        options = variants["default"]
+                        default_variant = True
+                    else:
+                        options = variants[variant]
+                        default_variant = False
+                    value = choice(options)
                 if value is None:
                     if len(options) > 1:
                         prefs_fp.write(
@@ -145,7 +169,11 @@ class PrefPicker:  # pylint: disable=missing-docstring
                         f"Unsupported datatype {type(value).__name__!r}"
                     )
                 # write to prefs.js file
-                if not default_variant:
+                if json_only:
+                    prefs_fp.write(f"// {pref!r} defined by --json (not in template)\n")
+                elif additional_prefs and pref in additional_prefs:
+                    prefs_fp.write(f"// {pref!r} defined by --json override\n")
+                elif not default_variant:
                     prefs_fp.write(f"// {pref!r} defined by variant {variant!r}\n")
                 prefs_fp.write(f'user_pref("{pref}", {sanitized});\n')
 
