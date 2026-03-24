@@ -279,3 +279,81 @@ def test_prefpicker_10():
     template = next(PrefPicker.templates(), None)
     assert template is not None
     assert PrefPicker.lookup_template(template.name)
+
+
+def test_prefpicker_11(tmp_path):
+    """test PrefPicker.create_prefsjs() with additional_prefs override"""
+    raw_data = {
+        "variant": [],
+        "pref": {
+            "test.a": {"variants": {"default": [1]}},
+            "test.b": {"variants": {"default": [False]}},
+        },
+    }
+    PrefPicker.verify_data(raw_data)
+    ppick = PrefPicker()
+    ppick.variants = set(raw_data["variant"] + ["default"])
+    ppick.prefs = raw_data["pref"]
+    prefs = tmp_path / "prefs.js"
+    ppick.create_prefsjs(prefs, additional_prefs={"test.a": 99})
+    prefs_data = prefs.read_text()
+    assert 'user_pref("test.a", 99);' in prefs_data
+    assert "// 'test.a' defined by --json override" in prefs_data
+    # test.b is not overridden
+    assert 'user_pref("test.b", false);' in prefs_data
+    assert "// 'test.b' defined by --json override" not in prefs_data
+
+
+def test_prefpicker_12(tmp_path):
+    """test PrefPicker.create_prefsjs() additional_prefs takes precedence"""
+    raw_data = {
+        "variant": ["v1"],
+        "pref": {
+            "test.a": {"variants": {"default": [1], "v1": [2]}},
+        },
+    }
+    PrefPicker.verify_data(raw_data)
+    ppick = PrefPicker()
+    ppick.variants = set(raw_data["variant"] + ["default"])
+    ppick.prefs = raw_data["pref"]
+    prefs = tmp_path / "prefs.js"
+    ppick.create_prefsjs(prefs, variant="v1", additional_prefs={"test.a": 42})
+    prefs_data = prefs.read_text()
+    assert 'user_pref("test.a", 42);' in prefs_data
+    assert "// 'test.a' defined by --json override" in prefs_data
+    assert "defined by variant 'v1'" not in prefs_data
+
+
+def test_prefpicker_13(tmp_path):
+    """test PrefPicker.create_prefsjs() with additional_prefs not in template"""
+    raw_data = {
+        "variant": [],
+        "pref": {
+            "test.b": {"variants": {"default": [1]}},
+        },
+    }
+    PrefPicker.verify_data(raw_data)
+    ppick = PrefPicker()
+    ppick.variants = set(raw_data["variant"] + ["default"])
+    ppick.prefs = raw_data["pref"]
+    prefs = tmp_path / "prefs.js"
+    ppick.create_prefsjs(
+        prefs,
+        additional_prefs={
+            "test.a": 99,
+            "test.c": "hello",
+            "test.b": 42,
+            "test.skip": None,
+        },
+    )
+    prefs_data = prefs.read_text()
+    # test.a and test.c are not in template, should be included
+    assert 'user_pref("test.a", 99);' in prefs_data
+    assert "// 'test.a' defined by --json (not in template)" in prefs_data
+    assert "user_pref(\"test.c\", 'hello');" in prefs_data
+    assert "// 'test.c' defined by --json (not in template)" in prefs_data
+    # test.b is in template and overridden by JSON
+    assert 'user_pref("test.b", 42);' in prefs_data
+    assert "// 'test.b' defined by --json override" in prefs_data
+    # None values from JSON-only prefs should be skipped
+    assert "test.skip" not in prefs_data
