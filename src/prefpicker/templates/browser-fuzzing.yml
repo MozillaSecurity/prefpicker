@@ -497,6 +497,20 @@ pref:
     variants:
       default:
       - true
+  dom.webserial.enabled:
+    review_on_close:
+    - 2029625
+    variants:
+      default:
+      - true
+  dom.webserial.gated:
+    variants:
+      default:
+      - false
+  dom.webserial.testing.enabled:
+    variants:
+      default:
+      - true
   dom.window_print.fuzzing.block_while_printing:
     variants:
       default:
