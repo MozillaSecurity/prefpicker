@@ -99,9 +99,6 @@ jobs:
           pipx run 'python-semantic-release~=10.0' -v version --no-changelog
           pipx run 'python-semantic-release~=10.0' -v publish
 
-      - name: Build package
-        run: pipx run build
-
       - name: Upload to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
