@@ -38,11 +38,6 @@ pref:
     variants:
       default:
       - false
-  # pref copied from domfuzz
-  app.update.url.android:
-    variants:
-      default:
-      - ''
   apz.wr.activate_all_scroll_frames:
     variants:
       default:
@@ -61,10 +56,6 @@ pref:
       default:
       - false
   browser.cache.memory.enable:
-    variants:
-      default:
-      - false
-  browser.cache.offline.enable:
     variants:
       default:
       - false
@@ -98,11 +89,6 @@ pref:
     variants:
       default:
       - true
-  # pref copied from domfuzz
-  browser.reader.detectedFirstArticle:
-    variants:
-      default:
-      - true
   browser.safebrowsing.blockedURIs.enabled:
     variants:
       default:
@@ -112,10 +98,6 @@ pref:
       default:
       - false
   browser.safebrowsing.downloads.remote.enabled:
-    variants:
-      default:
-      - false
-  browser.safebrowsing.enabled:
     variants:
       default:
       - false
@@ -135,10 +117,6 @@ pref:
     variants:
       default:
       - ''
-  browser.search.geoip.url:
-    variants:
-      default:
-      - ''
   # pref Required for WebPayments
   browser.search.region:
     variants:
@@ -149,11 +127,6 @@ pref:
     variants:
       default:
       - false
-  # needed on Android
-  browser.search.suggest.prompted:
-    variants:
-      default:
-      - true
   browser.search.update:
     variants:
       default:
@@ -166,15 +139,6 @@ pref:
     variants:
       default:
       - false
-  browser.ssl_override_behavior:
-    variants:
-      default:
-      - 1
-  # TODO: this can be removed (browser.startup.page=0 does the job)?
-  browser.startup.homepage:
-    variants:
-      default:
-      - about:blank
   browser.startup.homepage_override.mstone:
     variants:
       default:
@@ -206,21 +170,12 @@ pref:
     variants:
       default:
       - false
-  canvas.hitregions.enabled:
-    variants:
-      default:
-      - true
   captivedetect.canonicalURL:
     variants:
       default:
       - ''
   # ensures pref is enabled on Windows and OSX
   clipboard.autocopy:
-    variants:
-      default:
-      - true
-  # suggested in bug 1503956 to avoid FPs
-  csp.skip_about_page_has_csp_assert:
     variants:
       default:
       - true
@@ -270,10 +225,6 @@ pref:
     variants:
       default:
       - true
-  dom.dialog_element.enabled:
-    variants:
-      default:
-      - true
   # Popup blocker behavior - Required for Grizzly harness
   dom.disable_open_during_load:
     variants:
@@ -284,11 +235,6 @@ pref:
     variants:
       default:
       - false
-  dom.experimental_forms:
-    variants:
-      default:
-      - null
-      - true
   dom.fetchKeepalive.enabled:
     review_on_close:
     - 1906952
@@ -321,12 +267,6 @@ pref:
       - false
       vr:
       - true
-  dom.image-lazy-loading.enabled:
-    variants:
-      default:
-      - false
-      vr:
-      - true
   dom.imagecapture.enabled:
     review_on_close:
     - 1686145
@@ -337,14 +277,6 @@ pref:
     variants:
       default:
       - null
-      - true
-  dom.input.dirpicker:
-    variants:
-      default:
-      - true
-  dom.input_events.beforeinput.enabled:
-    variants:
-      default:
       - true
   dom.max_chrome_script_run_time:
     variants:
@@ -367,18 +299,6 @@ pref:
       default:
       - null
   dom.payments.request.enabled:
-    variants:
-      default:
-      - true
-  dom.presentation.controller.enabled:
-    variants:
-      default:
-      - true
-  dom.presentation.enabled:
-    variants:
-      default:
-      - true
-  dom.presentation.receiver.enabled:
     variants:
       default:
       - true
@@ -409,6 +329,11 @@ pref:
   dom.security.setHTML.enabled:
     review_on_close:
     - 1650370
+    variants:
+      default:
+      - true
+  # suggested in bug 1503956 to avoid FPs
+  dom.security.skip_about_page_has_csp_assert:
     variants:
       default:
       - true
@@ -487,10 +412,6 @@ pref:
       webgpu-win:
       - dx12
       - vulkan
-  dom.weblocks.enabled:
-    variants:
-      default:
-      - true
   dom.webmidi.enabled:
     review_on_close:
     - 836897
@@ -539,15 +460,6 @@ pref:
     variants:
       default:
       - false
-  extensions.pocket.enabled:
-    variants:
-      default:
-      - false
-  # pref copied from domfuzz
-  extensions.showMismatchUI:
-    variants:
-      default:
-      - false
   extensions.update.enabled:
     variants:
       default:
@@ -563,13 +475,6 @@ pref:
       - null
       no-fission:
       - false
-  fission.sessionHistoryInParent:
-    variants:
-      default:
-      - null
-      - true
-      no-fission:
-      - null
   full-screen-api.allow-trusted-requests-only:
     variants:
       default:
@@ -597,10 +502,6 @@ pref:
     variants:
       default:
       - false
-  general.warnOnAboutConfig:
-    variants:
-      default:
-      - false
   geo.enabled:
     variants:
       default:
@@ -625,19 +526,11 @@ pref:
   gfx.downloadable_fonts.otl_validation:
     variants:
       default:
-      - false
-  gfx.downloadable_fonts.sanitize_omt:
-    variants:
-      default:
-      - false
+      - 0
   gfx.downloadable_fonts.validate_variation_tables:
     variants:
       default:
       - false
-  gfx.offscreencanvas.enabled:
-    variants:
-      default:
-      - true
   gfx.webgpu.ignore-blocklist:
     variants:
       default:
@@ -812,23 +705,6 @@ pref:
     variants:
       default:
       - true
-  # requested in bug 1609994
-  layout.css.constructable-stylesheets.enabled:
-    variants:
-      default:
-      - true
-  layout.css.container-queries.enabled:
-    review_on_close:
-    - 1744221
-    variants:
-      default:
-      - true
-  layout.css.content-visibility.enabled:
-    review_on_close:
-    - 1660384
-    variants:
-      default:
-      - true
   layout.css.heading-selector.enabled:
     review_on_close:
     - 1997601
@@ -853,12 +729,6 @@ pref:
       - true
   # Enable @-moz-document
   layout.css.moz-document.content.enabled:
-    variants:
-      default:
-      - true
-  layout.css.scroll-linked-animations.enabled:
-    review_on_close:
-    - 1676780
     variants:
       default:
       - true
@@ -932,10 +802,6 @@ pref:
     variants:
       default:
       - http://127.0.0.1:6/dummy-gmp-manager.xml
-  media.mediasource.webm.enabled:
-    variants:
-      default:
-      - true
   media.navigator.permission.disabled:
     variants:
       default:
@@ -999,10 +865,6 @@ pref:
     variants:
       default:
       - 1
-  network.http.spdy.enabled:
-    variants:
-      default:
-      - false
   # pref copied from domfuzz
   network.manage-offline-status:
     variants:
@@ -1065,10 +927,6 @@ pref:
     variants:
       default:
       - true
-  pdfjs.firstRun:
-    variants:
-      default:
-      - false
   pdfjs.previousHandler.alwaysAskBeforeHandling:
     variants:
       default:
@@ -1089,10 +947,6 @@ pref:
     variants:
       default:
       - 1
-  plugin.disable:
-    variants:
-      default:
-      - true
   print.always_print_silent:
     variants:
       default:
@@ -1101,18 +955,10 @@ pref:
     variants:
       default:
       - true
-  print.show_print_progress:
-    variants:
-      default:
-      - true
   security.OCSP.enabled:
     variants:
       default:
       - 0
-  security.data_uri.unique_opaque_origin:
-    variants:
-      default:
-      - false
   security.default_personal_cert:
     variants:
       default:
@@ -1137,10 +983,6 @@ pref:
     variants:
       default:
       - true
-  toolkit.cosmeticAnimations.enabled:
-    variants:
-      default:
-      - false
   toolkit.startup.max_resumed_crashes:
     variants:
       default:
@@ -1171,10 +1013,6 @@ pref:
     variants:
       default:
       - 0
-  webgl.prefer-native-gl:
-    variants:
-      default:
-      - false
 variant:
 - a11y
 - gc-parallel
