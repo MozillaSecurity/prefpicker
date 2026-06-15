@@ -26,6 +26,10 @@ pref:
     variants:
       default:
       - false
+  app.shield.optoutstudies.enabled:
+    variants:
+      default:
+      - false
   app.update.auto:
     variants:
       default:
@@ -47,6 +51,10 @@ pref:
     variants:
       default:
       - true
+  browser.backup.enabled:
+    variants:
+      default:
+      - false
   browser.cache.disk.enable:
     variants:
       default:
@@ -89,6 +97,10 @@ pref:
     variants:
       default:
       - true
+  browser.region.update.enabled:
+    variants:
+      default:
+      - false
   browser.safebrowsing.blockedURIs.enabled:
     variants:
       default:
@@ -166,6 +178,14 @@ pref:
     variants:
       default:
       - false
+  browser.translations.enable:
+    variants:
+      default:
+      - false
+  browser.urlbar.quicksuggest.enabled:
+    variants:
+      default:
+      - false
   browser.warnOnQuit:
     variants:
       default:
@@ -200,6 +220,10 @@ pref:
     variants:
       default:
       - ''
+  default-browser-agent.enabled:
+    variants:
+      default:
+      - false
   device.sensors.ambientLight.enabled:
     variants:
       default:
@@ -560,6 +584,10 @@ pref:
       default:
       - false
       - true
+  identity.fxaccounts.enabled:
+    variants:
+      default:
+      - false
   image.animated.decode-on-demand.batch-size:
     variants:
       default:
@@ -916,6 +944,10 @@ pref:
       default:
       - false
   nglayout.debug.disable_xul_cache:
+    variants:
+      default:
+      - false
+  nimbus.rollouts.enabled:
     variants:
       default:
       - false
