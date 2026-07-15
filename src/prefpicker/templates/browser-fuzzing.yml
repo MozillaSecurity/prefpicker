@@ -324,6 +324,8 @@ pref:
       - null
   dom.payments.request.enabled:
     variants:
+      code-review:
+      - null
       default:
       - true
   dom.push.testing.ignorePermission:
@@ -400,33 +402,37 @@ pref:
   dom.vr.external.notdetected.timeout:
     variants:
       default:
+      - null
+      vr:
       - 0
   dom.vr.external.quit.timeout:
     variants:
       default:
+      - null
+      vr:
       - 0
   dom.vr.poseprediction.enabled:
     variants:
       default:
-      - false
+      - null
       vr:
       - true
   dom.vr.puppet.enabled:
     variants:
       default:
-      - false
+      - null
       vr:
       - true
   dom.vr.require-gesture:
     variants:
       default:
-      - false
+      - null
       vr:
       - true
   dom.vr.webxr.enabled:
     variants:
       default:
-      - false
+      - null
       vr:
       - true
   dom.webgpu.wgpu-backend:
@@ -1047,6 +1053,7 @@ pref:
       - 0
 variant:
 - a11y
+- code-review
 - gc-parallel
 - jit
 - no-e10s
