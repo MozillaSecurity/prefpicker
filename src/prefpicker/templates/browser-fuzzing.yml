@@ -524,11 +524,6 @@ pref:
     variants:
       default:
       - false
-  gfx.color_management.enablev4:
-    variants:
-      default:
-      - null
-      - true
   # tnikkel: 50/50 between 1 and 2 (2 is what we ship)
   # 0=off, 1=full, 2=tagged images only
   gfx.color_management.mode:
