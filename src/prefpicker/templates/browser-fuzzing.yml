@@ -293,6 +293,8 @@ pref:
       - null
   dom.indexedDB.experimental:
     variants:
+      code-review:
+      - null
       default:
       - null
       - true
@@ -528,6 +530,8 @@ pref:
   # 0=off, 1=full, 2=tagged images only
   gfx.color_management.mode:
     variants:
+      code-review:
+      - null
       default:
       - 1
       - 2
@@ -570,6 +574,8 @@ pref:
   # when machines do have GPUs 'true' will force SW-WR
   gfx.webrender.software:
     variants:
+      code-review:
+      - null
       default:
       - false
       - true
@@ -579,25 +585,35 @@ pref:
       - false
   image.animated.decode-on-demand.batch-size:
     variants:
+      code-review:
+      - null
       default:
       - 1
   # 0 - force running more complicated decode on demand path
   image.animated.decode-on-demand.threshold-kb:
     variants:
+      code-review:
+      - null
       default:
       - 0
       - null
   image.cache.size:
     variants:
+      code-review:
+      - null
       default:
       - 0
       - null
   image.mem.max_legal_imgframe_size_kb:
     variants:
+      code-review:
+      - null
       default:
       - 62500
   javascript.options.baselinejit.threshold:
     variants:
+      code-review:
+      - null
       default:
       - null
       - 0
@@ -607,6 +623,8 @@ pref:
       - 5
   javascript.options.blinterp.threshold:
     variants:
+      code-review:
+      - null
       default:
       - null
       - 0
@@ -616,11 +634,15 @@ pref:
       - 2
   javascript.options.inlining_bytecode_max_length:
     variants:
+      code-review:
+      - null
       default:
       - null
       - 1000
   javascript.options.ion.offthread_compilation:
     variants:
+      code-review:
+      - null
       default:
       - null
       - false
@@ -628,6 +650,8 @@ pref:
       - false
   javascript.options.ion.threshold:
     variants:
+      code-review:
+      - null
       default:
       - null
       - 0
@@ -659,6 +683,8 @@ pref:
   # NOTE: requires building with the '--enable-gczeal' flag
   javascript.options.mem.gc_zeal.mode:
     variants:
+      code-review:
+      - null
       default:
       - null
       # DISABLED TEMPORARILY for causing start up hangs
@@ -693,6 +719,8 @@ pref:
       # - 25
   layers.acceleration.force-enabled:
     variants:
+      code-review:
+      - null
       default:
       - null
       - true
@@ -756,6 +784,8 @@ pref:
       - null
   layout.css.stylo-work-unit-size:
     variants:
+      code-review:
+      - null
       default:
       - 4
       - 8
@@ -829,8 +859,10 @@ pref:
       - false
   media.recorder.video.frame_drops:
     variants:
+      code-review:
+      - null
       default:
-      - true
+      - null
       - false
   # no plans to ship
   media.track.enabled:
@@ -1012,6 +1044,8 @@ pref:
       - ''
   webgl.enable-draft-extensions:
     variants:
+      code-review:
+      - null
       default:
       - null
       - true
