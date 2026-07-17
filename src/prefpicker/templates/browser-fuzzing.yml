@@ -26,6 +26,7 @@ pref:
     variants:
       default:
       - false
+  # Disable Experiments
   app.shield.optoutstudies.enabled:
     variants:
       default:
@@ -34,6 +35,11 @@ pref:
     variants:
       default:
       - false
+  # Disable application updates
+  app.update.disabledForTesting:
+    variants:
+      default:
+      - true
   app.update.service.enabled:
     variants:
       default:
@@ -88,6 +94,11 @@ pref:
     variants:
       default:
       - false
+  # Prevent activity stream feeds from initializing (CDN errors)
+  browser.newtabpage.activity-stream.testing.shouldInitializeFeeds:
+    variants:
+      default:
+      - false
   browser.newtabpage.enabled:
     variants:
       default:
@@ -97,6 +108,11 @@ pref:
     variants:
       default:
       - true
+  # Disable region detection network fetch
+  browser.region.network.url:
+    variants:
+      default:
+      - ''
   browser.region.update.enabled:
     variants:
       default:
@@ -174,6 +190,16 @@ pref:
     variants:
       default:
       - false
+  # Select theme to prevent log spam
+  browser.theme.content-theme:
+    variants:
+      default:
+      - 2
+  # Select theme to prevent log spam
+  browser.theme.toolbar-theme:
+    variants:
+      default:
+      - 2
   browser.topsites.contile.enabled:
     variants:
       default:
@@ -182,6 +208,11 @@ pref:
     variants:
       default:
       - false
+  # Disable Merino/URLBar suggestion fetches
+  browser.urlbar.merino.endpointURL:
+    variants:
+      default:
+      - ''
   browser.urlbar.quicksuggest.enabled:
     variants:
       default:
@@ -199,6 +230,11 @@ pref:
     variants:
       default:
       - true
+  # Disable health report
+  datareporting.healthreport.service.enabled:
+    variants:
+      default:
+      - false
   datareporting.healthreport.uploadEnabled:
     variants:
       default:
@@ -456,6 +492,11 @@ pref:
     variants:
       default:
       - true
+  # Select theme to prevent log spam
+  extensions.activeThemeID:
+    variants:
+      default:
+      - default-theme@mozilla.org
   # pref copied from domfuzz
   extensions.autoDisableScopes:
     variants:
@@ -470,6 +511,16 @@ pref:
     variants:
       default:
       - 5
+  # Disable built-in WebExtensions to avoid 'context not found' spam
+  extensions.formautofill.addresses.enabled:
+    variants:
+      default:
+      - false
+  # Disable built-in WebExtensions to avoid 'context not found' spam
+  extensions.formautofill.creditCards.enabled:
+    variants:
+      default:
+      - false
   # pref copied from domfuzz
   extensions.getAddons.cache.enabled:
     variants:
@@ -480,12 +531,22 @@ pref:
     variants:
       default:
       - false
+  # Disable system addon updates
+  extensions.systemAddon.update.enabled:
+    variants:
+      default:
+      - false
   extensions.update.enabled:
     variants:
       default:
       - false
   # pref copied from domfuzz
   extensions.update.notifyUser:
+    variants:
+      default:
+      - false
+  # Disable built-in WebExtensions to avoid 'context not found' spam
+  extensions.webcompat.enabled:
     variants:
       default:
       - false
@@ -839,6 +900,11 @@ pref:
     variants:
       default:
       - true
+  # Disable GMP plugin downloads (OpenH264, Widevine)
+  media.gmp-manager.updateEnabled:
+    variants:
+      default:
+      - false
   media.gmp-manager.url.override:
     variants:
       default:
@@ -878,6 +944,11 @@ pref:
     variants:
       default:
       - null
+  # Quiet remote settings logging and prevent network hits
+  messaging-system.log:
+    variants:
+      default:
+      - 'off'
   midi.prompt.testing:
     variants:
       default:
@@ -1002,6 +1073,11 @@ pref:
     variants:
       default:
       - true
+  # Disable tracking-list updates
+  privacy.trackingprotection.enabled:
+    variants:
+      default:
+      - false
   security.OCSP.enabled:
     variants:
       default:
@@ -1019,6 +1095,21 @@ pref:
       default:
       - true
   security.webauth.webauthn_enable_usbtoken:
+    variants:
+      default:
+      - false
+  # Disable Remote Settings
+  services.settings.loglevel:
+    variants:
+      default:
+      - 'off'
+  # Disable Remote Settings
+  services.settings.server:
+    variants:
+      default:
+      - data:,#remote-settings-dummy/v1
+  # Disable Sync addons
+  services.sync.engine.addons:
     variants:
       default:
       - false
