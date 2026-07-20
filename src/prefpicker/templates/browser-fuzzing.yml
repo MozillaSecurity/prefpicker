@@ -57,6 +57,15 @@ pref:
     variants:
       default:
       - true
+  browser.aboutwelcome.enabled:
+    variants:
+      default:
+      - false
+  # disable splash screen
+  browser.aboutwelcome.experimentsGate.enabled:
+    variants:
+      default:
+      - false
   browser.backup.enabled:
     variants:
       default:
