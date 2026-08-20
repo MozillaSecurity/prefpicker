@@ -946,13 +946,12 @@ pref:
     variants:
       default:
       - null
-  # no plans to ship
   media.webspeech.recognition.enable:
     review_on_close:
-    - 1685417
+    - 1940906
     variants:
       default:
-      - null
+      - true
   # Quiet remote settings logging and prevent network hits
   messaging-system.log:
     variants:
