@@ -952,6 +952,10 @@ pref:
     variants:
       default:
       - true
+  media.webspeech.recognition.model-download.prompt.testing:
+    variants:
+      default:
+      - true
   # Quiet remote settings logging and prevent network hits
   messaging-system.log:
     variants:
