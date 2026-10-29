@@ -373,6 +373,12 @@ pref:
     variants:
       default:
       - true
+  dom.quotaManager.encryption.enabled:
+    review_on_close:
+    - 2069411
+    variants:
+      default:
+      - true
   dom.script_loader.experimental.navigation_cache:
     variants:
       default:
